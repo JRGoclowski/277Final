@@ -12,8 +12,17 @@ public class Reservation {
 		
 	}
 	
-	public Reservation (Reservation existing, Room roomtype, boolean setup) {
-		
+	public Reservation (Reservation existing, boolean setup) {
+		int timeToWork = (setup) ? (-1) : (1);
+		if (existing.mRoom instanceof SmallPartyRoom) {
+			 timeToWork *= 30;
+		}
+		else if (existing.mRoom instanceof KaraokeLounge || existing.mRoom instanceof BilliardsLounge) {
+			timeToWork *= 15;
+		}
+		else if ()
+		Time workStartTime;
+		workStartTime = (setup) ? (mStartTime) : (mEndTime);
 	}
 	
 }
