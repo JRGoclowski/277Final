@@ -1,17 +1,16 @@
 package edu.csulb.cecs277.DJJJ;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class Time {
 	
-	public static void main(String args[]) {
-		Time noon = new Time(12, 00);
-		Time morning = new Time (0, 0);
-	}
-	
+	NumberFormat formatter = new DecimalFormat("#00"); 
 	private int mHours;
 	private int mMinutes;
 	private final int MAX_HOURS = 23;
-	private final int MAX_MINUTES = 60;
-	
+	private final int MAX_MINUTES = 59;
+	private final int HOUR_MINUTES = 60;
 	/**
 	 * Contructor based on military time
 	 * @param hours the set value for mHours
@@ -42,7 +41,7 @@ public class Time {
 				return false;
 			}
 			mHours -= (subHours + 1);
-			mMinutes = (MAX_MINUTES + (mMinutes - subMinutes));
+			mMinutes = (HOUR_MINUTES + (mMinutes - subMinutes));
 			return true;
 		}
 		else {
@@ -53,8 +52,25 @@ public class Time {
 		
 	}
 	
-	public void add(int addition) {
-		
+	public boolean add(int addHours, int addMinutes) {
+		if (addHours > MAX_HOURS) { return false; }
+		if (addMinutes > MAX_MINUTES) { return false; }
+		if (addHours + mHours >= MAX_HOURS) { 
+			if ((addHours + mHours == MAX_HOURS) && (mMinutes + addMinutes <= MAX_MINUTES)) {
+				mHours += addHours;
+				mMinutes += addMinutes;
+				return true;
+			}
+			return false; 
+		}
+		mHours += addHours;
+		if (mMinutes + addMinutes > MAX_MINUTES) {
+			mHours++;
+			mMinutes = ((mMinutes + addMinutes) - HOUR_MINUTES);
+			return true;
+		}
+		mMinutes += addMinutes;
+		return true;
 	}
 
 	/**
@@ -86,22 +102,23 @@ public class Time {
 	}
 
 	public String toString() {
+		String minutes = formatter.format(mMinutes);
 		String timeString = "";
 		if (mHours >= 12) {
 			if (mHours == 12) {
-				timeString += mHours + ":" + mMinutes;
+				timeString += mHours + ":" + minutes;
 			}
 			else {
-				timeString += (mHours - 12) + ":" + mMinutes;
+				timeString += (mHours - 12) + ":" + minutes;
 			}
 			return (timeString + " PM");
 		}
 		else {
 			if (mHours == 0) {
-				timeString += 12 + ":" + mMinutes;
+				timeString += 12 + ":" + minutes;
 			}
 			else {
-				timeString += mHours + ":" + mMinutes;
+				timeString += mHours + ":" + minutes;
 			}
 			return (timeString + " AM");
 		}

@@ -13,6 +13,8 @@ public class Reservation {
 	private Reservation mSetup;
 	private Reservation mGuestReservation;
 	private Reservation mCleanup;
+	private boolean isSetup = false;
+	private boolean isCleanup = false;
 	
 	public Reservation() {
 		mMaintenanceTime = 0;
@@ -35,8 +37,8 @@ public class Reservation {
 		mRoom = room;
 		mGuest = guest;
 		setMaintenanceTime();
-		mSetup = MakeSetupReservation(this,true);
-		mCleanup = MakeCleanupReservation(this, false);
+		mSetup = MakeSetupReservation();
+		mCleanup = MakeCleanupReservation();
 		mGuestReservation = this;
 	}
 	
@@ -52,20 +54,18 @@ public class Reservation {
 		}
 	}
 	
-	private Reservation MakeSetupReservation (Reservation existing) {
+	private Reservation MakeSetupReservation () {
 		Reservation setup = new Reservation();
-		int timeCalc = mFunctionStartTime.getmMinutes() - mMaintenanceTime;
-		if (timeCalc < 0) {
-			
-		}
-		}
-		setup.mFunctionStartTime = mFunctionStartTime;
 		setup.mDay = mDay;
-		
-		
+		setup.mFunctionStartTime = mFunctionStartTime;
+		setup.mFunctionEndTime = mFunctionStartTime;
+		setup.mFunctionStartTime.sub(0, mMaintenanceTime);
+		setup.mRoom = mRoom;
+		setup.isSetup = true;
+		return setup;
 	}
 	
-	private Reservation MakeCleanupReservation (Reservation existing) {
+	private Reservation MakeCleanupReservation () {
 		
 	}
 
