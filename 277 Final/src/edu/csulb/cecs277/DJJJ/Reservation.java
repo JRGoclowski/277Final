@@ -37,9 +37,11 @@ public class Reservation {
 		mRoom = room;
 		mGuest = guest;
 		setMaintenanceTime();
+		mGuestReservation = this;
 		mSetup = MakeSetupReservation();
 		mCleanup = MakeCleanupReservation();
-		mGuestReservation = this;
+		mFullStartTime = mSetup.mFunctionStartTime;
+		mFullEndTime = mCleanup.mFunctionEndTime;
 	}
 	
 	private void setMaintenanceTime() {
@@ -58,32 +60,30 @@ public class Reservation {
 		Reservation setup = new Reservation();
 		setup.mDay = mDay;
 		setup.mFunctionStartTime = mFunctionStartTime;
-		setup.mFunctionEndTime = mFunctionStartTime;
 		setup.mFunctionStartTime.sub(0, mMaintenanceTime);
+		setup.mFunctionEndTime = mFunctionStartTime;
 		setup.mRoom = mRoom;
 		setup.isSetup = true;
 		return setup;
 	}
 	
 	private Reservation MakeCleanupReservation () {
-		
+		Reservation Cleanup = new Reservation();
+		Cleanup.mDay = mDay;
+		Cleanup.mFunctionStartTime = mFunctionStartTime;
+		Cleanup.mFunctionEndTime = mFunctionStartTime;
+		Cleanup.mFunctionEndTime.add(0, mMaintenanceTime);
+		Cleanup.mRoom = mRoom;
+		Cleanup.isCleanup = true;
+		return Cleanup;
 	}
-
-	public Time getmGuestStartTime() {
-		return mFunctionStartTime;
+	
+	
+	public void EditGuestStartTime(Time newTime) {
+		int[] timeDiff = mFunctionStartTime.difference(newTime);
+		mFullStartTime.add(timeDiff[0], timeDiff[1]);
 	}
-
-	public void setmGuestStartTime(Time mGuestStartTime) {
-		this.mFunctionStartTime = mGuestStartTime;
-	}
-
-	public Time getmGuestEndTime() {
-		return mFunctionEndTime;
-	}
-
-	public void setmGuestEndTime(Time mGuestEndTime) {
-		this.mFunctionEndTime = mGuestEndTime;
-	}
+	
 
 	public Day getmDay() {
 		return mDay;
@@ -113,12 +113,24 @@ public class Reservation {
 		return mMaintenanceTime;
 	}
 
+	public Time getmFunctionStartTime() {
+		return mFunctionStartTime;
+	}
+
+	public Time getmFunctionEndTime() {
+		return mFunctionEndTime;
+	}
+
 	public Time getmFullStartTime() {
 		return mFullStartTime;
 	}
 
 	public Time getmFullEndTime() {
 		return mFullEndTime;
+	}
+
+	public Reservation getmSetup() {
+		return mSetup;
 	}
 
 	public Reservation getmGuestReservation() {
@@ -128,6 +140,16 @@ public class Reservation {
 	public Reservation getmCleanup() {
 		return mCleanup;
 	}
+
+	public boolean isSetup() {
+		return isSetup;
+	}
+
+	public boolean isCleanup() {
+		return isCleanup;
+	}
+
+	
 	
 }
 
