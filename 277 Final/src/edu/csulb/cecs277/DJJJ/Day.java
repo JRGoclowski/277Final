@@ -6,12 +6,19 @@ public class Day {
 	private Weekday mWeekday;
 	private Month mMonth;
 	private String mStringForm;
+	private static final int MONTHS = 12;
 	private static final int[] MONTHLY_DAY_COUNT = {31, 28, 31, 30, 31, 30,
 													31, 31, 30, 31, 30, 31};
 	private static final Month[] MONTH_ARRAY = Month.values();
 	private static final Weekday[] DAY_ARRAY = Weekday.values();
 	
 	public Day(int month, int day) {
+		if (month > MONTHS || day > MONTHLY_DAY_COUNT[month-1]) {
+			mMonthNumeral = 0;
+			mDayNumeral = 0;
+			mWeekday = null;
+			mStringForm = "Invalid Date";
+		}
 		mMonthNumeral = month;
 		mDayNumeral = day;
 		mMonth = MONTH_ARRAY[mMonthNumeral-1];

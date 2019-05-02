@@ -81,10 +81,24 @@ public class Reservation {
 	
 	public void EditGuestStartTime(Time newTime) {
 		int[] timeDiff = mFunctionStartTime.difference(newTime);
-		mFullStartTime.add(timeDiff[0], timeDiff[1]);
+		mSetup.mFunctionStartTime.add(timeDiff[0], timeDiff[1]);
+		mSetup.mFunctionEndTime.add(timeDiff[0], timeDiff[1]);
+		mFunctionStartTime = mSetup.mFunctionEndTime;
+		mFullStartTime = mSetup.mFunctionStartTime;
 	}
 	
-
+	public void EditGuestEndTime(Time newTime) {
+		int[] timeDiff = mFunctionEndTime.difference(newTime);
+		mCleanup.mFunctionStartTime.add(timeDiff[0], timeDiff[1]);
+		mCleanup.mFunctionEndTime.add(timeDiff[0], timeDiff[1]);
+		mFunctionEndTime = mCleanup.mFunctionStartTime;
+		mFullEndTime = mCleanup.mFunctionEndTime;
+	}
+	
+	public Reservation GetResAtTime(Time timeRes) {
+		if 
+	}
+	
 	public Day getmDay() {
 		return mDay;
 	}
