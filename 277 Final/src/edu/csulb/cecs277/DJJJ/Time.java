@@ -22,17 +22,20 @@ public class Time {
 		
 		Time after = new Time (23, 50);
 		Time before = new Time(8,55);
-		Time atClose = new Time(23,46);
+		Time atClose = new Time(23,59);
 		Time atOpen = new Time(9,0);
 		Time justBeforeClose = new Time(11,48);
 		
-		after.isBefore(noon);
-		before.isBefore(noon);
-		after.isBusinessHours();
-		before.isBusinessHours();
-		atClose.isBusinessHours();
-		atOpen.isBusinessHours();
-		justBeforeClose.isBusinessHours();
+		System.out.println(after.isBefore(noon));
+		System.out.println(before.isBefore(noon));
+		System.out.println(after.isBusinessHours());
+		System.out.println(before.isBusinessHours());
+		System.out.println(atClose.isBusinessHours());
+		System.out.println(atOpen.isBusinessHours());
+		System.out.println(justBeforeClose.isBusinessHours());
+		;
+		;
+		;
 		/*
 		System.out.print(noon.difference(test1)[0] + ",");
 		System.out.println(noon.difference(test1)[1]);
@@ -74,7 +77,7 @@ public class Time {
 	private final int MAX_MINUTES = 59;
 	private final int HOUR_MINUTES = 60;
 	private static final Time BEGINNING_OF_DAY = new Time(9, 0);
-	private static final Time END_OF_DAY = new Time(23,59);
+	private static final Time END_OF_DAY = new Time(24,0);
 	
 	/**
 	 * Default Constructor, initializes to beginning of day
@@ -172,7 +175,7 @@ public class Time {
 		
 	}
 	
-	private boolean isBusinessHours () {
+	public boolean isBusinessHours () {
 		return ((!isBefore(BEGINNING_OF_DAY)) && (isBefore(END_OF_DAY)));
 		/*int[] diffBOD = timeCheck.difference(BEGINNING_OF_DAY);
 		int[] diffEOD = timeCheck.difference(END_OF_DAY);

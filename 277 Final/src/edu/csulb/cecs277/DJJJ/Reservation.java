@@ -31,17 +31,33 @@ public class Reservation {
 	}
 	
 	public Reservation(Time start, Time end, Day day, Room room, Guest guest) {
-		mFunctionStartTime = start;
-		mFunctionEndTime = end;
-		mDay = day;
-		mRoom = room;
-		mGuest = guest;
-		setMaintenanceTime();
-		mGuestReservation = this;
-		mSetup = MakeSetupReservation();
-		mCleanup = MakeCleanupReservation();
-		mFullStartTime = mSetup.mFunctionStartTime;
-		mFullEndTime = mCleanup.mFunctionEndTime;
+		if (!(start.isBusinessHours() && end.isBusinessHours())) {
+			mMaintenanceTime = 0;
+			mFunctionStartTime = null; 
+			mFunctionEndTime = null;
+			mFullStartTime = null; 
+			mFullEndTime = null;
+			mDay = null;
+			mRoom = null;
+			mGuest = null;
+			mSetup = null;
+			mGuestReservation = null;
+			mCleanup = null;
+		}
+		else {
+			mFunctionStartTime = start;
+			mFunctionEndTime = end;
+			mDay = day;
+			mRoom = room;
+			mGuest = guest;
+			setMaintenanceTime();
+			mGuestReservation = this;
+			mSetup = MakeSetupReservation();
+			mCleanup = MakeCleanupReservation();
+			mFullStartTime = mSetup.mFunctionStartTime;
+			mFullEndTime = mCleanup.mFunctionEndTime;
+		}
+		
 	}
 	
 	private void setMaintenanceTime() {
@@ -95,8 +111,19 @@ public class Reservation {
 		mFullEndTime = mCleanup.mFunctionEndTime;
 	}
 	
-	public Reservation GetResAtTime(Time timeRes) {
-		if 
+	public Reservation GetResTypeAt(Time timeRes) {
+		if (timeRes.isBefore(mFullStartTime) || (!timeRes.isBefore(mFullEndTime))) {
+			return null;
+		}
+		if (timeRes.isBefore(mFunctionStartTime)) {
+			return mSetup;
+		}
+		if (timeRes.isBefore(mFunctionEndTime)) {
+			return mGuestReservation;
+		}
+		else {
+			return mCleanup;
+		}
 	}
 	
 	public Day getmDay() {
