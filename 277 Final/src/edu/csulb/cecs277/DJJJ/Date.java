@@ -1,12 +1,12 @@
 package edu.csulb.cecs277.DJJJ;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Date {
 	
 	public static void main(String args[]) {
 		Date test = new Date(new Day(2, 13));
-		System.out.println();
 	}
 	
 	private Reservation[] mReservations;
@@ -18,11 +18,22 @@ public class Date {
 		FillOpenTimes();
 	}
 	
-	public boolean checkValidReservation() {
-		
+	//TODO Check if there are issues with room availability
+	public boolean isValidReservation(Reservation reservation) {
+		boolean valid = true;
+		Time startTime = reservation.getmFullStartTime();
+		Time endTime = reservation.getmFullEndTime() ;
+		Time guestStart = reservation.getmFunctionStartTime();
+		Time guestEnd = reservation.getmFunctionEndTime();
+		valid = (guestStart.isBusinessHours() && guestEnd.isBusinessHours());
+		valid = ((isOpen(startTime, endTime)) && valid);
+		return valid;
 	}
 	
-	public boolean addReservation() {
+	public boolean addReservation(Reservation reservation) {
+		if (!(isValidReservation(reservation))) {
+			return false;
+		}
 		
 	}
 	
@@ -34,6 +45,7 @@ public class Date {
 		
 	}
 	
+	//tested
 	private void FillOpenTimes() {
 		for (int i = 9; i < 24; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -44,8 +56,45 @@ public class Date {
 			
 	}
 	
-	private boolean isContinuous(Time start, Time end) {
-		
+	private void ReserveTimes(Time start, Time end) {
+		int r = 0; 
+		while (!(openTimes.get(r).isEqualTo(start))) {
+			r++;
+		}
+		while (openTimes.get(r).isBefore(end)) {
+			openTimes.remove(r++);
+			
+		}
+	}
+	
+	private void ReleaseTimes(Time start, Time end) {
+		int r = 0;
+		while ((openTimes.get(r).isBefore(start))) {
+			r++;
+		}
+		Time timeWalker = openTimes.get(r);
+		while (timeWalker.isBefore(end)) {
+			timeWalker.add(0, 15);
+			r++;
+		}
+	}
+	
+	//tested
+	private boolean isOpen(Time start, Time end) {
+		int r = 0;
+		boolean open = true;
+		while (!(openTimes.get(r).isEqualTo(start))) {
+			r++;
+		}
+		Time timeWalker = openTimes.get(r);
+		while (timeWalker.isBefore(end) && open) {
+			if (!timeWalker.isEqualTo(openTimes.get(r))) {
+				open = false;
+			}
+			timeWalker.add(0, 15);
+			r++;
+		}
+		return open;
 	}
 	
 	public String toString() {

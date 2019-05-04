@@ -3,7 +3,7 @@ package edu.csulb.cecs277.DJJJ;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class Time {
+public class Time implements Comparable {
 	
 	public static void main(String args[]) {
 		Time noon = new Time(12, 0);
@@ -103,6 +103,10 @@ public class Time {
 		}
 	}
 	
+	public Time Clone() {
+		return new Time(mHours, mMinutes);
+	}
+	
 	/**
 	 * Subtracts from the time with the given parameters
 	 * @param subHours - the hours to subtract
@@ -175,17 +179,26 @@ public class Time {
 		
 	}
 	
+	public boolean isEqualTo(Time time) {
+		return ((mHours == time.mHours ) && (mMinutes == time.mMinutes));
+	}
+	
 	public boolean isBusinessHours () {
 		return ((!isBefore(BEGINNING_OF_DAY)) && (isBefore(END_OF_DAY)));
-		/*int[] diffBOD = timeCheck.difference(BEGINNING_OF_DAY);
-		int[] diffEOD = timeCheck.difference(END_OF_DAY);
-		if (diffBOD[0] < 0 || (diffBOD[0] == 0 && diffBOD[1] < 0)) {
-			return false;
+	}
+	
+	@Override
+	public int compareTo(Object arg0) {
+		Time comparison = (Time) arg0;
+		if (isBefore(comparison)) {
+			return -1;
 		}
-		if (diffEOD[0] > 0 || (diffEOD[0] == 0 && diffEOD[1] > 0)) {
-			return false;
+		else if (isEqualTo(comparison)) {
+			return 0;
 		}
-		return true;*/
+		else {
+			return 1;
+		}
 	}
 	
 	/**
@@ -243,4 +256,6 @@ public class Time {
 			return (timeString + " AM");
 		}
 	}
+
+	
 }
