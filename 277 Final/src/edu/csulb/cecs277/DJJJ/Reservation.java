@@ -75,9 +75,9 @@ public class Reservation {
 	private Reservation MakeSetupReservation () {
 		Reservation setup = new Reservation();
 		setup.mDay = mDay;
-		setup.mFunctionStartTime = mFunctionStartTime;
+		setup.mFunctionStartTime = mFunctionStartTime.Clone();
+		setup.mFunctionEndTime = mFunctionStartTime.Clone();
 		setup.mFunctionStartTime.sub(0, mMaintenanceTime);
-		setup.mFunctionEndTime = mFunctionStartTime;
 		setup.mRoom = mRoom;
 		setup.isSetup = true;
 		return setup;
@@ -86,8 +86,8 @@ public class Reservation {
 	private Reservation MakeCleanupReservation () {
 		Reservation Cleanup = new Reservation();
 		Cleanup.mDay = mDay;
-		Cleanup.mFunctionStartTime = mFunctionStartTime;
-		Cleanup.mFunctionEndTime = mFunctionStartTime;
+		Cleanup.mFunctionStartTime = mFunctionEndTime.Clone();
+		Cleanup.mFunctionEndTime = mFunctionEndTime.Clone();
 		Cleanup.mFunctionEndTime.add(0, mMaintenanceTime);
 		Cleanup.mRoom = mRoom;
 		Cleanup.isCleanup = true;

@@ -76,8 +76,8 @@ public class Time implements Comparable {
 	private final int MAX_HOURS = 23;
 	private final int MAX_MINUTES = 59;
 	private final int HOUR_MINUTES = 60;
-	private static final Time BEGINNING_OF_DAY = new Time(9, 0);
-	private static final Time END_OF_DAY = new Time(24,0);
+	public static final Time BEGINNING_OF_DAY = new Time(9, 0);
+	public static final Time END_OF_DAY = new Time(24,0);
 	
 	/**
 	 * Default Constructor, initializes to beginning of day
@@ -170,6 +170,14 @@ public class Time implements Comparable {
 		difArray[0] = -(mHours - timeArg.mHours);
 		difArray[1] = -(mMinutes - timeArg.mMinutes);
 		return difArray;
+	}
+	
+	public void IncFifteen() {
+		this.add(0, 15);
+	}
+	
+	public void IncHours() {
+		this.add(1, 0);
 	}
 	
 	public boolean isBefore(Time time) {

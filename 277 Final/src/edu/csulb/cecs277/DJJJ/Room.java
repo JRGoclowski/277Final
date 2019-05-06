@@ -2,7 +2,8 @@ package edu.csulb.cecs277.DJJJ;
 
 import java.util.ArrayList;
 
-public abstract class Room extends Cloneable {	//may not need to extend Cloneable
+public abstract class Room {	//may not need to extend Cloneable
+								//As a matter of fact it doesn't, and actually breaks my code if you do. so plz no. -Jonathan
 	
 	private int mNumber;
 	private int mCapacity;
@@ -22,8 +23,8 @@ public abstract class Room extends Cloneable {	//may not need to extend Cloneabl
 		mRestrictions = "";
 		mHourlyCost = 0;
 		mFlatCost = 0;
-		mDates = NULL;
-		mMealPlan = NULL;
+		mDates = null;
+		mMealPlan = null;
 	}
 	
 	//------------------This method may not be necessary, revisit------------------------------------
