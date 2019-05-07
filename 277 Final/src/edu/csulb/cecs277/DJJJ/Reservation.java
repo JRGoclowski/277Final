@@ -10,8 +10,8 @@ public class Reservation {
 	private Day mDay;
 	private Room mRoom;
 	private Guest mGuest;
-	private Reservation mSetup;
-	private Reservation mGuestReservation;
+	private Reservation mSetup;//TODO Figure out how to not have this be a recursive type. Too difficult to handle 
+	private Reservation mGuestReservation;//Identifying if it is a cleanup/setup reservation 
 	private Reservation mCleanup;
 	private boolean isSetup = false;
 	private boolean isCleanup = false;

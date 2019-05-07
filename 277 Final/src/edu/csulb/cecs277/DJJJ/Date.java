@@ -71,9 +71,32 @@ public class Date {
 			
 	}
 	
-	
-	private void ReserveTimes(Reservation pReservation) {
-		int r = 0; 
+	//MUST ONLY BE CALLED AFTER VERIFIED WITH VALID REGISTRATION
+	private boolean ReserveTimes(Reservation pReservation) {
+		Time start, end;
+		int r = 0;
+		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+				start = pReservation.getmFunctionStartTime();
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			start = pReservation.getmFullStartTime();
+		}
+		if (!pReservation.getmFullEndTime().isBefore(Time.END_OF_DAY)) {
+			if (pReservation.getmFunctionEndTime().isBefore(Time.END_OF_DAY)) {
+				end = pReservation.getmFunctionEndTime();
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			end = pReservation.getmFullEndTime();
+		}
 		while (!(mOpenTimes.get(r).isEqualTo(start))) {
 			r++;
 		}
@@ -81,6 +104,52 @@ public class Date {
 			mOpenTimes.remove(r);
 			
 		}
+		return true;
+		/*Time start, end;
+		int r = 0;
+		boolean open = true;
+		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+				start = pReservation.getmFunctionStartTime();
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			start = pReservation.getmFullStartTime();
+		}
+		if (!pReservation.getmFullEndTime().isBefore(Time.END_OF_DAY)) {
+			if (pReservation.getmFunctionEndTime().isBefore(Time.END_OF_DAY)) {
+				end = pReservation.getmFunctionEndTime();
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			end = pReservation.getmFullEndTime();
+		}
+		while (!(mOpenTimes.get(r).isEqualTo(start))) {
+			r++;
+			if (r == mOpenTimes.size()) {
+				return false;
+			}
+		}
+		Time timeWalker = mOpenTimes.get(r).Clone();
+		Time lastTime = end.Clone();
+		lastTime.sub(0, 15);
+		while (!timeWalker.isEqualTo(lastTime) && open) {
+			if (!timeWalker.isEqualTo(mOpenTimes.get(r))) {
+				open = false;
+			}
+			timeWalker.add(0, 15);
+			r++;
+		}
+		return open;
+	}
+	
+	*/
 	}
 	
 	private void ReserveTimes(Time start, Time end) {
