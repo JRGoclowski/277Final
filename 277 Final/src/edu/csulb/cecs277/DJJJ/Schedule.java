@@ -4,94 +4,119 @@ import java.util.ArrayList;
 
 public class Schedule 
 {
-	//ArrayList of rooms for waitlist 
-	private ArrayList<smallPartyRooms> mSmallRooms = new ArrayList<smallPartyRooms>();
-	private ArrayList<mediumPartyRooms> mMediumRooms = new ArrayList<mediumPartyRooms>();
-	private ArrayList<karaokeRooms> mKaraokeRooms = new ArrayList<mKaraokeRooms>();
-	private ArrayList<billiardRooms> mBilliardRooms = new ArrayList<billiardRooms>();
-	private AquaWorld mAquaWorld = new AquaWorld();
-	
-	//Making the waitlist for rooms
-	private WaitList mSmallList = new WaitList();
-	private WaitList mMediumList = new WaitList();
-	private WaitList mKaraokeList = new WaitList();
-	private WaitList mBilliardsList = new WaitList();
-	private WaitList mAquaWorldList = new WaitList();
-	
+	private ArrayList<Date> schelude = new ArrayList<Date>();
+
 	/**
-	 * @return The array list of small party rooms
-	 * Everytime you create a small party room, you add to this list.
+	 * @return the schelude
 	 */
-	public ArrayList<smallPartyRooms> getSmallRoomList()
+	public ArrayList<Date> getSchelude() 
 	{
-		return mSmallRooms;
-	}
-	
-	/**
-	 * @return The array list of medium room list
-	 * Everytime you create a medium party room, you add to this list.
-	 */
-	public ArrayList<mediumPartyRooms> getMediumRoomList()
-	{
-		return mMediumRooms;
-	}
-	
-	
-	/**
-	 * @return The array list of karaoke rooms
-	 * Everytime you create a karaoke party room, you add to this list.
-	 */
-	public ArrayList<smallKaraokeRooms> getKaraokeRoomList()
-	{
-		return mKaraokeRooms;
-	}
-	
-	
-	/**
-	 * @return The array list of billiard
-	 * Everytime you create a biliard party room, you add to this list.
-	 */
-	public ArrayList<smallPartyRooms> getBilliardRoomList()
-	{
-		return mBilliardRooms;
-	}
-	
-	
-	/**
-	 * @return The aquaworld object 
-	 * Everytime you create an aquaworld party room, you add to this list.
-	 */
-	public AquaWorld getAquaWorld()
-	{
-		return mAquaWorld;
-	}
-	
-	
-	
-	public WaitList getWaitListSmall()
-	{
-		return mSmallList;
-	}
-	
-	public WaitList getWaitListMedium()
-	{
-		return mMediumList;
-	}
-	
-	public WaitList getWaitListKaraoke()
-	{
-		return mKaraokeList;
-	}
-	
-	public WaitList getWaitListBilliards()
-	{
-		return mBilliardsList;
-	}
-	
-	public WaitList getWaitListAqua()
-	{
-		return mAquaWorldList;
+		return schelude;
 	}
 
+	/**
+	 * @param schelude the schelude to set
+	 */
+	public void setSchelude(ArrayList<Date> schelude) 
+	{
+		this.schelude = schelude;
+	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	//ArrayList of rooms for waitlist 
+//	private ArrayList<SmallPartyRoom> mSmallRooms = new ArrayList<SmallPartyRoom>();
+//	private ArrayList<MediumPartyRoom> mMediumRooms = new ArrayList<MediumPartyRoom>();
+//	private ArrayList<KaraokeLounge> mKaraokeRooms = new ArrayList<KaraokeLounge>();
+//	private ArrayList<BilliardsLounge> mBilliardRooms = new ArrayList<BilliardsLounge>();
+//	private AquaWorld mAquaWorld = new AquaWorld();
+//	/**
+//	 * @return the mSmallRooms
+//	 */
+//	public ArrayList<SmallPartyRoom> getmSmallRooms() {
+//		return mSmallRooms;
+//	}
+//	/**
+//	 * @param mSmallRooms the mSmallRooms to set
+//	 */
+//	public void setmSmallRooms(ArrayList<SmallPartyRoom> mSmallRooms) {
+//		this.mSmallRooms = mSmallRooms;
+//	}
+//	/**
+//	 * @return the mMediumRooms
+//	 */
+//	public ArrayList<MediumPartyRoom> getmMediumRooms() {
+//		return mMediumRooms;
+//	}
+//	/**
+//	 * @param mMediumRooms the mMediumRooms to set
+//	 */
+//	public void setmMediumRooms(ArrayList<MediumPartyRoom> mMediumRooms) {
+//		this.mMediumRooms = mMediumRooms;
+//	}
+//	/**
+//	 * @return the mKaraokeRooms
+//	 */
+//	public ArrayList<KaraokeLounge> getmKaraokeRooms() {
+//		return mKaraokeRooms;
+//	}
+//	/**
+//	 * @param mKaraokeRooms the mKaraokeRooms to set
+//	 */
+//	public void setmKaraokeRooms(ArrayList<KaraokeLounge> mKaraokeRooms) {
+//		this.mKaraokeRooms = mKaraokeRooms;
+//	}
+//	/**
+//	 * @return the mBilliardRooms
+//	 */
+//	public ArrayList<BilliardsLounge> getmBilliardRooms() {
+//		return mBilliardRooms;
+//	}
+//	/**
+//	 * @param mBilliardRooms the mBilliardRooms to set
+//	 */
+//	public void setmBilliardRooms(ArrayList<BilliardsLounge> mBilliardRooms) {
+//		this.mBilliardRooms = mBilliardRooms;
+//	}
+//	/**
+//	 * @return the mAquaWorld
+//	 */
+//	public AquaWorld getmAquaWorld() {
+//		return mAquaWorld;
+//	}
+//	/**
+//	 * @param mAquaWorld the mAquaWorld to set
+//	 */
+//	public void setmAquaWorld(AquaWorld mAquaWorld) {
+//		this.mAquaWorld = mAquaWorld;
+//	}
+//	
+//	//Making the waitlist for rooms
+////	private Waitlist mSmallList = new Waitlist();
+////	private Waitlist mMediumList = new Waitlist();
+////	private Waitlist mKaraokeList = new Waitlist();
+////	private Waitlist mBilliardsList = new Waitlist();
+////	private Waitlist mAquaWorldList = new Waitlist();
 }

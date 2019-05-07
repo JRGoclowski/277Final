@@ -26,6 +26,12 @@ public class Date {
 	private Day mDay;
 	private ArrayList<Time> mOpenTimes = new ArrayList<Time>();
 	
+	private ArrayList<SmallPartyRoom> mSmallRooms = new ArrayList<SmallPartyRoom>();
+	private ArrayList<MediumPartyRoom> mMediumRooms = new ArrayList<MediumPartyRoom>();
+	private ArrayList<KaraokeLounge> mKaraokeRooms = new ArrayList<KaraokeLounge>();
+	private ArrayList<BilliardsLounge> mBilliardRooms = new ArrayList<BilliardsLounge>();
+	private AquaWorld mAquaWorld = new AquaWorld();
+	
 	public Date(Day day) {
 		mDay = day;
 		FillOpenTimes();
