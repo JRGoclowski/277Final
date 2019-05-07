@@ -42,6 +42,8 @@ public class Date {
 		if (!(isValidReservation(reservation))) {
 			return false;
 		}
+		mReservations.add(reservation);
+		this.ReserveTimes(, end);
 		
 		
 	}
@@ -67,6 +69,18 @@ public class Date {
 			}
 		}
 			
+	}
+	
+	
+	private void ReserveTimes(Reservation pReservation) {
+		int r = 0; 
+		while (!(mOpenTimes.get(r).isEqualTo(start))) {
+			r++;
+		}
+		while (mOpenTimes.get(r).isBefore(end)) {
+			mOpenTimes.remove(r);
+			
+		}
 	}
 	
 	private void ReserveTimes(Time start, Time end) {
