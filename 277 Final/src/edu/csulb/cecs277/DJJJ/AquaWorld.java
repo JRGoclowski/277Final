@@ -36,6 +36,7 @@ public class AquaWorld extends Room implements Cloneable {
 	public void upgradeTo(MealPlan newMeal) {
 		if (!(newMeal.getName().equals(getRoomMealPlan().getName()))) {		//----------->Requires placeholder "getName()" to be replaced by the real function to retrieve the name of a meal plan object
 			addToRoomFlatCost(5 * (newMeal.getCost() - getRoomMealPlan().getCost()));	//Requires placeholder "getCost()" to be replaced by the real function to retrieve the cost of a meal plan object
+			setRoomMealPlan(newMeal);
 		}
 	}
 	
