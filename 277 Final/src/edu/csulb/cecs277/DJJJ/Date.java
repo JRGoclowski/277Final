@@ -5,7 +5,8 @@ import java.util.Collections;
 
 public class Date {
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) 
+	{
 		Date testDate = new Date(new Day(2, 13));
 		Guest testGuest = new Guest("phone", "email", "name", "address", "card");
 		SmallPartyRoom testRoom = new SmallPartyRoom();
