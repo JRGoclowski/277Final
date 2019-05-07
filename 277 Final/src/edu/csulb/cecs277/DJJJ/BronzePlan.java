@@ -1,4 +1,4 @@
-package project5_FinalProject;
+package edu.csulb.cecs277.DJJJ;
 
 import java.util.ArrayList;
 
