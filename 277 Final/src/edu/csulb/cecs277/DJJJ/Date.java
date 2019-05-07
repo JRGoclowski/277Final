@@ -162,7 +162,7 @@ public class Date {
 				if (i == mOpenTimes.size()) {
 					timeWalker.IncFifteen();
 					endTime = timeWalker.toString();
-					
+					timeStrings.add((startTime + " - " + endTime));
 				}
 			}
 			endTime = timeWalker.toString();
