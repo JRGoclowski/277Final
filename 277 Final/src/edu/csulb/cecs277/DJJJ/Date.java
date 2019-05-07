@@ -174,7 +174,9 @@ public class Date {
 				timeWalker.IncFifteen();
 				i++;
 				if (i == mOpenTimes.size()) {
-					break;
+					timeWalker.IncFifteen();
+					endTime = timeWalker.toString();
+					timeStrings.add((startTime + " - " + endTime));
 				}
 			}
 			endTime = timeWalker.toString();
