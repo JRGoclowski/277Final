@@ -5,7 +5,8 @@ import java.util.Collections;
 
 public class Date {
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) 
+	{
 		Date testDate = new Date(new Day(2, 13));
 		Guest testGuest = new Guest("phone", "email", "name", "address", "card");
 		SmallPartyRoom testRoom = new SmallPartyRoom();
@@ -24,6 +25,12 @@ public class Date {
 	private ArrayList<Reservation> mReservations = new ArrayList<Reservation>();
 	private Day mDay;
 	private ArrayList<Time> mOpenTimes = new ArrayList<Time>();
+	
+	private ArrayList<SmallPartyRoom> mSmallRooms = new ArrayList<SmallPartyRoom>();
+	private ArrayList<MediumPartyRoom> mMediumRooms = new ArrayList<MediumPartyRoom>();
+	private ArrayList<KaraokeLounge> mKaraokeRooms = new ArrayList<KaraokeLounge>();
+	private ArrayList<BilliardsLounge> mBilliardRooms = new ArrayList<BilliardsLounge>();
+	private AquaWorld mAquaWorld = new AquaWorld();
 	
 	public Date(Day day) {
 		mDay = day;
