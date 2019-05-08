@@ -9,6 +9,7 @@ public class Time implements Comparable {
 	public static final Time[] ALL_TIMES = FillTimes();
 	
 	private static Time[] FillTimes() {
+		Time[] timeArray = new Time[60];
 		ArrayList<Time> mOpenTimes = new ArrayList<Time>();
 		for (int i = 9; i < 24; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -16,7 +17,10 @@ public class Time implements Comparable {
 				mOpenTimes.add(addTime);
 			}
 		}
-		return (Time[]) mOpenTimes.toArray();
+		for (int i = 0; i < mOpenTimes.size(); i++) {
+			timeArray[i] = mOpenTimes.get(i);
+		}
+		return timeArray;
 	}
 	
 	public static void main(String args[]) {
@@ -191,13 +195,26 @@ public class Time implements Comparable {
 		this.add(1, 0);
 	}
 	
-	public boolean isBefore(Time time) {
-		if (mHours > time.mHours) { return false; }
-		if (mHours == time.mHours && mMinutes >= time.mMinutes) { return false; }
+	public boolean isBefore(Time pTime) {
+		Time localTime = pTime.Clone();
+		if (this.mHours > localTime.mHours) { return false; }
+		if (this.mHours == localTime.mHours && mMinutes >= localTime.mMinutes) { return false; }
 		return true;
 		
 	}
 	
+	public static Time[] getAllTimes() {
+		return ALL_TIMES;
+	}
+
+	public static Time getBeginningOfDay() {
+		return BEGINNING_OF_DAY.Clone();
+	}
+
+	public static Time getEndOfDay() {
+		return END_OF_DAY.Clone();
+	}
+
 	public boolean isEqualTo(Time time) {
 		return ((mHours == time.mHours ) && (mMinutes == time.mMinutes));
 	}

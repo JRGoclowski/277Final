@@ -54,8 +54,8 @@ public class Reservation {
 			mGuestReservation = this;
 			mSetup = MakeSetupReservation();
 			mCleanup = MakeCleanupReservation();
-			mFullStartTime = mSetup.mFunctionStartTime;
-			mFullEndTime = mCleanup.mFunctionEndTime;
+			mFullStartTime = mSetup.mFunctionStartTime.Clone();
+			mFullEndTime = mCleanup.mFunctionEndTime.Clone();
 		}
 		
 	}

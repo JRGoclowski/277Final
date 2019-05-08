@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 //generates an SmallPartyRoom room from the abstract class Room
 public class SmallPartyRoom extends Room implements Cloneable {
-
+	
+	//I need a default class that at least is full implemented. You can delete later - Jonathan
+	public SmallPartyRoom(boolean testing) {
+		super();
+	}
+	
 	//default constructor
 	public SmallPartyRoom() {
 		setRoomCapacity(30);

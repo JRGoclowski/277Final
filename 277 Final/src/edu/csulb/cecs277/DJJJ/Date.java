@@ -7,23 +7,49 @@ public class Date implements Comparable {
 	
 	public static void main(String args[]) 
 	{
-		Date testDate = new Date(Day.TEST_DATE_FEB_13);
+		Date testDate1 = new Date(Day.TEST_DATE_FEB_13);
+		Date testDate2 = new Date(Day.TEST_DATE_OCT_2);
 		Guest DIO = Guest.DIO_BRANDO;
 		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
 		Guest JOTARO = Guest.JOTARO_KUJO;
-		SmallPartyRoom testRoom = new SmallPartyRoom();
-		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate.mDay, testRoom, DIO);
-		Reservation joeRes = new Reservation(Time.ALL_TIMES[6], Time.ALL_TIMES[14], testDate.mDay, testRoom, JOESEPH);
-		Reservation JotaroRes = new Reservation();
-		System.out.println(testDate.mOpenTimes.toString());
-		testDate.ReserveTimes(new Time (10, 0), new Time(22, 45));
-		//testDate.ReserveTimes(new Time (17, 30), new Time(19, 30));
-		//System.out.println(testDate.isOpen(testReservation));
-		System.out.println(testDate.isValidReservation(testReservation));
-		ArrayList<String> times = testDate.GetAvailableBlocks();
-		System.out.println(times.toString());
-		//System.out.println(test.mOpenTimes.toString());
+		SmallPartyRoom testRoom = new SmallPartyRoom(false);
+		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate1.mDay, testRoom, DIO);
+		Reservation joeRes = new Reservation(Time.ALL_TIMES[25], Time.ALL_TIMES[32], testDate1.mDay, testRoom, JOESEPH);
+		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[10], Time.ALL_TIMES[21], testDate1.mDay, testRoom, JOTARO);
+		DebugTimeFramePrint(dioRes);
+		DebugResPrint(testDate1, dioRes);
+		DebugTimeFramePrint(joeRes);
+		DebugResPrint(testDate1, joeRes);
+		DebugTimeFramePrint(jotaroRes);
+		DebugResPrint(testDate1, jotaroRes);
+		DebugRelPrint(testDate1, dioRes);
 		//TODO test when the time ends right as another starts
+	}
+	
+	private static void DebugTimeFramePrint(Reservation pReservation) {
+		System.out.println(pReservation.getmGuest().getmName() + 
+				"\n Guest Time : " + DebugGuestTimeString(pReservation) +
+				"\n Full Time : " + DebugFullTimeString(pReservation));
+	}
+	
+	private static String DebugGuestTimeString (Reservation pReservation) {
+		String guestTime = pReservation.getmFunctionStartTime().toString() + " - " + pReservation.getmFunctionEndTime().toString();
+		return guestTime;
+	}
+	
+	private static String DebugFullTimeString (Reservation pReservation) {
+		String fullTime = pReservation.getmFullStartTime().toString() + " - " + pReservation.getmFullEndTime().toString();
+		return fullTime;
+	}
+	
+	private static void DebugResPrint(Date pDate, Reservation pRes){
+		System.out.println(pDate.addReservation(pRes));
+		System.out.println(pDate.GetAvailableBlocks().toString());
+	}
+	
+	private static void DebugRelPrint(Date pDate, Reservation pRes){
+		System.out.println(pDate.removeReservation(pRes));
+		System.out.println(pDate.GetAvailableBlocks().toString());
 	}
 	
 	private ArrayList<Reservation> mReservations = new ArrayList<Reservation>();
@@ -38,8 +64,12 @@ public class Date implements Comparable {
 	
 	//TODO Check if there are issues with room availability
 	public boolean isValidReservation(Reservation reservation) {
-		boolean valid = true;
-		valid = (reservation.getmFunctionStartTime().isBusinessHours() &&  reservation.getmFunctionEndTime().isBusinessHours());
+		Time testTime = Time.getBeginningOfDay();
+		boolean testFinal = reservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay());
+		boolean testConstructed = reservation.getmFunctionStartTime().isBefore(testTime);
+		boolean valid = true, cond1 = !reservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay()) , cond2 = reservation.getmFunctionStartTime().isBefore(Time.getEndOfDay());
+		valid = (reservation.getmFunctionStartTime().isBusinessHours() 
+				&&  reservation.getmFunctionEndTime().isBusinessHours());
 		valid = ((isOpen(reservation)) && valid);
 		return valid;
 	}
@@ -112,8 +142,8 @@ public class Date implements Comparable {
 	private boolean ReserveTimes(Reservation pReservation) {
 		Time start, end;
 		int r = 0;
-		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
-			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+		if (pReservation.getmFullStartTime().isBefore(Time.getBeginningOfDay())) {
+			if (!pReservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay())) {
 				start = pReservation.getmFunctionStartTime();
 			}
 			else {
@@ -123,8 +153,8 @@ public class Date implements Comparable {
 		else {
 			start = pReservation.getmFullStartTime();
 		}
-		if (!pReservation.getmFullEndTime().isBefore(Time.END_OF_DAY)) {
-			if (pReservation.getmFunctionEndTime().isBefore(Time.END_OF_DAY)) {
+		if (!pReservation.getmFullEndTime().isBefore(Time.getEndOfDay())) {
+			if (pReservation.getmFunctionEndTime().isBefore(Time.getEndOfDay())) {
 				end = pReservation.getmFunctionEndTime();
 			}
 			else {
@@ -158,8 +188,8 @@ public class Date implements Comparable {
 	private boolean ReleaseTimes(Reservation pReservation) {
 		Time start, end;
 		int r = 0;
-		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
-			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
+		if (pReservation.getmFullStartTime().isBefore(Time.getBeginningOfDay())) {
+			if (!pReservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay())) {
 				start = pReservation.getmFunctionStartTime();
 			}
 			else {
@@ -169,8 +199,8 @@ public class Date implements Comparable {
 		else {
 			start = pReservation.getmFullStartTime();
 		}
-		if (!pReservation.getmFullEndTime().isBefore(Time.END_OF_DAY)) {
-			if (pReservation.getmFunctionEndTime().isBefore(Time.END_OF_DAY)) {
+		if (!pReservation.getmFullEndTime().isBefore(Time.getEndOfDay())) {
+			if (pReservation.getmFunctionEndTime().isBefore(Time.getEndOfDay())) {
 				end = pReservation.getmFunctionEndTime();
 			}
 			else {
@@ -219,27 +249,27 @@ public class Date implements Comparable {
 		Time start, end;
 		int r = 0;
 		boolean open = true;
-		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
-			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
-				start = pReservation.getmFunctionStartTime();
+		if (pReservation.getmFullStartTime().isBefore(Time.getBeginningOfDay())) {
+			if (!pReservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay())) {
+				start = pReservation.getmFunctionStartTime().Clone();
 			}
 			else {
 				return false;
 			}
 		}
 		else {
-			start = pReservation.getmFullStartTime();
+			start = pReservation.getmFullStartTime().Clone();
 		}
-		if (!pReservation.getmFullEndTime().isBefore(Time.END_OF_DAY)) {
-			if (pReservation.getmFunctionEndTime().isBefore(Time.END_OF_DAY)) {
-				end = pReservation.getmFunctionEndTime();
+		if (!pReservation.getmFullEndTime().isBefore(Time.getEndOfDay())) {
+			if (pReservation.getmFunctionEndTime().isBefore(Time.getEndOfDay())) {
+				end = pReservation.getmFunctionEndTime().Clone();
 			}
 			else {
 				return false;
 			}
 		}
 		else {
-			end = pReservation.getmFullEndTime();
+			end = pReservation.getmFullEndTime().Clone();
 		}
 		while (!(mOpenTimes.get(r).isEqualTo(start))) {
 			r++;
@@ -262,7 +292,7 @@ public class Date implements Comparable {
 	
 	public ArrayList<String> GetAvailableBlocks() {
 		String startTime, endTime;
-		Time timeWalker = Time.BEGINNING_OF_DAY;
+		Time timeWalker = Time.getBeginningOfDay();
 		ArrayList <String> timeStrings = new ArrayList<String>();
 		int i = 0;
 		while (timeWalker.isBusinessHours()){
@@ -275,11 +305,18 @@ public class Date implements Comparable {
 					&& timeWalker.isBusinessHours() 
 					&& i < mOpenTimes.size()) {
 				timeWalker.IncFifteen();
-				i++;
+				i++;				
 				if (i == mOpenTimes.size()) {
 					timeWalker.IncFifteen();
-					endTime = timeWalker.toString();
+					if (timeWalker.toString().equals("11:45 PM")) {
+						endTime = "12:00 AM";
+					}
+					else {
+						endTime = timeWalker.toString();
+					}
+					
 					timeStrings.add((startTime + " - " + endTime));
+					return timeStrings;
 				}
 			}
 			endTime = timeWalker.toString();

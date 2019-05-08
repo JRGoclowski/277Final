@@ -2,9 +2,6 @@ package edu.csulb.cecs277.DJJJ;
 
 public class Day implements Comparable {
 	
-	//TODO Remember to delete this
-	public static final Day TEST_DATE_FEB_13 = new Day(2, 13, 2019);
-	public static final Day TEST_DATE_OCT_2 = new Day(10, 2, 2019);
 	
 	
 	private int mMonthNumeral, mDayNumeral, mYearNumeral;
@@ -12,13 +9,15 @@ public class Day implements Comparable {
 	private Month mMonth;
 	private String mStringForm;
 	private static final int MONTHS = 12;
-	private static final int[] MONTHLY_DAY_COUNT = {31, 28, 31, 30, 31, 30,
-													31, 31, 30, 31, 30, 31};
+	private static final int[] MONTHLY_DAY_COUNT = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private static final Month[] MONTH_ARRAY = Month.values();
 	private static final Weekday[] DAY_ARRAY = Weekday.values();
 	
+	public static final Day TEST_DATE_FEB_13 = new Day(2, 13, 2019);//TODO Remember to delete this
+	public static final Day TEST_DATE_OCT_2 = new Day(10, 2, 2019);
+	
 	public Day(int month, int day, int year) {
-		if (month > MONTHS || day > MONTHLY_DAY_COUNT[month-1]) {
+		if (month > MONTHS	|| day > MONTHLY_DAY_COUNT[month-1]) {
 			mMonthNumeral = 0;
 			mDayNumeral = 0;
 			mWeekday = null;
@@ -77,7 +76,12 @@ public class Day implements Comparable {
 		SAT,
 		SUN
 	}
-
+	
+	private static void FillMonthArray() {
+		MONTHLY_DAY_COUNT = 
+	
+	}
+	
 	/**
 	 * @return the mMonthNumeral
 	 */
