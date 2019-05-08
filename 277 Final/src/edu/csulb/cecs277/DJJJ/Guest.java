@@ -1,6 +1,14 @@
 package edu.csulb.cecs277.DJJJ;
 
 public class Guest {
+	
+	public final Guest JOESEPH_JOESTAR = new Guest("1", "OHMYGAWD@hamon.com", "Joeseph Joestar",
+			"Hermit... Purple", "Your next line is I need a credit card");
+	public final Guest DIO_BRANDO = new Guest("2", "BUTITWASME@DIO.com", "Dio Brando", 
+			"ZA WARUDO", "I REJECT MY CREDIT CARD JOJO");
+	public final Guest JOTARO_KUJO = new Guest("3", "YareYare@Daze.com", "Jotaro Kujo", 
+			"Japan", "Star Platinum Members Card");
+	
 	private String mPhone, mEmail, mName, mAddress, mCardInfo;
 	
 	public Guest (String phone, String email, String name, String address, String card) {

@@ -1,6 +1,11 @@
 package edu.csulb.cecs277.DJJJ;
 
-public class Day {
+public class Day implements Comparable {
+	
+	//TODO Remember to delete this
+	public static final Day TEST_DATE_FEB_13 = new Day(2, 13);
+	public static final Day TEST_DATE_OCT_2 = new Day(10, 2);
+	
 	
 	private int mMonthNumeral, mDayNumeral;
 	private Weekday mWeekday;
@@ -140,6 +145,24 @@ public class Day {
 	 */
 	public String getmStringForm() {
 		return mStringForm;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		Day compareDay = (Day) arg0;
+		if (mMonthNumeral < compareDay.mMonthNumeral) {
+			return -1;
+		}
+		else if (mMonthNumeral == compareDay.mMonthNumeral) {
+			if (mDayNumeral < compareDay.mDayNumeral) {
+				return -1;
+			}
+			else if (mDayNumeral == compareDay.mDayNumeral) {
+				return 0;
+			}
+		}
+		return 1;
+		
 	}
 	
 	

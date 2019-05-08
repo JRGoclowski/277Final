@@ -3,14 +3,16 @@ package edu.csulb.cecs277.DJJJ;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Date {
+public class Date implements Comparable {
 	
 	public static void main(String args[]) 
 	{
 		Date testDate = new Date(new Day(2, 13));
 		Guest testGuest = new Guest("phone", "email", "name", "address", "card");
+		Guest testGuest2 = new Guest("phone2", "email2", "name2", "address2", "card2");
 		SmallPartyRoom testRoom = new SmallPartyRoom();
-		Reservation testReservation = new Reservation(new Time(9,0), new Time(9,30), testDate.mDay, testRoom, testGuest);
+		Reservation testReservation1 = new Reservation(new Time(9,0), new Time(9,30), testDate.mDay, testRoom, testGuest);
+		Reservation testResrvation2 = new Reservation(new Time(10, 15), new Time(14, 30), testDate.mDay, testRoom, testGuest2);
 		System.out.println(testDate.mOpenTimes.toString());
 		testDate.ReserveTimes(new Time (10, 0), new Time(22, 45));
 		//testDate.ReserveTimes(new Time (17, 30), new Time(19, 30));
@@ -26,11 +28,6 @@ public class Date {
 	private Day mDay;
 	private ArrayList<Time> mOpenTimes = new ArrayList<Time>();
 	
-	private ArrayList<SmallPartyRoom> mSmallRooms = new ArrayList<SmallPartyRoom>();
-	private ArrayList<MediumPartyRoom> mMediumRooms = new ArrayList<MediumPartyRoom>();
-	private ArrayList<KaraokeLounge> mKaraokeRooms = new ArrayList<KaraokeLounge>();
-	private ArrayList<BilliardsLounge> mBilliardRooms = new ArrayList<BilliardsLounge>();
-	private AquaWorld mAquaWorld = new AquaWorld();
 	
 	public Date(Day day) {
 		mDay = day;
@@ -50,21 +47,52 @@ public class Date {
 			return false;
 		}
 		mReservations.add(reservation);
-		this.ReserveTimes(, end);
-		
-		
+		this.ReserveTimes(reservation);
+		return true;		
+	}
+	
+	public boolean removeReservation(Reservation pReservation) {
+		if (!mReservations.contains(pReservation)) {
+			return false;
+		}
+		mReservations.remove(mReservations.indexOf(pReservation));
+		this.ReleaseTimes(pReservation);
+		return true;
 	}
 	
 	public Reservation GetReservation(Guest guest) {
-		
+		for (Reservation currRes : mReservations) {
+			if (currRes.getmGuest().equals(guest)){
+				return currRes;
+			}
+		}
+		return null;
 	}
 	
 	public Reservation GetReservation(String guestName) {
-		
+		for (Reservation currRes : mReservations) {
+			if (currRes.getmGuest().getmName().equals(guestName)){
+				return currRes;
+			}
+		}
+		return null;
 	}
 	
 	public Reservation GetReservation(Time pTime) {
-		
+		for (Reservation currRes : mReservations) {
+			if ((!pTime.isBefore(currRes.getmFullStartTime())) && pTime.isBefore(currRes.getmFullEndTime())){
+				if (pTime.isBefore(currRes.getmFunctionStartTime())) {
+					return currRes.getmSetup();
+				}
+				else if (pTime.isBefore(currRes.getmFunctionEndTime())) {
+					return currRes;
+				}
+				else {
+					return currRes.getmCleanup();
+				}
+			}
+		}
+		return null;
 	}
 	
 	//tested
@@ -112,9 +140,22 @@ public class Date {
 			
 		}
 		return true;
-		/*Time start, end;
+	}
+	
+	private void ReserveTimes(Time start, Time end) {
+		int r = 0; 
+		while (!(mOpenTimes.get(r).isEqualTo(start))) {
+			r++;
+		}
+		while (mOpenTimes.get(r).isBefore(end)) {
+			mOpenTimes.remove(r);
+			
+		}
+	}
+	
+	private boolean ReleaseTimes(Reservation pReservation) {
+		Time start, end;
 		int r = 0;
-		boolean open = true;
 		if (pReservation.getmFullStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
 			if (!pReservation.getmFunctionStartTime().isBefore(Time.BEGINNING_OF_DAY)) {
 				start = pReservation.getmFunctionStartTime();
@@ -137,38 +178,22 @@ public class Date {
 		else {
 			end = pReservation.getmFullEndTime();
 		}
-		while (!(mOpenTimes.get(r).isEqualTo(start))) {
+		while ((mOpenTimes.get(r).isBefore(start))) {
 			r++;
-			if (r == mOpenTimes.size()) {
-				return false;
+		}
+		Time timeWalker = mOpenTimes.get(--r);
+		Time lastAddition = end;
+		lastAddition.sub(0, 15);
+		while (!timeWalker.isEqualTo(lastAddition)) {
+			mOpenTimes.add(timeWalker.Clone());
+			if (!timeWalker.isEqualTo(new Time())) {
+				timeWalker.add(0, 15);
 			}
 		}
-		Time timeWalker = mOpenTimes.get(r).Clone();
-		Time lastTime = end.Clone();
-		lastTime.sub(0, 15);
-		while (!timeWalker.isEqualTo(lastTime) && open) {
-			if (!timeWalker.isEqualTo(mOpenTimes.get(r))) {
-				open = false;
-			}
-			timeWalker.add(0, 15);
-			r++;
-		}
-		return open;
+		Collections.sort(mOpenTimes);
+		return true;
 	}
 	
-	*/
-	}
-	
-	private void ReserveTimes(Time start, Time end) {
-		int r = 0; 
-		while (!(mOpenTimes.get(r).isEqualTo(start))) {
-			r++;
-		}
-		while (mOpenTimes.get(r).isBefore(end)) {
-			mOpenTimes.remove(r);
-			
-		}
-	}
 	
 	private void ReleaseTimes(Time start, Time end) {
 		int r = 0;
@@ -263,5 +288,11 @@ public class Date {
 	
 	public String toString() {
 		return (mDay.toString() + ", has " + mReservations.size() + " reservations");
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

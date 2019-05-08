@@ -2,8 +2,22 @@ package edu.csulb.cecs277.DJJJ;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
+import java.util.*;
 public class Time implements Comparable {
+	
+	//TODO delete these
+	public static final Time[] ALL_TIMES = FillTimes();
+	
+	private static Time[] FillTimes() {
+		ArrayList<Time> mOpenTimes = new ArrayList<Time>();
+		for (int i = 9; i < 24; i++) {
+			for (int j = 0; j < 4; j++) {
+				Time addTime = new Time(i, j*15);
+				mOpenTimes.add(addTime);
+			}
+		}
+		return (Time[]) mOpenTimes.toArray();
+	}
 	
 	public static void main(String args[]) {
 		Time noon = new Time(12, 0);
@@ -33,9 +47,6 @@ public class Time implements Comparable {
 		System.out.println(atClose.isBusinessHours());
 		System.out.println(atOpen.isBusinessHours());
 		System.out.println(justBeforeClose.isBusinessHours());
-		;
-		;
-		;
 		/*
 		System.out.print(noon.difference(test1)[0] + ",");
 		System.out.println(noon.difference(test1)[1]);
