@@ -7,12 +7,14 @@ public class Date implements Comparable {
 	
 	public static void main(String args[]) 
 	{
-		Date testDate = new Date(new Day(2, 13));
-		Guest testGuest = new Guest("phone", "email", "name", "address", "card");
-		Guest testGuest2 = new Guest("phone2", "email2", "name2", "address2", "card2");
+		Date testDate = new Date(Day.TEST_DATE_FEB_13);
+		Guest DIO = Guest.DIO_BRANDO;
+		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
+		Guest JOTARO = Guest.JOTARO_KUJO;
 		SmallPartyRoom testRoom = new SmallPartyRoom();
-		Reservation testReservation1 = new Reservation(new Time(9,0), new Time(9,30), testDate.mDay, testRoom, testGuest);
-		Reservation testResrvation2 = new Reservation(new Time(10, 15), new Time(14, 30), testDate.mDay, testRoom, testGuest2);
+		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate.mDay, testRoom, DIO);
+		Reservation joeRes = new Reservation(Time.ALL_TIMES[6], Time.ALL_TIMES[14], testDate.mDay, testRoom, JOESEPH);
+		Reservation JotaroRes = new Reservation();
 		System.out.println(testDate.mOpenTimes.toString());
 		testDate.ReserveTimes(new Time (10, 0), new Time(22, 45));
 		//testDate.ReserveTimes(new Time (17, 30), new Time(19, 30));

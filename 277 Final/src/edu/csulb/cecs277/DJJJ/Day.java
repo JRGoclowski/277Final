@@ -3,11 +3,11 @@ package edu.csulb.cecs277.DJJJ;
 public class Day implements Comparable {
 	
 	//TODO Remember to delete this
-	public static final Day TEST_DATE_FEB_13 = new Day(2, 13);
-	public static final Day TEST_DATE_OCT_2 = new Day(10, 2);
+	public static final Day TEST_DATE_FEB_13 = new Day(2, 13, 2019);
+	public static final Day TEST_DATE_OCT_2 = new Day(10, 2, 2019);
 	
 	
-	private int mMonthNumeral, mDayNumeral;
+	private int mMonthNumeral, mDayNumeral, mYearNumeral;
 	private Weekday mWeekday;
 	private Month mMonth;
 	private String mStringForm;
@@ -17,7 +17,7 @@ public class Day implements Comparable {
 	private static final Month[] MONTH_ARRAY = Month.values();
 	private static final Weekday[] DAY_ARRAY = Weekday.values();
 	
-	public Day(int month, int day) {
+	public Day(int month, int day, int year) {
 		if (month > MONTHS || day > MONTHLY_DAY_COUNT[month-1]) {
 			mMonthNumeral = 0;
 			mDayNumeral = 0;
@@ -26,6 +26,7 @@ public class Day implements Comparable {
 		}
 		mMonthNumeral = month;
 		mDayNumeral = day;
+		mYearNumeral = year;
 		mMonth = MONTH_ARRAY[mMonthNumeral-1];
 		FindWeekday();
 		mStringForm = mWeekday.toString() + " the " + mDayNumeral;
@@ -40,7 +41,7 @@ public class Day implements Comparable {
 			default: mStringForm += "th"; break;
 			}
 		}
-		mStringForm += " of " + mMonth.toString();
+		mStringForm += " of " + mMonth.toString() + ", " + mYearNumeral;
 	}
 	
 	private void FindWeekday() {
