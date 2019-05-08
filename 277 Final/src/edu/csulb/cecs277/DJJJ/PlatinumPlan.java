@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class PlatinumPlan extends MealPlan {
 	
+	/**
+	 * Instance variables
+	 * **/
 	private Pizza pizza1;
 	private Pizza pizza2;
 	private Pizza pizza3;
@@ -23,6 +26,9 @@ public class PlatinumPlan extends MealPlan {
 	ArrayList<Wings> myWings = new ArrayList<Wings>();
 	ArrayList<IceCream> myIce = new ArrayList<IceCream>();
 	
+	/**
+	 * Default constructor
+	 * **/
 	public PlatinumPlan() {
 		super("Platinum Meal Plan", 150);
 		pizza1 = new Pizza();
@@ -56,31 +62,50 @@ public class PlatinumPlan extends MealPlan {
 		myIce.add(ice2);
 	}
 	
+	/**
+	 * Gets the ArrayList of Pizza objects
+	 * @return myPizzas - ArrayList of Pizza objects
+	 * **/
 	public ArrayList<Pizza> getPizzas() { return myPizzas; }
 	
+	/**
+	 * Gets the ArrayList of Soda objects
+	 * @return mySodas - ArrayList of Soda objects
+	 * **/
 	public ArrayList<Soda> getSodas() { return mySodas; }
 	
+	/**
+	 * Gets the ArrayList of Wings objects
+	 * @return myWings - ArrayList of Wings objects
+	 * **/
 	public ArrayList<Wings> getWings() { return myWings; }
 	
+	/**
+	 * Gets the ArrayList of IceCream objects
+	 * @return myIceCream - ArrayList of IceCream objects
+	 * **/
 	public ArrayList<IceCream> getIce() { return myIce; }
 	
+	/**
+	 * Prints PlatinumPlan object
+	 * @return PlatinumPlan as a formatted string
+	 * **/
 	public String toString() {
-		
 		return super.getPlan() + "\n" + 
 				pizza1.getDescription() + "\n" + 
 				pizza2.getDescription() + "\n" +
 				pizza3.getDescription() + "\n" +
 				pizza4.getDescription() + "\n" +
-				soda1.getSoda() + "\n" +
-				soda2.getSoda() + "\n" +
-				soda3.getSoda() + "\n" +
-				soda4.getSoda() + "\n" +
-				soda5.getSoda() + "\n" +
+				soda1.getDescription() + "\n" +
+				soda2.getDescription() + "\n" +
+				soda3.getDescription() + "\n" +
+				soda4.getDescription() + "\n" +
+				soda5.getDescription() + "\n" +
 				"Salad\nBreadsticks\n" +
-				wings1.getWings() + "\n" +
-				wings2.getWings() + "\n" +
-				ice1.getIceCream() + "\n" +
-				ice2.getIceCream() + "\n" +
+				wings1.getDescription() + "\n" +
+				wings2.getDescription() + "\n" +
+				ice1.getDescription() + "\n" +
+				ice2.getDescription() + "\n" +
 				"Cost: $" + super.getCost() + "\n";
 	}
 }

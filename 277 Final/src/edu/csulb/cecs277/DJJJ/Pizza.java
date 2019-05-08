@@ -2,18 +2,27 @@ package edu.csulb.cecs277.DJJJ;
 
 import java.util.ArrayList;
 
-public class Pizza {
+public class Pizza extends MealPlanDecorator {
 	
+	/**
+	 * Instance variables
+	 * **/
 	private String myPizza;
 	private ArrayList<String> myTop;
-	
 	String[] toppings = new String[] {"Cheese", "Pepperoni", "Ham", "Jalapeno", "Sausage", "Mushroom", "Pineapple", "Bell Pepper", "Onion", "Garlic Chicken"};
 	
+	/**
+	 * Default constructor
+	 * **/
 	public Pizza() {
 		myPizza = "N/A";
 		myTop = new ArrayList<String>();
 	}
 	
+	/**
+	 * Adds a topping to the pizza
+	 * @param newTop - topping to be added
+	 * **/
 	public void addTop(String newTop) {
 		
 		switch(newTop) {
@@ -31,8 +40,13 @@ public class Pizza {
 		}
 	}
 	
+	/**
+	 * Gets the description of the Pizza
+	 * @return myPizza - description of the Pizza
+	 * **/
+	@Override
 	public String getDescription() {
-		
+		// TODO Auto-generated method stub
 		String finalTop[] = new String[myTop.size()];
 		for (int i = 0; i < finalTop.length; i++) {
 			finalTop[i] = myTop.get(i);

@@ -1,15 +1,24 @@
 package edu.csulb.cecs277.DJJJ;
 
-public class Soda {
+public class Soda extends MealPlanDecorator {
 	
+	/**
+	 * Instance variables
+	 * **/
 	private String mySoda;
-	
 	String[] sodaFlavor = new String[] {"Coca-Cola", "Diet Coke", "Canada Dry", "Orange Crush", "Squirt", "Root Beer"};
 	
+	/**
+	 * Default constructor
+	 * **/
 	public Soda() {
 		mySoda = "N/A";
 	}
 	
+	/**
+	 * Sets the flavor of the soda
+	 * @param newSoda - flavor of the soda
+	 * **/
 	public void setSoda(String newSoda) {
 		
 		switch(newSoda) {
@@ -23,5 +32,13 @@ public class Soda {
 		}
 	}
 	
-	public String getSoda() { return mySoda; }
+	/**
+	 * Gets the description of the Soda
+	 * @return mySoda - description of the Soda
+	 * **/
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return mySoda;
+	}
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class BronzePlan extends MealPlan {
 	
+	/**
+	 * Instance variables
+	 * **/
 	private Pizza pizza1;
 	private Pizza pizza2;
 	private Pizza pizza3;
@@ -17,6 +20,9 @@ public class BronzePlan extends MealPlan {
 	ArrayList<Pizza> myPizzas = new ArrayList<Pizza>();
 	ArrayList<Soda> mySodas = new ArrayList<Soda>();
 	
+	/**
+	 * Default constructor
+	 * **/
 	public BronzePlan() {
 		super("Bronze Meal Plan", 75);
 		pizza1 = new Pizza();
@@ -39,6 +45,10 @@ public class BronzePlan extends MealPlan {
 		addon = "N/A";
 	}
 	
+	/**
+	 * Sets the addon for the plan (Salad or Breadsticks)
+	 * @param newAddon - addon to be set
+	 * **/
 	public void setAddon(String newAddon) {
 		
 		switch(newAddon) {
@@ -48,23 +58,38 @@ public class BronzePlan extends MealPlan {
 		}
 	}
 	
+	/**
+	 * Gets the addon
+	 * @return addon - could either be Salad or Breadstick as a String
+	 * **/
 	public String getAddon() { return addon; }
 	
+	/**
+	 * Gets the ArrayList of Pizza objects
+	 * @return myPizzas - ArrayList of Pizza objects
+	 * **/
 	public ArrayList<Pizza> getPizzas() { return myPizzas; }
 	
+	/**
+	 * Gets the ArrayList of Soda objects
+	 * @return mySodas - ArrayList of Soda objects
+	 * **/
 	public ArrayList<Soda> getSodas() { return mySodas; }
 	
+	/**
+	 * Prints BronzePlan object
+	 * @return BronzePlan as a formatted string
+	 * **/
 	public String toString() {
-		
 		return super.getPlan() + "\n" + 
 				pizza1.getDescription() + "\n" + 
 				pizza2.getDescription() + "\n" +
 				pizza3.getDescription() + "\n" +
-				soda1.getSoda() + "\n" +
-				soda2.getSoda() + "\n" +
-				soda3.getSoda() + "\n" +
-				soda4.getSoda() + "\n" +
-				soda5.getSoda() + "\n" +
+				soda1.getDescription() + "\n" +
+				soda2.getDescription() + "\n" +
+				soda3.getDescription() + "\n" +
+				soda4.getDescription() + "\n" +
+				soda5.getDescription() + "\n" +
 				getAddon() + "\n" +
 				"Cost: $" + super.getCost() + "\n";
 	}
