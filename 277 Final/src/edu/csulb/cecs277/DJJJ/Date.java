@@ -11,7 +11,6 @@ public class Date implements Comparable {
 	public static void main(String args[]) 
 	{
 		Date testDate1 = new Date(Day.TEST_DATE_FEB_13);
-		Date testDate2 = new Date(Day.TEST_DATE_OCT_2);
 		Guest DIO = Guest.DIO_BRANDO;
 		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
 		Guest JOTARO = Guest.JOTARO_KUJO;
@@ -27,6 +26,14 @@ public class Date implements Comparable {
 		DebugResPrint(testDate1, joeRes);
 		DebugTimeFramePrint(jotaroRes);
 		DebugResPrint(testDate1, jotaroRes);
+		System.out.println(testDate1.editReservationStart(jotaroRes, Time.ALL_TIMES[48]));
+		DebugTimeFramePrint(jotaroRes);
+		System.out.println(testDate1.editReservationEnd(dioRes, Time.ALL_TIMES[20]));
+		DebugTimeFramePrint(dioRes);
+		System.out.println(testDate1.GetReservation(Time.ALL_TIMES[1]).toString());
+		DebugRelPrint(testDate1, dioRes);
+		DebugRelPrint(testDate1, joeRes);
+		DebugRelPrint(testDate1, jotaroRes);
 		
 		
 		//TODO test when the time ends right as another starts
@@ -78,6 +85,30 @@ public class Date implements Comparable {
 				&&  reservation.getmFunctionEndTime().isBusinessHours());
 		valid = ((isOpen(reservation)) && valid);
 		return valid;
+	}
+	
+	public boolean editReservationStart(Reservation pReservation, Time pStart) {
+		int[] diffTime = pReservation.getmFunctionStartTime().difference(pStart);
+		Time newStart = pReservation.getmFullStartTime().Clone();
+		newStart.add(diffTime[0], diffTime[1]);
+		if (isOpen (newStart, pReservation.getmFullStartTime())) {
+			this.ReserveTimes(newStart, pReservation.getmFullStartTime());
+			pReservation.EditGuestStartTime(pStart);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean editReservationEnd(Reservation pReservation, Time pEnd) {
+		int[] diffTime = pReservation.getmFunctionEndTime().difference(pEnd);
+		Time newEnd = pReservation.getmFullEndTime().Clone();
+		newEnd.add(diffTime[0], diffTime[1]);
+		if (isOpen (pReservation.getmFullEndTime(), newEnd)) {
+			this.ReserveTimes(pReservation.getmFullEndTime(), newEnd);
+			pReservation.EditGuestEndTime(pEnd);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean addReservation(Reservation reservation) {
@@ -242,6 +273,29 @@ public class Date implements Comparable {
 			}
 		}
 		Collections.sort(mOpenTimes);
+	}
+	
+	private boolean isOpen(Time pStart, Time pEnd) {
+		Time start = pStart.Clone(), end = pEnd.Clone();
+		int r = 0;
+		boolean open = true;
+		while (!(mOpenTimes.get(r).isEqualTo(start))) {
+			r++;
+			if (r == mOpenTimes.size()) {
+				return false;
+			}
+		}
+		Time timeWalker = mOpenTimes.get(r).Clone();
+		Time lastTime = end.Clone();
+		lastTime.sub(0, 15);
+		while (!timeWalker.isEqualTo(lastTime) && open) {
+			if (!timeWalker.isEqualTo(mOpenTimes.get(r))) {
+				open = false;
+			}
+			timeWalker.add(0, 15);
+			r++;
+		}
+		return open;
 	}
 	
 	//tested

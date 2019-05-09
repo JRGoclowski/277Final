@@ -171,6 +171,11 @@ public class Time implements Comparable {
 			mMinutes = ((mMinutes + addMinutes) - HOUR_MINUTES);
 			return true;
 		}
+		if (mMinutes + addMinutes < 0) {
+			mHours--;
+			mMinutes = ((mMinutes + addMinutes) + HOUR_MINUTES);
+			return true;
+		}
 		mMinutes += addMinutes;
 		return true;
 	}

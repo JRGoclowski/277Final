@@ -191,7 +191,16 @@ public class Reservation {
 	public boolean isCleanup() {
 		return isCleanup;
 	}
-
+	
+	public String toString() {
+		if (isCleanup) {
+			return "Cleanup Reservation";
+		}
+		if (isSetup) {
+			return "Setup Reservation";
+		}
+		return "Reservation of " + this.mGuestReservation.getmGuest().getmName() + " on " + getmDay().toString();
+	}
 	
 	
 }
