@@ -187,12 +187,12 @@ public class Time implements Comparable {
 		return difArray;
 	}
 	
-	public void IncFifteen() {
-		this.add(0, 15);
+	public boolean IncFifteen() {
+		return (this.add(0, 15));
 	}
 	
-	public void IncHours() {
-		this.add(1, 0);
+	public boolean IncHours() {
+		return(this.add(1, 0));
 	}
 	
 	public boolean isBefore(Time pTime) {
@@ -273,6 +273,9 @@ public class Time implements Comparable {
 	public String toString() {
 		String minutes = formatter.format(mMinutes);
 		String timeString = "";
+		if (this.isEqualTo(Time.getEndOfDay())) {
+			return "12:00 AM";
+		}
 		if (mHours >= 12) {
 			if (mHours == 12) {
 				timeString += mHours + ":" + minutes;

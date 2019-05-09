@@ -77,11 +77,7 @@ public class Day implements Comparable {
 		SUN
 	}
 	
-	private static void FillMonthArray() {
-		MONTHLY_DAY_COUNT = 
-	
-	}
-	
+		
 	/**
 	 * @return the mMonthNumeral
 	 */

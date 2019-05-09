@@ -5,6 +5,9 @@ import java.util.Collections;
 
 public class Date implements Comparable {
 	
+	//TODO check on editting reservations, do getting reservations, and retest with changes to codes
+	
+	
 	public static void main(String args[]) 
 	{
 		Date testDate1 = new Date(Day.TEST_DATE_FEB_13);
@@ -12,17 +15,20 @@ public class Date implements Comparable {
 		Guest DIO = Guest.DIO_BRANDO;
 		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
 		Guest JOTARO = Guest.JOTARO_KUJO;
+		Time[] s = Time.ALL_TIMES;
 		SmallPartyRoom testRoom = new SmallPartyRoom(false);
 		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate1.mDay, testRoom, DIO);
 		Reservation joeRes = new Reservation(Time.ALL_TIMES[25], Time.ALL_TIMES[32], testDate1.mDay, testRoom, JOESEPH);
-		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[10], Time.ALL_TIMES[21], testDate1.mDay, testRoom, JOTARO);
+		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[52], Time.ALL_TIMES[59], testDate1.mDay, testRoom, JOTARO);
+		
 		DebugTimeFramePrint(dioRes);
 		DebugResPrint(testDate1, dioRes);
 		DebugTimeFramePrint(joeRes);
 		DebugResPrint(testDate1, joeRes);
 		DebugTimeFramePrint(jotaroRes);
 		DebugResPrint(testDate1, jotaroRes);
-		DebugRelPrint(testDate1, dioRes);
+		
+		
 		//TODO test when the time ends right as another starts
 	}
 	
@@ -167,7 +173,7 @@ public class Date implements Comparable {
 		while (!(mOpenTimes.get(r).isEqualTo(start))) {
 			r++;
 		}
-		while (mOpenTimes.get(r).isBefore(end)) {
+		while (!mOpenTimes.get(r).isEqualTo(end)) {
 			mOpenTimes.remove(r);
 			
 		}
@@ -186,7 +192,7 @@ public class Date implements Comparable {
 	}
 	
 	private boolean ReleaseTimes(Reservation pReservation) {
-		Time start, end;
+		Time start, end, timeWalker;
 		int r = 0;
 		if (pReservation.getmFullStartTime().isBefore(Time.getBeginningOfDay())) {
 			if (!pReservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay())) {
@@ -210,17 +216,11 @@ public class Date implements Comparable {
 		else {
 			end = pReservation.getmFullEndTime();
 		}
-		while ((mOpenTimes.get(r).isBefore(start))) {
-			r++;
-		}
-		Time timeWalker = mOpenTimes.get(--r);
-		Time lastAddition = end;
-		lastAddition.sub(0, 15);
+		timeWalker = start.Clone();
+		Time lastAddition = end.Clone();
 		while (!timeWalker.isEqualTo(lastAddition)) {
 			mOpenTimes.add(timeWalker.Clone());
-			if (!timeWalker.isEqualTo(new Time())) {
-				timeWalker.add(0, 15);
-			}
+			timeWalker.add(0, 15);
 		}
 		Collections.sort(mOpenTimes);
 		return true;
@@ -291,15 +291,14 @@ public class Date implements Comparable {
 	}
 	
 	public ArrayList<String> GetAvailableBlocks() {
-		String startTime, endTime;
-		Time timeWalker = Time.getBeginningOfDay();
+		Time startTime, endTime, timeWalker = Time.getBeginningOfDay();
 		ArrayList <String> timeStrings = new ArrayList<String>();
 		int i = 0;
 		while (timeWalker.isBusinessHours()){
 			while (!timeWalker.isEqualTo(mOpenTimes.get(i)) && timeWalker.isBusinessHours()) {
 				timeWalker.IncFifteen();
 			}
-			startTime = timeWalker.toString();
+			startTime = timeWalker.Clone();
 			while (
 					timeWalker.isEqualTo(mOpenTimes.get(i)) 
 					&& timeWalker.isBusinessHours() 
@@ -307,26 +306,33 @@ public class Date implements Comparable {
 				timeWalker.IncFifteen();
 				i++;				
 				if (i == mOpenTimes.size()) {
-					timeWalker.IncFifteen();
-					if (timeWalker.toString().equals("11:45 PM")) {
-						endTime = "12:00 AM";
+					if(!timeWalker.IncFifteen()) {
+						endTime = Time.getEndOfDay();
 					}
 					else {
-						endTime = timeWalker.toString();
+						endTime = timeWalker.Clone();
 					}
-					
+					int[] timeDiff= startTime.difference(endTime);
+					if ((timeDiff[0] < 1  && timeDiff[1] < 45)
+							|| (timeDiff[0] == 1 && timeDiff[1] < 0)) {
+						return timeStrings;
+					}
 					timeStrings.add((startTime + " - " + endTime));
 					return timeStrings;
 				}
 			}
-			endTime = timeWalker.toString();
-			timeStrings.add((startTime + " - " + endTime));
+			endTime = timeWalker.Clone();
+			int[] timeDiff= startTime.difference(endTime);
+			if (!((timeDiff[0] < 1  && timeDiff[1] < 45)
+					|| (timeDiff[0] == 1 && timeDiff[1] < 0))) {
+				timeStrings.add((startTime + " - " + endTime));
+			}
 		}
 		return timeStrings;		
 	}
 	
 	public String toString() {
-		return (mDay.toString() + ", has " + mReservations.size() + " reservations");
+		return (mDay.getmStringForm() + ", has " + mReservations.size() + " reservations");
 	}
 
 	@Override

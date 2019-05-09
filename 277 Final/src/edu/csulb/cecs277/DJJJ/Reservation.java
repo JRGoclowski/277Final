@@ -88,7 +88,9 @@ public class Reservation {
 		Cleanup.mDay = mDay;
 		Cleanup.mFunctionStartTime = mFunctionEndTime.Clone();
 		Cleanup.mFunctionEndTime = mFunctionEndTime.Clone();
-		Cleanup.mFunctionEndTime.add(0, mMaintenanceTime);
+		if (!Cleanup.mFunctionEndTime.add(0, mMaintenanceTime)) {
+			Cleanup.mFunctionEndTime = Time.getEndOfDay();
+		}
 		Cleanup.mRoom = mRoom;
 		Cleanup.isCleanup = true;
 		return Cleanup;
