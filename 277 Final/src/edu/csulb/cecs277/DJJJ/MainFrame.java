@@ -35,6 +35,96 @@ public class MainFrame extends JFrame {
 	//border settings used in the method addARoomDescription()
  	Border raisedbevel = BorderFactory.createRaisedBevelBorder(); 
  	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+ 	
+ 	// Descriptions of the default rooms and meal plans here?
+ 	private static String aquaDefault = "Number of Rooms: 1\n" +
+ 										"Description: Olympic-sized pool with water slide, kiddie pool, and large jacuzzi\n" +
+ 										"Capacity: 75 people\n" +
+ 										"Cost: $700/hr\n" +
+ 										"Included in cost: access to showers/lockers, life guards on duty, DJ, table & chair set-up, Basic Meal Plan\n" +
+ 										"Upgrades available:\n" +
+ 										"-Upgrade meal plan for an additional cost of $5x(new meal plan cost - basic meal plan cost)\n" +
+ 										"-Towel rentals ($2 each)\n" +
+ 										"-Party favors bag ($5 per bag)\n" +
+ 										"-Projector ($10/hour)\n" +
+ 										"-Party decorations & Set-up (+$100) - choose Hawaiian, Sea Life, Jungle, Space, or Modern Theme\n" +
+ 										"Restrictions: To access water facilites, bathing suits must be worn at all times";
+ 	
+ 	private static String smallDefault = "Number of Rooms: 10\n" +
+ 										 "Description: Room with party tables and chairs, adjacent to arcade\n" +
+ 										 "Capacity: 30 people\n" +
+ 										 "Cost: $150/hr\n" +
+ 										 "Included in cost: Table & chair set-up, Basic Meal Plan\n" +
+ 										 "Upgrades available:\n" +
+ 										 "-Upgrade meal plan for an additional cost of $(new meal plan cost - basic meal plan cost)\n" +
+ 										 "-Party favors bag ($5 per bag)\n" +
+ 										 "-Projector ($10/hour)\n" +
+ 										 "-Party decorations & Set-up (+$100) - choose Hawaiian, Sea Life, Jungle, Space, or Modern Theme";
+ 	
+ 	private static String mediumDefault = "Number of Rooms: 2\n" +
+			 							  "Description: Room with party tables and chairs, quick access to arcade\n" +
+			 							  "Capacity: 45 people\n" +
+			 							  "Cost: $250/hr\n" +
+			 							  "Included in cost: Table & chair set-up, DJ, Basic Meal Plan\n" +
+			 							  "Upgrades available:\n" +
+			 							  "-Upgrade meal plan for an additional cost of $3x(new meal plan cost - basic meal plan cost)\n" +
+			 							  "-Party favors bag ($5 per bag)\n" +
+			 							  "-Projector ($10/hour)\n" +
+			 							  "-Party decorations & Set-up (+$100) - choose Hawaiian, Sea Life, Jungle, Space, or Modern Theme";
+
+ 	/*
+ 	private static String karaokeDefault = "Number of Rooms: 10\n" +
+ 										   "Description: Enclosed lounge with karaoke machine\n" +
+ 										   "Capacity: 10 people\n" +
+ 										   "Cost: $30/hr\n" +
+ 										   "Included in cost: access to karaoke machine\n" +
+ 										   "Upgrades available: add a meal plan";
+ 	
+ 	private static String billiardsDefault = "Number of Rooms: 5\n" +
+ 											 "Description: Enclosed lounge with pool table\n" +
+ 											 "Capacity: 10 people\n" +
+ 											 "Cost: $25/hr\n" +
+ 											 "Included in cost: access to pool tables and cues\n" +
+ 											 "Upgrades available: add a meal plan\n" +
+ 											 "Restrictions: 21+ only";
+ 	
+ 	private static String basicDefault = "Included in meal:\n" + 
+ 										 "\t3 XL 1 Topping Gourmet Pizzas\n" + 
+ 										 "\t3 2L Soda Bottles\n" +
+ 										 "Cost: $65";
+ 	
+ 	private static String bronzeDefault = "Included in meal:\n" +
+ 										  "\t3 XL 2 Topping Gourmet Pizzas\n" + 
+ 										  "\t5 2L Soda Bottles\n" +
+ 										  "\tSalad or Breadsticks\n" +
+ 										  "Cost: $75";
+ 	
+ 	private static String silverDefault = "Included in meal:\n" +
+ 										  "\t3 XL 3 Topping Gourmet Pizzas\n" + 
+ 										  "\t5 2L Soda Bottles\n" +
+ 										  "\tSalad\n" +
+ 										  "\tBreadsticks\n" +
+ 										  "Cost: $90";
+ 	
+ 	private static String goldDefault = "Included in meal:\n" +
+			  							"\t3 XL 3 Topping Gourmet Pizzas\n" + 
+			  							"\t5 2L Soda Bottles\n" +
+			  							"\tSalad\n" +
+			  							"\tBreadsticks\n" +
+			  							"\tChoice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
+			  							"\tPick bone-in or boneless\n" +
+			  							"Cost: $120";
+ 	
+ 	private static String platinumDefault =  "Included in meal:\n" +
+											 "\t4 XL 4 Topping Gourmet Pizzas\n" + 
+											 "\t5 2L Soda Bottles\n" +
+											 "\tSalad\n" +
+											 "\tBreadsticks\n" +
+											 "\tChoice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
+											 "\tPick bone-in or boneless\n" +
+											 "\t2 Flavors of Ice Cream (Chocolate Fudge, Vanilla Bean, Strawberry Shortcake, Choco-mint, Butter Pecan)\n" +"
+											 "Cost: $150";
+											*/
 	
 	public MainFrame(){
 		this.setTitle("Reservation System");
@@ -58,9 +148,9 @@ public class MainFrame extends JFrame {
 		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
 		
 		centerPanel.add(panelTitle);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", "SmallPartyRoom.DESCRIPTION");
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", "MediumPartyRoom.DESCRIPTION");
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", "AquaRoom.DESCRIPTION");
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", smallDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", mediumDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", aquaDefault);
 		
 		scrollPane = new JScrollPane(centerPanel);
 		this.add(scrollPane, BorderLayout.CENTER);
