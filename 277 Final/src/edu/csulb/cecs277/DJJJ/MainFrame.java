@@ -21,6 +21,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+/*
+import backend.AquaRoom;
+import backend.MediumPartyRoom;
+import backend.SmallPartyRoom;
+*/
+
 public class MainFrame extends JFrame {
 	JMenuBar menuBar;
 	JScrollPane scrollPane;
@@ -52,9 +58,9 @@ public class MainFrame extends JFrame {
 		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
 		
 		centerPanel.add(panelTitle);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", "Small");
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", "Medium");
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", "Special");
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", "SmallPartyRoom.DESCRIPTION");
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", "MediumPartyRoom.DESCRIPTION");
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", "AquaRoom.DESCRIPTION");
 		
 		scrollPane = new JScrollPane(centerPanel);
 		this.add(scrollPane, BorderLayout.CENTER);
