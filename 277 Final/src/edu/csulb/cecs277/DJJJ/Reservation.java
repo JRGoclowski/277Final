@@ -97,7 +97,8 @@ public class Reservation {
 	}
 	
 	
-	public void EditGuestStartTime(Time newTime) {
+	public void EditGuestStartTime(Time newTime) 
+	{
 		int[] timeDiff = mFunctionStartTime.difference(newTime);
 		mSetup.mFunctionStartTime.add(timeDiff[0], timeDiff[1]);
 		mSetup.mFunctionEndTime.add(timeDiff[0], timeDiff[1]);
