@@ -87,46 +87,45 @@ public class MainFrame extends JFrame {
  											 "Included in cost: access to pool tables and cues\n" +
  											 "Upgrades available: add a meal plan\n" +
  											 "Restrictions: 21+ only";
- 	
+ 	*/
  	private static String basicDefault = "Included in meal:\n" + 
- 										 "\t3 XL 1 Topping Gourmet Pizzas\n" + 
- 										 "\t3 2L Soda Bottles\n" +
+ 										 "-3 XL 1 Topping Gourmet Pizzas\n" + 
+ 										 "-3 2L Soda Bottles\n" +
  										 "Cost: $65";
  	
  	private static String bronzeDefault = "Included in meal:\n" +
- 										  "\t3 XL 2 Topping Gourmet Pizzas\n" + 
- 										  "\t5 2L Soda Bottles\n" +
- 										  "\tSalad or Breadsticks\n" +
+ 										  "-3 XL 2 Topping Gourmet Pizzas\n" + 
+ 										  "-5 2L Soda Bottles\n" +
+ 										  "-Salad or Breadsticks\n" +
  										  "Cost: $75";
  	
  	private static String silverDefault = "Included in meal:\n" +
- 										  "\t3 XL 3 Topping Gourmet Pizzas\n" + 
- 										  "\t5 2L Soda Bottles\n" +
- 										  "\tSalad\n" +
- 										  "\tBreadsticks\n" +
+ 										  "-3 XL 3 Topping Gourmet Pizzas\n" + 
+ 										  "-5 2L Soda Bottles\n" +
+ 										  "-Salad\n" +
+ 										  "-Breadsticks\n" +
  										  "Cost: $90";
  	
  	private static String goldDefault = "Included in meal:\n" +
-			  							"\t3 XL 3 Topping Gourmet Pizzas\n" + 
-			  							"\t5 2L Soda Bottles\n" +
-			  							"\tSalad\n" +
-			  							"\tBreadsticks\n" +
-			  							"\tChoice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
-			  							"\tPick bone-in or boneless\n" +
+			  							"-3 XL 3 Topping Gourmet Pizzas\n" + 
+			  							"-5 2L Soda Bottles\n" +
+			  							"-Salad\n" +
+			  							"-Breadsticks\n" +
+			  							"-Choice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
+			  							"-Pick bone-in or boneless\n" +
 			  							"Cost: $120";
  	
  	private static String platinumDefault =  "Included in meal:\n" +
-											 "\t4 XL 4 Topping Gourmet Pizzas\n" + 
-											 "\t5 2L Soda Bottles\n" +
-											 "\tSalad\n" +
-											 "\tBreadsticks\n" +
-											 "\tChoice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
-											 "\tPick bone-in or boneless\n" +
-											 "\t2 Flavors of Ice Cream (Chocolate Fudge, Vanilla Bean, Strawberry Shortcake, Choco-mint, Butter Pecan)\n" +"
+											 "-4 XL 4 Topping Gourmet Pizzas\n" + 
+											 "-5 2L Soda Bottles\n" +
+											 "-Salad\n" +
+											 "-Breadsticks\n" +
+											 "-Choice of 2 chicken wing flavors (Mild Spicy, Diablo, Lemon Pepper, BBQ, Sesame)\n" +
+											 "-Pick bone-in or boneless\n" +
+											 "-2 Flavors of Ice Cream (Chocolate Fudge, Vanilla Bean, Strawberry Shortcake, Choco-mint, Butter Pecan)\n" +
 											 "Cost: $150";
-											*/
 	
-	public MainFrame(){
+	public MainFrame() {
 		this.setTitle("Reservation System");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); //makes window screen size
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -134,7 +133,6 @@ public class MainFrame extends JFrame {
 		this.createMenuBar();
 		this.createDefaultPanel();
 		this.setVisible(true);
-		
 	}
 	
 	/*
@@ -156,6 +154,35 @@ public class MainFrame extends JFrame {
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
+	//---------------------------------------------------------------------------------------------------------------------
+	
+	private void createRoomPanel() {
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		//Title of default view
+		JLabel panelTitle = new JLabel("Party World Rooms");
+		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+		
+		centerPanel.add(panelTitle);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", smallDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", mediumDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", aquaDefault);
+	}
+	
+	private void createMealPanel() {
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		JLabel panelTitle = new JLabel("Party World Meal Plans");
+		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+		
+		centerPanel.add(panelTitle);
+		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\basicMeal.jpg", "Basic Meal Plan", basicDefault);
+		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\bronzeMeal.jpg", "Bronze Meal Plan", bronzeDefault);
+		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\silverMeal.jpg", "Silver Meal Plan", silverDefault);
+		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\goldMeal.jpg", "Gold Meal Plan", goldDefault);
+		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\platinumMeal.jpg", "Platinum Meal Plan", platinumDefault);
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	
 	/* initializes menu bar items and adds them to this window*/
 	private void createMenuBar() {
 		menuBar = new JMenuBar();
@@ -163,14 +190,11 @@ public class MainFrame extends JFrame {
 		JMenu menu;
 		JMenu submenu;
 		JMenuItem menuItem;
-				
 		//-------  DESCRIPTIONS MENU------------------
 		menu = new JMenu("Descriptions");
-
 		//Party Room Sub Menu
 		submenu = new JMenu("Party Rooms");
 
-				
 		menuItem = new JMenuItem("All");
 		menuItem.addActionListener(new RoomItemListener());
 		submenu.add(menuItem);
@@ -185,8 +209,7 @@ public class MainFrame extends JFrame {
 				
 		menuItem = new JMenuItem("Aqua Room");
 		submenu.add(menuItem);
-		menu.add(submenu);
-				
+		menu.add(submenu);				
 		//Lounges Sub Menu
 		submenu = new JMenu("Lounges");
 				
@@ -201,7 +224,6 @@ public class MainFrame extends JFrame {
 				
 		menu.add(submenu);
 		menu.addSeparator();
-				
 		//Meal Plans Sub Menu
 		submenu = new JMenu("Meal Plans");
 
@@ -232,20 +254,16 @@ public class MainFrame extends JFrame {
 		menu.add(submenu);
 				
 		menuBar.add(menu);
-					
 		//-------  RESERVATIONS MENU------------------
 		menu = new JMenu("Reservations");
-						
 		//New reservation item
 		menuItem = new JMenuItem("New Reservation...");
 		menu.add(menuItem);
 		menu.addSeparator();
-						
 		//Edit reservation item
 		menuItem = new JMenuItem("Edit Existing Reservation...");
 		menu.add(menuItem);
 		menu.addSeparator();
-						
 		//Manage reservation sub menu 
 		submenu = new JMenu("Manage Current Reservation");
 		submenu.setMnemonic(KeyEvent.VK_S);
@@ -276,7 +294,6 @@ public class MainFrame extends JFrame {
 		 ImageIcon icon = new ImageIcon(imgDir);
 		 JLabel picture = new JLabel(roomName, icon, JLabel.CENTER);
 		 picture.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-		 	
 		 //Set the position of the text, relative to the icon:
 		 picture.setVerticalTextPosition(JLabel.TOP);
 		 picture.setHorizontalTextPosition(JLabel.CENTER);
@@ -295,19 +312,61 @@ public class MainFrame extends JFrame {
 		 p.add(bookButton);
 		 container.add(p);
 	}
-
+	 
+	//---------------------------------------------------------------------------------------------------------------------
+	 
+	private void addMealDescription(Container container, String imgDir, String mealPlan, String mealDesc) {
+		JPanel p = new JPanel();
+		
+		ImageIcon icon = new ImageIcon(imgDir);
+		JLabel picture = new JLabel(mealPlan, icon, JLabel.CENTER);
+		picture.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+		
+		picture.setVerticalTextPosition(JLabel.TOP);
+		picture.setHorizontalTextPosition(JLabel.CENTER);
+		
+		picture.setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
+		
+		p.add(picture);
+		
+		JTextArea description = new JTextArea(5,10);
+		description.append(mealDesc);
+		description.setEditable(false);
+		description.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+		description.setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
+		p.add(description);
+		container.add(p);
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	 
 	class MealItemListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent click) {
 			JMenuItem menuItem = (JMenuItem) click.getSource();
 			String item = menuItem.getText();
-			System.out.println(item);
-			if(item.equals("All")) {
-				System.out.println("VIEW ALL"); //replace 
+			if (item.equals("All")) {
+				centerPanel.removeAll();
+				createMealPanel();
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
-			else if(item.equals("Basic")) System.out.println("VIEW BASIC"); //replace 
-			else if(item.equals("Bronze")) System.out.println("VIEW BRONZE");
+			else if (item.equals("Basic")) {
+				System.out.println("VIEW BASIC"); //replace 
+			}
+			else if (item.equals("Bronze")) {
+				System.out.println("VIEW BRONZE");
+			}
+			else if (item.equals("Silver")) {
+				
+			}
+			else if (item.equals("Gold")) {
+				
+			}
+			else if (item.equals("Platinum")) {
+				
+			}
 		}
 	}
 	
@@ -317,7 +376,16 @@ public class MainFrame extends JFrame {
 		public void actionPerformed(ActionEvent select) {
 			JMenuItem item = (JMenuItem) select.getSource();
 			
-			if(item.getText().equals("Medium Party Rooms")) {
+			if (item.getText().equals("All")) {
+				centerPanel.removeAll();
+				createRoomPanel();
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+			else if (item.getText().equals("Small Party Rooms")) {
+				
+			}
+			else if (item.getText().equals("Medium Party Rooms")) {
 				System.out.println("Display only Medium Party Room");
 			}	
 		}
