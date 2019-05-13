@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 			 							  "-Projector ($10/hour)\n" +
 			 							  "-Party decorations & Set-up (+$100) - choose Hawaiian, Sea Life, Jungle, Space, or Modern Theme";
 
- 	/*
+ 	
  	private static String karaokeDefault = "Number of Rooms: 10\n" +
  										   "Description: Enclosed lounge with karaoke machine\n" +
  										   "Capacity: 10 people\n" +
@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
  											 "Included in cost: access to pool tables and cues\n" +
  											 "Upgrades available: add a meal plan\n" +
  											 "Restrictions: 21+ only";
- 	*/
+ 	
  	private static String basicDefault = "Included in meal:\n" + 
  										 "-3 XL 1 Topping Gourmet Pizzas\n" + 
  										 "-3 2L Soda Bottles\n" +
@@ -131,7 +131,11 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		this.createMenuBar();
+		centerPanel = new JPanel();
 		this.createDefaultPanel();
+		scrollPane = new JScrollPane(centerPanel);
+		this.add(scrollPane, BorderLayout.CENTER);
+		
 		this.setVisible(true);
 	}
 	
@@ -139,34 +143,18 @@ public class MainFrame extends JFrame {
 	 * initializes the default center panel and adds it to this frame
 	 * */
 	private void createDefaultPanel() {
-		centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 		//Title of default view
 		JLabel panelTitle = new JLabel("Party World Rooms");
 		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
 		
 		centerPanel.add(panelTitle);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", smallDefault);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", mediumDefault);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", aquaDefault);
-		
-		scrollPane = new JScrollPane(centerPanel);
-		this.add(scrollPane, BorderLayout.CENTER);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\smallRoom.jpg", "Small Party Room", smallDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\mediumRoom.jpg","Medium Party Room", mediumDefault);
+		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\aquaRoom.jpg", "Aqua Room", aquaDefault);
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------
-	
-	private void createRoomPanel() {
-		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-		//Title of default view
-		JLabel panelTitle = new JLabel("Party World Rooms");
-		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-		
-		centerPanel.add(panelTitle);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Small Party Room", smallDefault);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg","Medium Party Room", mediumDefault);
-		addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\partyRoom.jpg", "Aqua Room", aquaDefault);
-	}
 	
 	private void createMealPanel() {
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
@@ -179,6 +167,16 @@ public class MainFrame extends JFrame {
 		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\silverMeal.jpg", "Silver Meal Plan", silverDefault);
 		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\goldMeal.jpg", "Gold Meal Plan", goldDefault);
 		addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\platinumMeal.jpg", "Platinum Meal Plan", platinumDefault);
+	}
+	
+	private void createLoungePanel() {
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		JLabel panelTitle = new JLabel("Party World Lounges");
+		panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+		
+		centerPanel.add(panelTitle);
+		addLoungeDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\karaokeLounge.jpg", "Karaoke Lounge", karaokeDefault);
+		addLoungeDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\billiardsLounge.jpg", "Billiards Lounge", billiardsDefault);
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------
@@ -208,19 +206,24 @@ public class MainFrame extends JFrame {
 		submenu.add(menuItem);
 				
 		menuItem = new JMenuItem("Aqua Room");
+		menuItem.addActionListener(new RoomItemListener());
 		submenu.add(menuItem);
+		
 		menu.add(submenu);				
 		//Lounges Sub Menu
 		submenu = new JMenu("Lounges");
 				
 		menuItem = new JMenuItem("All");
 		submenu.add(menuItem);
+		menuItem.addActionListener(new LoungeItemListener());
 				
 		menuItem = new JMenuItem("Karaoke Lounges");
 		submenu.add(menuItem);
+		menuItem.addActionListener(new LoungeItemListener());
 				
 		menuItem = new JMenuItem("Billiards Lounges");
 		submenu.add(menuItem);
+		menuItem.addActionListener(new LoungeItemListener());
 				
 		menu.add(submenu);
 		menu.addSeparator();
@@ -338,9 +341,32 @@ public class MainFrame extends JFrame {
 		container.add(p);
 	}
 	
+	private void addLoungeDescription(Container container, String imgDir, String loungeName, String loungeDesc) {
+		JPanel p = new JPanel();
+		
+		ImageIcon icon = new ImageIcon(imgDir);
+		JLabel picture = new JLabel(loungeName, icon, JLabel.CENTER);
+		picture.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+		
+		picture.setVerticalTextPosition(JLabel.TOP);
+		picture.setHorizontalTextPosition(JLabel.CENTER);
+		
+		picture.setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
+		
+		p.add(picture);
+		
+		JTextArea description = new JTextArea(5,10);
+		description.append(loungeDesc);
+		description.setEditable(false);
+		description.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+		description.setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
+		p.add(description);
+		container.add(p);
+	}
+	
 	//---------------------------------------------------------------------------------------------------------------------
 	 
-	class MealItemListener implements ActionListener{
+	class MealItemListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent click) {
@@ -353,43 +379,138 @@ public class MainFrame extends JFrame {
 				centerPanel.repaint();
 			}
 			else if (item.equals("Basic")) {
-				System.out.println("VIEW BASIC"); //replace 
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Basic Meal Plan");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\basicMeal.jpg", "Basic Meal Plan", basicDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 			else if (item.equals("Bronze")) {
-				System.out.println("VIEW BRONZE");
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Bronze Meal Plan");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\bronzeMeal.jpg", "Bronze Meal Plan", bronzeDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 			else if (item.equals("Silver")) {
-				
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Silver Meal Plan");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\silverMeal.jpg", "Silver Meal Plan", silverDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 			else if (item.equals("Gold")) {
-				
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Gold Meal Plan");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\goldMeal.jpg", "Gold Meal Plan", goldDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 			else if (item.equals("Platinum")) {
-				
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Platinum Meal Plan");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addMealDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\platinumMeal.jpg", "Platinum Meal Plan", platinumDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 		}
 	}
 	
-	class RoomItemListener implements ActionListener{
+	class RoomItemListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent select) {
 			JMenuItem item = (JMenuItem) select.getSource();
-			
 			if (item.getText().equals("All")) {
 				centerPanel.removeAll();
-				createRoomPanel();
+				createDefaultPanel();
 				centerPanel.revalidate();
 				centerPanel.repaint();
 			}
 			else if (item.getText().equals("Small Party Rooms")) {
-				
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Small Party Rooms");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\smallRoom.jpg", "Small Party Room", smallDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
 			}
 			else if (item.getText().equals("Medium Party Rooms")) {
-				System.out.println("Display only Medium Party Room");
-			}	
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Medium Party Rooms");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\mediumRoom.jpg", "Medium Party Room", mediumDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+			else if (item.getText().equals("Aqua Room")) {
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Aqua Room");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\aquaRoom.jpg", "Aqua Room", aquaDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
 		}
 	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+	
+	class LoungeItemListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent select) {
+			JMenuItem item = (JMenuItem) select.getSource();
+			if (item.getText().equals("All")) {
+				centerPanel.removeAll();
+				createLoungePanel();
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+			else if (item.getText().equals("Karaoke Lounges")) {
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Karaoke Lounges");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\karaokeLounge.jpg", "Karaoke Lounge", karaokeDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+			else if (item.getText().equals("Billiards Lounges")) {
+				centerPanel.removeAll();
+				centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+				JLabel panelTitle = new JLabel("Party World Billiards Lounges");
+				panelTitle.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+				centerPanel.add(panelTitle);
+				addARoomDescription(centerPanel, "C:\\Users\\Daniel\\Desktop\\billiardsLounge.jpg", "Billiards Lounge", billiardsDefault);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+		}
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
 	
 	public static void main(String[] args) {
 		MainFrame f = new MainFrame();
