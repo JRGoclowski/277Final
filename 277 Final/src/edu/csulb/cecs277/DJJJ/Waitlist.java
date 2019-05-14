@@ -13,12 +13,7 @@ public class Waitlist
 		mWaitlist = this;
 	}
 	
-	//We only have one array list of reservation. When a person wants a room, we check through this reservation .
-	//Each reservation has a guest, start time, Room, 
-	//When a person creates a reservation, we give it a reservation 
-	//This is used if there is no room availiable for the guest, we have an arraylist of reservation that is put onto "hold"
-	//Since we have the list of wait list reservation, what we can do is that everytime there is a change in a reservation
-	//that is not a waitlist, we can run notify from roomlist!
+	//Array list of reservations 
 	ArrayList<Reservation> WaitList = new ArrayList<Reservation>();
 
 	/**
@@ -31,7 +26,7 @@ public class Waitlist
 	
 	
 	/**
-	 * @return The arraylist of reservation if there is empty
+	 * @return The arraylist of reservation 
 	 */
 	public ArrayList<Reservation> getWaitListReservation()
 	{
@@ -43,33 +38,83 @@ public class Waitlist
 	//This is used whenever, walks through every reservation in the waitlist when a time is free 
 	public void update()
 	{
-		//This variable is used to keep the position of the arraylist in case a timeslot works for the reservations inside
-		//waitlist 
-		int i;
+		int i, j, k;
 		
-		
-		//This variable will be used if the reservation is found on not
-		boolean checker = true;
-		//Checks through each reservation and see if the reservation is now valid? 
-		//Do we make an entirely new function inside reservation? 
+		//Checks through each reservation and see if the reservation is now valid.
 		for(i = 0; WaitList.size() > i; i++)
 		{
-			//Now we get each individual waitlist and see if the time and day now works. 
-			if(true)
+			//Lets first check whether the room is a specific instace of another room 
+			if(WaitList.get(i).getmRoom() instanceof SmallPartyRoom)
 			{
-				//The time does not work and we set the checker to false
-				checker = false;
-				break;
+				//We're going through each room inside the arraylist 
+				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				{
+					//We're checking each room's arraylist of date to see if the reservation is valid 
+					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					{
+						//Checking if the reservation is valid!
+						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						.isValidReservation(WaitList.get(i));
+					}
+				}
+			}
+			else if(WaitList.get(i).getmRoom() instanceof MediumPartyRoom)
+			{
+				//We're going through each room inside the arraylist 
+				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				{
+					//We're checking each room's arraylist of date to see if the reservation is valid 
+					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					{
+						//Checking if the reservation is valid!
+						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						.isValidReservation(WaitList.get(i));
+					}
+				}
+			}
+			else if(WaitList.get(i).getmRoom() instanceof BilliardsLounge)
+			{
+				//We're going through each room inside the arraylist 
+				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				{
+					//We're checking each room's arraylist of date to see if the reservation is valid 
+					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					{
+						//Checking if the reservation is valid!
+						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						.isValidReservation(WaitList.get(i));
+					}
+				}
+			}
+			else if(WaitList.get(i).getmRoom() instanceof KaraokeLounge)
+			{
+				//We're going through each room inside the arraylist 
+				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				{
+					//We're checking each room's arraylist of date to see if the reservation is valid 
+					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					{
+						//Checking if the reservation is valid!
+						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						.isValidReservation(WaitList.get(i));
+					}
+				}
+			}
+			else if(WaitList.get(i).getmRoom() instanceof AquaWorld)
+			{
+				//We're going through each room inside the arraylist 
+				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				{
+					//We're checking each room's arraylist of date to see if the reservation is valid 
+					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					{
+						//Checking if the reservation is valid!
+						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						.isValidReservation(WaitList.get(i));
+					}
+				}
 			}
 		}
-		
-		
-		//The time was changed or edit now matches one of the reservations in the waitlist. Now we can remove it from the waitlist
-		if(checker)
-		{
-			
-		}
-		
 		
 	}
 
