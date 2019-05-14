@@ -367,7 +367,6 @@ public class MainFrame extends JFrame {
 	//---------------------------------------------------------------------------------------------------------------------
 	 
 	class MealItemListener implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent click) {
 			JMenuItem menuItem = (JMenuItem) click.getSource();
@@ -432,7 +431,6 @@ public class MainFrame extends JFrame {
 	}
 	
 	class RoomItemListener implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent select) {
 			JMenuItem item = (JMenuItem) select.getSource();
