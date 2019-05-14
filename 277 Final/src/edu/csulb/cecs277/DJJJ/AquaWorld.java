@@ -7,6 +7,7 @@ public class AquaWorld extends Room implements Cloneable {
 
 	//default constructor
 	public AquaWorld() {
+		super();
 		setRoomCapacity(75);
 		setHourlyCost(700);
 		setRoomDescription("Olympic-sized pool with water slide, kiddie pool, and large jacuzzi.");

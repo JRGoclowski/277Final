@@ -8,6 +8,7 @@ public class SmallPartyRoom extends Room implements Cloneable {
 	
 	//default constructor
 	public SmallPartyRoom() {
+		super();
 		setRoomCapacity(30);
 		setHourlyCost(150);
 		setRoomDescription("Room with party tables and chairs, adjacent to arcade.");

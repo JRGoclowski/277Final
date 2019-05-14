@@ -1,7 +1,5 @@
 package edu.csulb.cecs277.DJJJ;
 
-import java.util.ArrayList;
-
 //generates an BilliardsLounge room from the abstract class Room
 public class BilliardsLounge extends Room implements Cloneable {
 
