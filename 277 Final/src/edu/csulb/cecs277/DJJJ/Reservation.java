@@ -8,14 +8,18 @@ public class Reservation {
 	private Time mFunctionEndTime;
 	private Time mFullStartTime; 
 	private Time mFullEndTime;
+	private MealPlan mMealPlan;
 	private Day mDay;
 	private Room mRoom;
 	private Guest mGuest;
 	private Reservation mSetup;//TODO Figure out how to not have this be a recursive type. Too difficult to handle 
 	private Reservation mGuestReservation;//Identifying if it is a cleanup/setup reservation 
 	private Reservation mCleanup;
+	private String mRoomTheme;
 	private boolean isSetup = false;
 	private boolean isCleanup = false;
+	private boolean checkedIn = false;
+	private boolean checkedOut = false;
 	
 	public Reservation() {
 		mMaintenanceTime = 0;
@@ -29,6 +33,7 @@ public class Reservation {
 		mSetup = null;
 		mGuestReservation = null;
 		mCleanup = null;
+		mMealPlan = new BasicPlan();
 	}
 	
 	public Reservation(Time start, Time end, Day day, Room room, Guest guest) {
@@ -44,6 +49,7 @@ public class Reservation {
 			mSetup = null;
 			mGuestReservation = null;
 			mCleanup = null;
+			mMealPlan = new BasicPlan();
 		}
 		else {
 			mFunctionStartTime = start;
@@ -57,6 +63,7 @@ public class Reservation {
 			mCleanup = MakeCleanupReservation();
 			mFullStartTime = mSetup.mFunctionStartTime.Clone();
 			mFullEndTime = mCleanup.mFunctionEndTime.Clone();
+			mMealPlan = new BasicPlan();
 		}
 		
 	}
@@ -194,6 +201,37 @@ public class Reservation {
 		return isCleanup;
 	}
 	
+	
+	
+	/**
+	 * @return the mRoomTheme
+	 */
+	public String getmRoomTheme() {
+		return mRoomTheme;
+	}
+
+	/**
+	 * @param mRoomTheme the mRoomTheme to set
+	 */
+	public void setmRoomTheme(String mRoomTheme) {
+		this.mRoomTheme = mRoomTheme;
+	}
+
+	/**
+	 * @return the mMealPlan
+	 */
+	public MealPlan getmMealPlan() {
+		return mMealPlan;
+	}
+
+	/**
+	 * @param mMealPlan the mMealPlan to set
+	 */
+	public void setmMealPlan(MealPlan mMealPlan) {
+		this.mMealPlan = mMealPlan;
+	}
+
+	
 	/**
 	 * @return the mConfirmationNumber
 	 */
@@ -208,6 +246,35 @@ public class Reservation {
 		this.mConfirmationNumber = mConfirmationNumber;
 	}
 	
+	/**
+	 * @return the checkedIn
+	 */
+	public boolean isCheckedIn() {
+		return checkedIn;
+	}
+
+	/**
+	 * @param checkedIn the checkedIn to set
+	 */
+	public void setCheckedIn(boolean checkedIn) {
+		this.checkedIn = checkedIn;
+	}
+
+	/**
+	 * @return the checkedOut
+	 */
+	public boolean isCheckedOut() {
+		return checkedOut;
+	}
+
+	/**
+	 * @param checkedOut the checkedOut to set
+	 */
+	public void setCheckedOut(boolean checkedOut) {
+		this.checkedOut = checkedOut;
+	}
+
+	
 	public String toString() {
 		if (isCleanup) {
 			return "Cleanup Reservation";
@@ -217,6 +284,7 @@ public class Reservation {
 		}
 		return "Reservation of " + this.mGuestReservation.getmGuest().getmName() + " on " + getmDay().toString();
 	}
+	
 	
 	
 }
