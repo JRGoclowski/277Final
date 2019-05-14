@@ -61,13 +61,13 @@ public class Waitlist
 			else if(WaitList.get(i).getmRoom() instanceof MediumPartyRoom)
 			{
 				//We're going through each room inside the arraylist 
-				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				for(j = 0; RoomList.getmRoomList().getmMediumRooms().size() > j; j++)
 				{
 					//We're checking each room's arraylist of date to see if the reservation is valid 
-					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					for(k = 0; RoomList.getmRoomList().getmMediumRooms().get(j).getRoomDates().size() > k; k++)
 					{
 						//Checking if the reservation is valid!
-						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						RoomList.getmRoomList().getmMediumRooms().get(j).getRoomDates().get(k)
 						.isValidReservation(WaitList.get(i));
 					}
 				}
@@ -75,13 +75,13 @@ public class Waitlist
 			else if(WaitList.get(i).getmRoom() instanceof BilliardsLounge)
 			{
 				//We're going through each room inside the arraylist 
-				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				for(j = 0; RoomList.getmRoomList().getmBilliardRooms().size() > j; j++)
 				{
 					//We're checking each room's arraylist of date to see if the reservation is valid 
-					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					for(k = 0; RoomList.getmRoomList().getmBilliardRooms().get(j).getRoomDates().size() > k; k++)
 					{
 						//Checking if the reservation is valid!
-						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						RoomList.getmRoomList().getmBilliardRooms().get(j).getRoomDates().get(k)
 						.isValidReservation(WaitList.get(i));
 					}
 				}
@@ -89,30 +89,26 @@ public class Waitlist
 			else if(WaitList.get(i).getmRoom() instanceof KaraokeLounge)
 			{
 				//We're going through each room inside the arraylist 
-				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
+				for(j = 0; RoomList.getmRoomList().getmKaraokeRooms().size() > j; j++)
 				{
 					//We're checking each room's arraylist of date to see if the reservation is valid 
-					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+					for(k = 0; RoomList.getmRoomList().getmKaraokeRooms().get(j).getRoomDates().size() > k; k++)
 					{
 						//Checking if the reservation is valid!
-						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						RoomList.getmRoomList().getmKaraokeRooms().get(j).getRoomDates().get(k)
 						.isValidReservation(WaitList.get(i));
 					}
 				}
 			}
 			else if(WaitList.get(i).getmRoom() instanceof AquaWorld)
 			{
-				//We're going through each room inside the arraylist 
-				for(j = 0; RoomList.getmRoomList().getmSmallRooms().size() > j; j++)
-				{
-					//We're checking each room's arraylist of date to see if the reservation is valid 
-					for(k = 0; RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().size() > k; k++)
+				//We're checking each room's arraylist of date to see if the reservation is valid 
+				for(k = 0; RoomList.getmRoomList().getmAquaWorld().getRoomDates().size() > k; k++)
 					{
 						//Checking if the reservation is valid!
-						RoomList.getmRoomList().getmSmallRooms().get(j).getRoomDates().get(k)
+						RoomList.getmRoomList().getmAquaWorld().getRoomDates().get(k)
 						.isValidReservation(WaitList.get(i));
 					}
-				}
 			}
 		}
 		
