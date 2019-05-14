@@ -15,7 +15,7 @@ public class Date implements Comparable {
 		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
 		Guest JOTARO = Guest.JOTARO_KUJO;
 		Time[] s = Time.ALL_TIMES;
-		SmallPartyRoom testRoom = new SmallPartyRoom(false);
+		SmallPartyRoom testRoom = new SmallPartyRoom();
 		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate1.mDay, testRoom, DIO);
 		Reservation joeRes = new Reservation(Time.ALL_TIMES[25], Time.ALL_TIMES[32], testDate1.mDay, testRoom, JOESEPH);
 		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[52], Time.ALL_TIMES[59], testDate1.mDay, testRoom, JOTARO);
@@ -39,6 +39,18 @@ public class Date implements Comparable {
 		//TODO test when the time ends right as another starts
 	}
 	
+	public ArrayList<Reservation> getmReservations() {
+		return mReservations;
+	}
+
+	public Day getmDay() {
+		return mDay;
+	}
+
+	public ArrayList<Time> getmOpenTimes() {
+		return mOpenTimes;
+	}
+
 	private static void DebugTimeFramePrint(Reservation pReservation) {
 		System.out.println(pReservation.getmGuest().getmName() + 
 				"\n Guest Time : " + DebugGuestTimeString(pReservation) +
@@ -275,7 +287,7 @@ public class Date implements Comparable {
 		Collections.sort(mOpenTimes);
 	}
 	
-	private boolean isOpen(Time pStart, Time pEnd) {
+	public boolean isOpen(Time pStart, Time pEnd) {
 		Time start = pStart.Clone(), end = pEnd.Clone();
 		int r = 0;
 		boolean open = true;
@@ -299,7 +311,7 @@ public class Date implements Comparable {
 	}
 	
 	//tested
-	private boolean isOpen(Reservation pReservation) {
+	public boolean isOpen(Reservation pReservation) {
 		Time start, end;
 		int r = 0;
 		boolean open = true;

@@ -2,6 +2,7 @@ package edu.csulb.cecs277.DJJJ;
 
 public class Reservation {
 	
+	private int mConfirmationNumber;
 	private int mMaintenanceTime;
 	private Time mFunctionStartTime; 
 	private Time mFunctionEndTime;
@@ -97,7 +98,8 @@ public class Reservation {
 	}
 	
 	
-	public void EditGuestStartTime(Time newTime) {
+	public void EditGuestStartTime(Time newTime) 
+	{
 		int[] timeDiff = mFunctionStartTime.difference(newTime);
 		mSetup.mFunctionStartTime.add(timeDiff[0], timeDiff[1]);
 		mSetup.mFunctionEndTime.add(timeDiff[0], timeDiff[1]);
@@ -190,6 +192,20 @@ public class Reservation {
 
 	public boolean isCleanup() {
 		return isCleanup;
+	}
+	
+	/**
+	 * @return the mConfirmationNumber
+	 */
+	public int getmConfirmationNumber() {
+		return mConfirmationNumber;
+	}
+
+	/**
+	 * @param mConfirmationNumber the mConfirmationNumber to set
+	 */
+	public void setmConfirmationNumber(int mConfirmationNumber) {
+		this.mConfirmationNumber = mConfirmationNumber;
 	}
 	
 	public String toString() {
