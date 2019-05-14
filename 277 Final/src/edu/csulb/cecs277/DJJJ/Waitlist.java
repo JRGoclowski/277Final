@@ -34,7 +34,56 @@ public class Waitlist
 	}
 	
 	
+	private Reservation checkForOpenReservation() {
+		
+		for (Reservation iRes : WaitList) {
+			Room desiredRoom = iRes.getmRoom(), defaultRoom, openRoom;
+			if (desiredRoom instanceof SmallPartyRoom) {
+				defaultRoom = new SmallPartyRoom();
+				openRoom = checkRooms(RoomList.getmRoomList().getmSmallRooms(), iRes, defaultRoom);
+				if (!openRoom.equals(defaultRoom)) {
+					return iRes;
+				}
+			}
+			else if (desiredRoom instanceof MediumPartyRoom) {
+				defaultRoom = new MediumPartyRoom();
+				openRoom = checkRooms(RoomList.getmRoomList().getmMediumRooms(), iRes, defaultRoom);
+				if (!openRoom.equals(defaultRoom)) {
+					return iRes;
+				}
+			}
+			else if (desiredRoom instanceof KaraokeLounge) {
+				defaultRoom = new MediumPartyRoom();
+				openRoom = checkRooms(RoomList.getmRoomList().getmMediumRooms(), iRes, defaultRoom);
+				if (!openRoom.equals(defaultRoom)) {
+					return iRes;
+				}
+			}
+			else if (desiredRoom instanceof BilliardsLounge) {
+				
+			}
+			else if (desiredRoom instanceof AquaWorld) {
+				
+			}
+			
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (iDate.getmDay().equals(pReservation.getmDay())){
+					if (iDate.isOpen((pReservation))){
+						return iRoom;						
+					}
+				}
+			}
+		} 
+	}
 	
+	private Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation, Room pDefault) {
+		for (Room iRoom : pRooms) {
+			for (Date iDate : iRoom.getRoomDates()) {
+				if ()
+			}
+		}
+		
+	}
 	//This is used whenever, walks through every reservation in the waitlist when a time is free 
 	public void update()
 	{
@@ -113,12 +162,8 @@ public class Waitlist
 		}
 		
 	}
-
 	
-	public static void main(String[] args)
-	{
-		System.out.println("hi");
-	}
+	
 }
 
 

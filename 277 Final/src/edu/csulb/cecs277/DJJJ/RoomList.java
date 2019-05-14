@@ -8,10 +8,10 @@ public class RoomList
 	private static RoomList mRoomList;
 	
 	//ArrayList of rooms for waitlist, when we make the rooms, we add it to this array list of rooms 
-	private ArrayList<SmallPartyRoom> mSmallRooms = new ArrayList<SmallPartyRoom>();
-	private ArrayList<MediumPartyRoom> mMediumRooms = new ArrayList<MediumPartyRoom>();
-	private ArrayList<KaraokeLounge> mKaraokeRooms = new ArrayList<KaraokeLounge>();
-	private ArrayList<BilliardsLounge> mBilliardRooms = new ArrayList<BilliardsLounge>();
+	private ArrayList<Room> mSmallRooms = new ArrayList<Room>();
+	private ArrayList<Room> mMediumRooms = new ArrayList<Room>();
+	private ArrayList<Room> mKaraokeRooms = new ArrayList<Room>();
+	private ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
 	private AquaWorld mAquaWorld = new AquaWorld();
 	
 //	Each room has a waitlist?
@@ -40,7 +40,7 @@ public class RoomList
 	/**
 	 * @return the mSmallRooms
 	 */
-	public ArrayList<SmallPartyRoom> getmSmallRooms() 
+	public ArrayList<Room> getmSmallRooms() 
 	{
 		return mSmallRooms;
 	}
@@ -49,7 +49,7 @@ public class RoomList
 	/**
 	 * @return the mMediumRooms
 	 */
-	public ArrayList<MediumPartyRoom> getmMediumRooms() 
+	public ArrayList<Room> getmMediumRooms() 
 	{
 		return mMediumRooms;
 	}
@@ -58,7 +58,7 @@ public class RoomList
 	/**
 	 * @return the mKaraokeRooms
 	 */
-	public ArrayList<KaraokeLounge> getmKaraokeRooms() 
+	public ArrayList<Room> getmKaraokeRooms() 
 	{
 		return mKaraokeRooms;
 	}
@@ -67,7 +67,7 @@ public class RoomList
 	/**
 	 * @return the mBilliardRooms
 	 */
-	public ArrayList<BilliardsLounge> getmBilliardRooms() 
+	public ArrayList<Room> getmBilliardRooms() 
 	{
 		return mBilliardRooms;
 	}
