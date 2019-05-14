@@ -15,7 +15,7 @@ public class Date implements Comparable {
 		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
 		Guest JOTARO = Guest.JOTARO_KUJO;
 		Time[] s = Time.ALL_TIMES;
-		SmallPartyRoom testRoom = new SmallPartyRoom(false);
+		SmallPartyRoom testRoom = new SmallPartyRoom();
 		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate1.mDay, testRoom, DIO);
 		Reservation joeRes = new Reservation(Time.ALL_TIMES[25], Time.ALL_TIMES[32], testDate1.mDay, testRoom, JOESEPH);
 		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[52], Time.ALL_TIMES[59], testDate1.mDay, testRoom, JOTARO);

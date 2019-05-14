@@ -7,6 +7,8 @@ public class RoomList
 	//implement the singleton 
 	private static RoomList mRoomList;
 	
+	private static int mConfirmationCount = 1000;
+	
 	//ArrayList of rooms for waitlist, when we make the rooms, we add it to this array list of rooms 
 	private ArrayList<Room> mSmallRooms = new ArrayList<Room>();
 	private ArrayList<Room> mMediumRooms = new ArrayList<Room>();
@@ -26,8 +28,126 @@ public class RoomList
 	{
 		mRoomList = this;
 	}
+	
+	/**
+	 * Takes these parameters and attempts to create a 
+	 * @param pGuestStart
+	 * @param pGuestEnd
+	 * @param pGuest
+	 * @param desiredRoom
+	 * @param pDay
+	 * @return
+	 */
+	
+	public Reservation TakeReservation(Time pGuestStart, Time pGuestEnd, Guest pGuest, String desiredRoom, Day pDay) {
+		Reservation possibleRes;
+		switch (desiredRoom) {
+			case "Small":
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new SmallPartyRoom(), pGuest);
+				break;
+			case "Medium":
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new MediumPartyRoom(), pGuest);
+				break;
+			case "Karaoke":
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new KaraokeLounge(),pGuest);
+				break;
+			case "Billiards":
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new BilliardsLounge(), pGuest);
+				break;
+			case "AquaWorld":
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new AquaWorld(), pGuest);
+				break;
+			default: 
+				possibleRes = new Reservation(pGuestStart, pGuestEnd, pDay, new SmallPartyRoom(), pGuest);
+				break;
+		}
+		return possibleRes;
+	}
 
+	public boolean PlaceReservation(Reservation pReservation) {
+		Room desiredRoom = pReservation.getmRoom(), openRoom;
+		if (desiredRoom instanceof SmallPartyRoom) {
+			openRoom = checkRooms(RoomList.getmRoomList().getmSmallRooms(), pReservation);
+			if (openRoom != null) {
+				pReservation.setmRoom(openRoom);
+				addValidRes(pReservation);
+				return true;
+			}
+		}
+		else if (desiredRoom instanceof MediumPartyRoom) {
+			openRoom = checkRooms(RoomList.getmRoomList().getmMediumRooms(), pReservation);
+			if (openRoom != null) {
+				pReservation.setmRoom(openRoom);
+				addValidRes(pReservation);
+				return true;
+			}
+		}
+		else if (desiredRoom instanceof KaraokeLounge) {
+			openRoom = checkRooms(RoomList.getmRoomList().getmKaraokeRooms(), pReservation);
+			if (openRoom != null) {
+				pReservation.setmRoom(openRoom);
+				addValidRes(pReservation);
+				return true;
+			}
+		}
+		else if (desiredRoom instanceof BilliardsLounge) {
+			openRoom = checkRooms(RoomList.getmRoomList().getmKaraokeRooms(), pReservation);
+			if (openRoom != null) {
+				pReservation.setmRoom(openRoom);
+				addValidRes(pReservation);
+				return true;
+			}
+		}
+		else if (desiredRoom instanceof AquaWorld) {
+			Room lAqua = RoomList.getmRoomList().getmAquaWorld();
+			for (Date iDate : lAqua.getRoomDates()) {
+				if (pReservation.getmDay().equals(iDate.getmDay())){
+					if (iDate.isOpen(pReservation)) {
+						pReservation.setmRoom(RoomList.getmRoomList().getmAquaWorld());
+						addValidRes(pReservation);
+						return true;
+					}
+				}
+			}
+		}
+		Waitlist.getmWaitlist().addToWaitList(pReservation);
+		return false; 
+	}
 
+		/**
+		 * Goes through each room and returns any that are open for the res.
+		 * @param pRooms - The list of rooms possible
+		 * @param pReservation - The reservation desired
+		 * @param pDefault - a
+		 * @return
+		 */
+	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
+		for (Room iRoom : pRooms) {
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (pReservation.getmDay().equals(iDate.getmDay())){
+					if (iDate.isOpen(pReservation)) {
+						return iRoom;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Adds a reservation that has a valid room
+	 * @param pReservation - the room to be added.
+	 */
+	private static void addValidRes(Reservation pReservation) {
+		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
+			if (pReservation.getmDay().equals(iDate.getmDay())){
+				pReservation.setmConfirmationNumber(mConfirmationCount++);
+				iDate.addReservation(pReservation);
+			}
+		}
+		
+	}
+	
 	/**
 	 * @return the mRoomList
 	 */
