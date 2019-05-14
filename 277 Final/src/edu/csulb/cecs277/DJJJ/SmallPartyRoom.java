@@ -16,7 +16,7 @@ public class SmallPartyRoom extends Room implements Cloneable {
 		setHourlyCost(150);
 		setRoomDescription("Room with party tables and chairs, adjacent to arcade.");
 		addRoomAmenity("table & chair set-up");
-		//setRoomMealPlan(Basic Meal Plan);      ------>Requires meal plan class to properly add a basic meal plan
+		setRoomMealPlan(new BasicPlan());
 	}
 
 	//adds the provided amenity to the room's list and adjusts the flat cost appropriately
@@ -34,7 +34,7 @@ public class SmallPartyRoom extends Room implements Cloneable {
 
 	//upgrades the room's meal plan to the given meal plan and adjusts the flat cost appropriately
 	public void upgradeTo(MealPlan newMeal) {
-		if (!(newMeal.getName().equals(getRoomMealPlan().getName()))) {		//----------->Requires placeholder "getName()" to be replaced by the real function to retrieve the name of a meal plan object
+		if (!(newMeal.getPlan().equals(getRoomMealPlan().getPlan()))) {		//----------->Requires placeholder "getName()" to be replaced by the real function to retrieve the name of a meal plan object
 			addToRoomFlatCost(newMeal.getCost() - getRoomMealPlan().getCost());	//Requires placeholder "getCost()" to be replaced by the real function to retrieve the cost of a meal plan object
 			setRoomMealPlan(newMeal);
 		}
