@@ -39,6 +39,7 @@ public class RoomList
 	 * @return
 	 */
 	
+	//Makes a reservation and returns a reservation.
 	public Reservation TakeReservation(Time pGuestStart, Time pGuestEnd, Guest pGuest, String desiredRoom, Day pDay) {
 		Reservation possibleRes;
 		switch (desiredRoom) {
@@ -64,9 +65,12 @@ public class RoomList
 		return possibleRes;
 	}
 
+	//Places the reservation but first make sure that it's valid. If not, this put it inside waitlist 
 	public boolean PlaceReservation(Reservation pReservation) {
 		Room desiredRoom = pReservation.getmRoom(), openRoom;
 		if (desiredRoom instanceof SmallPartyRoom) {
+			//Checking if the reservation is valid by checking each arraylist of rooms. openRoom is the room inside the 
+			//arraylist that is open and it will return it so we can edit it. 
 			openRoom = checkRooms(RoomList.getmRoomList().getmSmallRooms(), pReservation);
 			if (openRoom != null) {
 				pReservation.setmRoom(openRoom);
@@ -121,6 +125,8 @@ public class RoomList
 		 * @param pDefault - a
 		 * @return
 		 */
+	
+	//
 	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
