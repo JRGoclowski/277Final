@@ -192,14 +192,27 @@ public class Time implements Comparable {
 		return difArray;
 	}
 	
+	/**
+	 * Adds fifteen minutes to the time
+	 * @return boolean - if the time was added properly
+	 */
 	public boolean IncFifteen() {
 		return (this.add(0, 15));
 	}
 	
+	/**
+	 * Adds one hour to the time
+	 * @return boolean - if the time was added properly
+	 */
 	public boolean IncHours() {
 		return(this.add(1, 0));
 	}
 	
+	/**
+	 * Compares a time against the arguement
+	 * @param pTime - the time to be compared to
+	 * @return boolean - if the time is before the arguement
+	 */
 	public boolean isBefore(Time pTime) {
 		Time localTime = pTime.Clone();
 		if (this.mHours > localTime.mHours) { return false; }
@@ -208,26 +221,50 @@ public class Time implements Comparable {
 		
 	}
 	
+	/**
+	 * Returns the ALL_TIMES
+	 * @return Time[] - the ALL_TIMES
+	 */
 	public static Time[] getAllTimes() {
 		return ALL_TIMES;
 	}
 
+	/**
+	 * returns the beginning of the day
+	 * @return Time - the beginning of the day
+	 */
 	public static Time getBeginningOfDay() {
 		return BEGINNING_OF_DAY.Clone();
 	}
 
+	/**
+	 * returns the end of the day
+	 * @return Time - the end of the day
+	 */
 	public static Time getEndOfDay() {
 		return END_OF_DAY.Clone();
 	}
 
+	/**
+	 * Compares if two times are equal
+	 * @param time - the time to be compared to
+	 * @return boolean - if the times are equal
+	 */
 	public boolean isEqualTo(Time time) {
 		return ((mHours == time.mHours ) && (mMinutes == time.mMinutes));
 	}
 	
+	/**
+	 * Checks if a time is within buisness hours
+	 * @return boolean - if within buisness hours
+	 */
 	public boolean isBusinessHours () {
 		return ((!isBefore(BEGINNING_OF_DAY)) && (isBefore(END_OF_DAY)));
 	}
 	
+	/**
+	 * CompareTo implementation
+	 */
 	@Override
 	public int compareTo(Object arg0) {
 		Time comparison = (Time) arg0;

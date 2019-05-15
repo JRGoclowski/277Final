@@ -16,6 +16,12 @@ public class Day implements Comparable {
 	public static final Day TEST_DATE_FEB_13 = new Day(2, 13, 2019);//TODO Remember to delete this
 	public static final Day TEST_DATE_OCT_2 = new Day(10, 2, 2019);
 	
+	/**
+	 * General constructor for a day
+	 * @param month - the month
+	 * @param day - the day
+	 * @param year - the year
+	 */
 	public Day(int month, int day, int year) {
 		if (month > MONTHS	|| day > MONTHLY_DAY_COUNT[month-1]) {
 			mMonthNumeral = 0;
@@ -43,6 +49,9 @@ public class Day implements Comparable {
 		mStringForm += " of " + mMonth.toString() + ", " + mYearNumeral;
 	}
 	
+	/**
+	 * Helper method to identify the weekday of a day
+	 */
 	private void FindWeekday() {
 		int totalDayCount = 0;
 		for (int i = 0; i < mMonthNumeral; i++) {

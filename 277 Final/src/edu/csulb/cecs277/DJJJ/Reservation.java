@@ -68,6 +68,9 @@ public class Reservation {
 		
 	}
 	
+	/**
+	 * Sets the maintenence time of the reservation based on the room
+	 */
 	private void setMaintenanceTime() {
 		if (mRoom instanceof SmallPartyRoom) {
 			mMaintenanceTime = 30;
@@ -80,6 +83,10 @@ public class Reservation {
 		}
 	}
 	
+	/**
+	 * Returns a setup reservation for the reservation
+	 * @return Reservation - the setup
+	 */
 	private Reservation MakeSetupReservation () {
 		Reservation setup = new Reservation();
 		setup.mDay = mDay;
@@ -91,6 +98,10 @@ public class Reservation {
 		return setup;
 	}
 	
+	/**
+	 * Returns a cleanup reservation for the reservation
+	 * @return Reservation - the cleanup
+	 */
 	private Reservation MakeCleanupReservation () {
 		Reservation Cleanup = new Reservation();
 		Cleanup.mDay = mDay;
@@ -104,7 +115,10 @@ public class Reservation {
 		return Cleanup;
 	}
 	
-	
+	/**
+	 * Changes the start time of the guest, altering other times
+	 * @param newTime - the new time the guest would like to start on
+	 */
 	public void EditGuestStartTime(Time newTime) 
 	{
 		int[] timeDiff = mFunctionStartTime.difference(newTime);
@@ -114,6 +128,10 @@ public class Reservation {
 		mFullStartTime = mSetup.mFunctionStartTime;
 	}
 	
+	/**
+	 * Changes the end time of the guest, altering other times
+	 * @param newTime - the new time the guest would like to end on
+	 */
 	public void EditGuestEndTime(Time newTime) {
 		int[] timeDiff = mFunctionEndTime.difference(newTime);
 		mCleanup.mFunctionStartTime.add(timeDiff[0], timeDiff[1]);
@@ -122,6 +140,11 @@ public class Reservation {
 		mFullEndTime = mCleanup.mFunctionEndTime;
 	}
 	
+	/**
+	 * Gets the reservation based on a time passed to it
+	 * @param timeRes - the time to be found
+	 * @return Reservation - whichever reservation is at that time
+	 */
 	public Reservation GetResTypeAt(Time timeRes) {
 		if (timeRes.isBefore(mFullStartTime) || (!timeRes.isBefore(mFullEndTime))) {
 			return null;
@@ -137,84 +160,19 @@ public class Reservation {
 		}
 	}
 	
-	public Day getmDay() {
-		return mDay;
-	}
-
-	public void setmDay(Day mDay) {
-		this.mDay = mDay;
-	}
-
-	public Room getmRoom() {
-		return mRoom;
-	}
-
-	public void setmRoom(Room mRoom) {
-		this.mRoom = mRoom;
-	}
-
-	public Guest getmGuest() {
-		return mGuest;
-	}
-
-	public void setmGuest(Guest mGuest) {
-		this.mGuest = mGuest;
-	}
-
-	public int getmMaintenanceTime() {
-		return mMaintenanceTime;
-	}
-
-	public Time getmFunctionStartTime() {
-		return mFunctionStartTime;
-	}
-
-	public Time getmFunctionEndTime() {
-		return mFunctionEndTime;
-	}
-
-	public Time getmFullStartTime() {
-		return mFullStartTime;
-	}
-
-	public Time getmFullEndTime() {
-		return mFullEndTime;
-	}
-
-	public Reservation getmSetup() {
-		return mSetup;
-	}
-
-	public Reservation getmGuestReservation() {
-		return mGuestReservation;
-	}
-
-	public Reservation getmCleanup() {
-		return mCleanup;
-	}
-
-	public boolean isSetup() {
-		return isSetup;
-	}
-
-	public boolean isCleanup() {
-		return isCleanup;
-	}
-	
-	
 	
 	/**
-	 * @return the mRoomTheme
+	 * @return the mConfirmationNumber
 	 */
-	public String getmRoomTheme() {
-		return mRoomTheme;
+	public int getmConfirmationNumber() {
+		return mConfirmationNumber;
 	}
 
 	/**
-	 * @param mRoomTheme the mRoomTheme to set
+	 * @param mConfirmationNumber the mConfirmationNumber to set
 	 */
-	public void setmRoomTheme(String mRoomTheme) {
-		this.mRoomTheme = mRoomTheme;
+	public void setmConfirmationNumber(int mConfirmationNumber) {
+		this.mConfirmationNumber = mConfirmationNumber;
 	}
 
 	/**
@@ -231,21 +189,62 @@ public class Reservation {
 		this.mMealPlan = mMealPlan;
 	}
 
-	
 	/**
-	 * @return the mConfirmationNumber
+	 * @return the mDay
 	 */
-	public int getmConfirmationNumber() {
-		return mConfirmationNumber;
+	public Day getmDay() {
+		return mDay;
 	}
 
 	/**
-	 * @param mConfirmationNumber the mConfirmationNumber to set
+	 * @param mDay the mDay to set
 	 */
-	public void setmConfirmationNumber(int mConfirmationNumber) {
-		this.mConfirmationNumber = mConfirmationNumber;
+	public void setmDay(Day mDay) {
+		this.mDay = mDay;
 	}
-	
+
+	/**
+	 * @return the mRoom
+	 */
+	public Room getmRoom() {
+		return mRoom;
+	}
+
+	/**
+	 * @param mRoom the mRoom to set
+	 */
+	public void setmRoom(Room mRoom) {
+		this.mRoom = mRoom;
+	}
+
+	/**
+	 * @return the mGuest
+	 */
+	public Guest getmGuest() {
+		return mGuest;
+	}
+
+	/**
+	 * @param mGuest the mGuest to set
+	 */
+	public void setmGuest(Guest mGuest) {
+		this.mGuest = mGuest;
+	}
+
+	/**
+	 * @return the mRoomTheme
+	 */
+	public String getmRoomTheme() {
+		return mRoomTheme;
+	}
+
+	/**
+	 * @param mRoomTheme the mRoomTheme to set
+	 */
+	public void setmRoomTheme(String mRoomTheme) {
+		this.mRoomTheme = mRoomTheme;
+	}
+
 	/**
 	 * @return the checkedIn
 	 */
@@ -274,7 +273,76 @@ public class Reservation {
 		this.checkedOut = checkedOut;
 	}
 
-	
+	/**
+	 * @return the mMaintenanceTime
+	 */
+	public int getmMaintenanceTime() {
+		return mMaintenanceTime;
+	}
+
+	/**
+	 * @return the mFunctionStartTime
+	 */
+	public Time getmFunctionStartTime() {
+		return mFunctionStartTime;
+	}
+
+	/**
+	 * @return the mFunctionEndTime
+	 */
+	public Time getmFunctionEndTime() {
+		return mFunctionEndTime;
+	}
+
+	/**
+	 * @return the mFullStartTime
+	 */
+	public Time getmFullStartTime() {
+		return mFullStartTime;
+	}
+
+	/**
+	 * @return the mFullEndTime
+	 */
+	public Time getmFullEndTime() {
+		return mFullEndTime;
+	}
+
+	/**
+	 * @return the mSetup
+	 */
+	public Reservation getmSetup() {
+		return mSetup;
+	}
+
+	/**
+	 * @return the mGuestReservation
+	 */
+	public Reservation getmGuestReservation() {
+		return mGuestReservation;
+	}
+
+	/**
+	 * @return the mCleanup
+	 */
+	public Reservation getmCleanup() {
+		return mCleanup;
+	}
+
+	/**
+	 * @return the isSetup
+	 */
+	public boolean isSetup() {
+		return isSetup;
+	}
+
+	/**
+	 * @return the isCleanup
+	 */
+	public boolean isCleanup() {
+		return isCleanup;
+	}
+
 	public String toString() {
 		if (isCleanup) {
 			return "Cleanup Reservation";

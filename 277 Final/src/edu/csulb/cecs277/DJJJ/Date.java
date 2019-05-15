@@ -3,102 +3,40 @@ package edu.csulb.cecs277.DJJJ;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Date implements Comparable {
-	
-	//TODO check on editting reservations, do getting reservations, and retest with changes to codes
-	
-	
-	public static void main(String args[]) 
-	{
-		Date testDate1 = new Date(Day.TEST_DATE_FEB_13);
-		Guest DIO = Guest.DIO_BRANDO;
-		Guest JOESEPH = Guest.JOESEPH_JOESTAR;
-		Guest JOTARO = Guest.JOTARO_KUJO;
-		Time[] s = Time.ALL_TIMES;
-		SmallPartyRoom testRoom = new SmallPartyRoom();
-		Reservation dioRes = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], testDate1.mDay, testRoom, DIO);
-		Reservation joeRes = new Reservation(Time.ALL_TIMES[25], Time.ALL_TIMES[32], testDate1.mDay, testRoom, JOESEPH);
-		Reservation jotaroRes = new Reservation(Time.ALL_TIMES[52], Time.ALL_TIMES[59], testDate1.mDay, testRoom, JOTARO);
-		
-		DebugTimeFramePrint(dioRes);
-		DebugResPrint(testDate1, dioRes);
-		DebugTimeFramePrint(joeRes);
-		DebugResPrint(testDate1, joeRes);
-		DebugTimeFramePrint(jotaroRes);
-		DebugResPrint(testDate1, jotaroRes);
-		System.out.println(testDate1.editReservationStart(jotaroRes, Time.ALL_TIMES[48]));
-		DebugTimeFramePrint(jotaroRes);
-		System.out.println(testDate1.editReservationEnd(dioRes, Time.ALL_TIMES[20]));
-		DebugTimeFramePrint(dioRes);
-		System.out.println(testDate1.GetReservation(Time.ALL_TIMES[1]).toString());
-		DebugRelPrint(testDate1, dioRes);
-		DebugRelPrint(testDate1, joeRes);
-		DebugRelPrint(testDate1, jotaroRes);
-		
-		
-		//TODO test when the time ends right as another starts
-	}
-	
-	public ArrayList<Reservation> getmReservations() {
-		return mReservations;
-	}
-
-	public Day getmDay() {
-		return mDay;
-	}
-
-	public ArrayList<Time> getmOpenTimes() {
-		return mOpenTimes;
-	}
-
-	private static void DebugTimeFramePrint(Reservation pReservation) {
-		System.out.println(pReservation.getmGuest().getmName() + 
-				"\n Guest Time : " + DebugGuestTimeString(pReservation) +
-				"\n Full Time : " + DebugFullTimeString(pReservation));
-	}
-	
-	private static String DebugGuestTimeString (Reservation pReservation) {
-		String guestTime = pReservation.getmFunctionStartTime().toString() + " - " + pReservation.getmFunctionEndTime().toString();
-		return guestTime;
-	}
-	
-	private static String DebugFullTimeString (Reservation pReservation) {
-		String fullTime = pReservation.getmFullStartTime().toString() + " - " + pReservation.getmFullEndTime().toString();
-		return fullTime;
-	}
-	
-	private static void DebugResPrint(Date pDate, Reservation pRes){
-		System.out.println(pDate.addReservation(pRes));
-		System.out.println(pDate.GetAvailableBlocks().toString());
-	}
-	
-	private static void DebugRelPrint(Date pDate, Reservation pRes){
-		System.out.println(pDate.removeReservation(pRes));
-		System.out.println(pDate.GetAvailableBlocks().toString());
-	}
+public class Date  {
 	
 	private ArrayList<Reservation> mReservations = new ArrayList<Reservation>();
 	private Day mDay;
 	private ArrayList<Time> mOpenTimes = new ArrayList<Time>();
 	
-	
+	/**
+	 * Constructor for Date, takes in a day parameter
+	 * @param day - the day that the date is on
+	 */
 	public Date(Day day) {
 		mDay = day;
 		FillOpenTimes();
 	}
 	
-	//TODO Check if there are issues with room availability
+	/**
+	 * Checks if a reservation is a valid reservation
+	 * @param reservation - the reservation to be checked
+	 * @return boolean - whether the reservation is valid
+	 */
 	public boolean isValidReservation(Reservation reservation) {
-		Time testTime = Time.getBeginningOfDay();
-		boolean testFinal = reservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay());
-		boolean testConstructed = reservation.getmFunctionStartTime().isBefore(testTime);
-		boolean valid = true, cond1 = !reservation.getmFunctionStartTime().isBefore(Time.getBeginningOfDay()) , cond2 = reservation.getmFunctionStartTime().isBefore(Time.getEndOfDay());
+		boolean valid = true;
 		valid = (reservation.getmFunctionStartTime().isBusinessHours() 
 				&&  reservation.getmFunctionEndTime().isBusinessHours());
 		valid = ((isOpen(reservation)) && valid);
 		return valid;
 	}
 	
+	/**
+	 * Allows for a reservations' start time to be editted
+	 * @param pReservation - the reservation to be editted
+	 * @param pStart - the new time that the guest would like to start at
+	 * @return boolean - if the time was adjusted
+	 */
 	public boolean editReservationStart(Reservation pReservation, Time pStart) {
 		int[] diffTime = pReservation.getmFunctionStartTime().difference(pStart);
 		Time newStart = pReservation.getmFullStartTime().Clone();
@@ -111,6 +49,13 @@ public class Date implements Comparable {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * Allows for a reservations' end time to be editted
+	 * @param pReservation - the reservation to be editted
+	 * @param pStart - the new time that the guest would like to end at
+	 * @return boolean - if the time was adjusted
+	 */
 	public boolean editReservationEnd(Reservation pReservation, Time pEnd) {
 		int[] diffTime = pReservation.getmFunctionEndTime().difference(pEnd);
 		Time newEnd = pReservation.getmFullEndTime().Clone();
@@ -123,6 +68,11 @@ public class Date implements Comparable {
 		return false;
 	}
 	
+	/**
+	 * If a reservation is valid, adds it to the list of reservations for the date
+	 * @param reservation - the reservation to be added	 
+	 * @return boolean - whether the reservation was added.
+	 */
 	public boolean addReservation(Reservation reservation) {
 		if (!(isValidReservation(reservation))) {
 			return false;
@@ -132,6 +82,11 @@ public class Date implements Comparable {
 		return true;		
 	}
 	
+	/**
+	 * Removes a reservation from the day
+	 * @param pReservation - the reservation to be removed
+	 * @return boolean - if the reservation was found and removed
+	 */
 	public boolean removeReservation(Reservation pReservation) {
 		if (!mReservations.contains(pReservation)) {
 			return false;
@@ -141,6 +96,11 @@ public class Date implements Comparable {
 		return true;
 	}
 	
+	/**
+	 * returns a reservation searching by guest
+	 * @param guest - the guest whos reservation is needed
+	 * @return Reservation - the reservation of the guest
+	 */
 	public Reservation GetReservation(Guest guest) {
 		for (Reservation currRes : mReservations) {
 			if (currRes.getmGuest().equals(guest)){
@@ -150,6 +110,11 @@ public class Date implements Comparable {
 		return null;
 	}
 	
+	/**
+	 * returns a reservation searching by guest
+	 * @param guestName - the name of the guest whose reservation is needed
+	 * @return Reservation - the reservation of the guest
+	 */
 	public Reservation GetReservation(String guestName) {
 		for (Reservation currRes : mReservations) {
 			if (currRes.getmGuest().getmName().equals(guestName)){
@@ -159,6 +124,11 @@ public class Date implements Comparable {
 		return null;
 	}
 	
+	/**
+	 * returns a reservation searching by time
+	 * @param pTime - the Time that the reservation is 
+	 * @return Reservation - the reservation at that time.
+	 */
 	public Reservation GetReservation(Time pTime) {
 		for (Reservation currRes : mReservations) {
 			if ((!pTime.isBefore(currRes.getmFullStartTime())) && pTime.isBefore(currRes.getmFullEndTime())){
@@ -176,7 +146,9 @@ public class Date implements Comparable {
 		return null;
 	}
 	
-	//tested
+	/**
+	 * Fills the mOpenTimes array list with all time frames of the day
+	 */
 	private void FillOpenTimes() {
 		for (int i = 9; i < 24; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -187,7 +159,11 @@ public class Date implements Comparable {
 			
 	}
 	
-	//MUST ONLY BE CALLED AFTER VERIFIED WITH VALID REGISTRATION
+	/**
+	 * Removes times from mOpenTimes based on when a reservation is
+	 * @param pReservation - the reservation for which time must be reserved
+	 * @return boolean - whether the times were reserved properly
+	 */
 	private boolean ReserveTimes(Reservation pReservation) {
 		Time start, end;
 		int r = 0;
@@ -223,6 +199,11 @@ public class Date implements Comparable {
 		return true;
 	}
 	
+	/**
+	 * Removes times from mOpenTimes based on times passed
+	 * @param start - the start time to start removing from
+	 * @param end - the end time to stop removing 
+	 */
 	private void ReserveTimes(Time start, Time end) {
 		int r = 0; 
 		while (!(mOpenTimes.get(r).isEqualTo(start))) {
@@ -234,6 +215,11 @@ public class Date implements Comparable {
 		}
 	}
 	
+	/**
+	 * Adds times back to the mOpenTimes based on a reservation removed
+	 * @param pReservation - the reservation that is removed
+	 * @return boolean - whether the times were added back
+	 */
 	private boolean ReleaseTimes(Reservation pReservation) {
 		Time start, end, timeWalker;
 		int r = 0;
@@ -269,7 +255,11 @@ public class Date implements Comparable {
 		return true;
 	}
 	
-	
+	/**
+	 * Adds times to mOpenTimes based on times passed
+	 * @param start - the start time to start adding
+	 * @param end - the end time to stop adding 
+	 */
 	private void ReleaseTimes(Time start, Time end) {
 		int r = 0;
 		while ((mOpenTimes.get(r).isBefore(start))) {
@@ -287,6 +277,12 @@ public class Date implements Comparable {
 		Collections.sort(mOpenTimes);
 	}
 	
+	/**
+	 * checks if times are open for use on the date
+	 * @param pStart - the start time to begin checking
+	 * @param pEnd - the end time to stop checking
+	 * @return boolean - whether the time is open
+	 */
 	public boolean isOpen(Time pStart, Time pEnd) {
 		Time start = pStart.Clone(), end = pEnd.Clone();
 		int r = 0;
@@ -310,7 +306,11 @@ public class Date implements Comparable {
 		return open;
 	}
 	
-	//tested
+	/**
+	 * checks if times are open for a reservation
+	 * @param pReservation - the reservation to check if available
+	 * @return boolean - whether the time is open
+	 */
 	public boolean isOpen(Reservation pReservation) {
 		Time start, end;
 		int r = 0;
@@ -356,6 +356,10 @@ public class Date implements Comparable {
 		return open;
 	}
 	
+	/**
+	 * Returns an arraylist of strings for available, bookable times
+	 * @return ArrayList<String> - the collection of timeframe strings
+	 */
 	public ArrayList<String> GetAvailableBlocks() {
 		Time startTime, endTime, timeWalker = Time.getBeginningOfDay();
 		ArrayList <String> timeStrings = new ArrayList<String>();
@@ -397,13 +401,35 @@ public class Date implements Comparable {
 		return timeStrings;		
 	}
 	
+	/**
+	 * returns the mReservations
+	 * @return ArrayList<Reservation> - the mReservations
+	 */
+	public ArrayList<Reservation> getmReservations() {
+		return mReservations;
+	}
+	
+	/**
+	 * returns the mDay
+	 * @return Day - the mDay
+	 */
+	public Day getmDay() {
+		return mDay;
+	}
+	
+	/**
+	 * Returns the mOpenTimes
+	 * @return ArrayList<Time> - the mOpenTimes
+	 */
+	public ArrayList<Time> getmOpenTimes() {
+		return mOpenTimes;
+	}
+
+	/**
+	 * Returns a string format of the date
+	 */
 	public String toString() {
 		return (mDay.getmStringForm() + ", has " + mReservations.size() + " reservations");
 	}
 
-	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
