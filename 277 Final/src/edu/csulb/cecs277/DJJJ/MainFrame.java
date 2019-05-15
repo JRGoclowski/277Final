@@ -2,7 +2,9 @@ package edu.csulb.cecs277.DJJJ;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -19,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 /*
@@ -273,9 +277,13 @@ public class MainFrame extends JFrame {
 
 		menuItem = new JMenuItem("Check-in");
 		submenu.add(menuItem);
+		//Add a actionlistener for submenu here 
+		menuItem.addActionListener(new checkInorOut());
 						
 		menuItem = new JMenuItem("Check-out");
 		submenu.add(menuItem);
+		//Add a actionlistener for submenu here 
+		menuItem.addActionListener(new checkInorOut());
 						
 		menu.add(submenu);
 				
@@ -366,6 +374,62 @@ public class MainFrame extends JFrame {
 	
 	//---------------------------------------------------------------------------------------------------------------------
 	 
+	//This action listeners creates a panel according to whether the user clicked check in or out 
+	class checkInorOut implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent click) 
+		{
+			
+			JMenuItem menuItem = (JMenuItem) click.getSource();
+			String item = menuItem.getText();
+			//Creates the frame and panal
+			JFrame frame = new JFrame(item);
+			JPanel panel = new JPanel();
+			
+			frame.setSize(800, 600);
+			frame.setVisible(true);
+				
+			//Sets it so the frame is in the middle of the screen
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+
+			//Adds the text and dropdrop for month day year
+			JLabel monthText = new JLabel("Month: ");
+			JLabel dayText = new JLabel("Day: ");
+			JLabel yearText = new JLabel("Year: ");
+			
+			String[] months = { "January", "Februrary", "March", "April", "May", "June", "July", "August", "September", 
+					"Octocber", "November", "December"};
+			JComboBox month = new JComboBox(months);
+			
+			String[] days = {"28", "30", "31"};
+			JComboBox day = new JComboBox(days);
+			
+			JTextField year = new JTextField("Enter Year");
+			
+//			month.addActionListener(new ActionListener()
+//			{
+//				public void actionPerformed(ActionEvent event)
+//					{
+//						
+//					}
+//			});
+			
+			panel.add(monthText);
+			panel.add(month);
+			
+			panel.add(dayText);
+			panel.add(day);
+			
+			panel.add(yearText);
+			panel.add(year);
+				
+			frame.add(panel);
+		}
+	}
+
+	
 	class MealItemListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent click) {
