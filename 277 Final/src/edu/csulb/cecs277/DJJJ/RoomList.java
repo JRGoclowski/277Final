@@ -16,6 +16,9 @@ public class RoomList
 	private ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
 	private AquaWorld mAquaWorld = new AquaWorld();
 	
+	//Array list of guest 
+	private ArrayList<Guest> mGuestList = new ArrayList<Guest>();
+	
 //	Each room has a waitlist?
 	private Waitlist mWaitlist = Waitlist.getmWaitlist();
 //	private Waitlist mMediumList = new Waitlist();
@@ -70,10 +73,13 @@ public class RoomList
 		Room desiredRoom = pReservation.getmRoom(), openRoom;
 		if (desiredRoom instanceof SmallPartyRoom) {
 			//Checking if the reservation is valid by checking each arraylist of rooms. openRoom is the room inside the 
-			//arraylist that is open and it will return it so we can edit it. 
+			//arraylist that is open and it will return it so we can edit it. The room that is free 
 			openRoom = checkRooms(RoomList.getmRoomList().getmSmallRooms(), pReservation);
 			if (openRoom != null) {
+				//Set the reservation to the room 
 				pReservation.setmRoom(openRoom);
+				
+				//Just founds the room and finally sets the reservation to that date 
 				addValidRes(pReservation);
 				return true;
 			}
@@ -126,9 +132,10 @@ public class RoomList
 		 * @return
 		 */
 	
-	//
+	//Checks if the room is open 
 	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
+			//Each room has a date 
 			for (Date iDate : iRoom.getRoomDates()) {
 				if (pReservation.getmDay().equals(iDate.getmDay())){
 					if (iDate.isOpen(pReservation)) {
@@ -232,6 +239,27 @@ public class RoomList
 
 
 
+
+
+//MANAGE CURRENT RESERVATION 
+
+//Check in and out frames 
+//The code is going to look like, build the frame. 
+//Write three frames
+
+//What day they want to look at. Go through every single day and get every date 
+//Each date go through every single reservation
+
+//NEXT FRAME CHECK IN 
+//Every single reservation guest that has checked in set to false, get that guest. 
+//Display all the guest that are false
+//This frame should be able to click a guest and be able to check in 
+//When check in is pressed, when the reservation check in and false and the guest is removed from the frame. 
+
+//THIRD FRAME CHECK OUT 
+//Every single reservation guest for that date and checked in true
+//Shows all the guest and makes be able to check out 
+//Pay the rest of it 
 
 
 

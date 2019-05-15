@@ -97,6 +97,7 @@ public class Waitlist
 		if (validRes != null) {
 			Room desiredRoom = validRes.getmRoom();  
 			ArrayList<Date> dates =desiredRoom.getRoomDates();
+			//IMPORTANT 
 			for (Date iDate: dates) {
 				if (iDate.getmDay().equals(validRes.getmDay())){
 					return iDate.addReservation(validRes);
