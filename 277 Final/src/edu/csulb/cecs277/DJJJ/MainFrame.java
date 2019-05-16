@@ -369,6 +369,8 @@ public class MainFrame extends JFrame {
 		description.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
 		description.setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
 		p.add(description);
+		JButton bookButton = new JButton("Book Now");
+		p.add(bookButton);
 		container.add(p);
 	}
 	
@@ -429,6 +431,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	//---------------------------------------------------------------------------------------------------------------------
 	
 	class MealItemListener implements ActionListener {
 		@Override
