@@ -28,7 +28,7 @@ public class ReservationFrame extends JFrame {
 	
 	public static void main(String args[]) {
 		ReservationFrame lRF = new ReservationFrame();
-		lRF.setVisible();
+		lRF.setVisible(true);
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class ReservationFrame extends JFrame {
 	
 	private JCheckBox mPhoneC, mEmailC;
 	
-	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
+	private JComboBox<String> mRoomTypeCB, mRoomStartTimeCB, mRoomEndTimeCB, mMealPlanCB; 
 	
 	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
 	
@@ -113,6 +113,9 @@ public class ReservationFrame extends JFrame {
 	
 	
 	public ReservationFrame() {
+		this.setTitle("Reservation");
+		this.setSize(1250,300);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
 	}
 	
@@ -174,9 +177,11 @@ public class ReservationFrame extends JFrame {
 		
 		mContactP.add(new JLabel("Contact Method:"));
 		
+		mPhoneC = new JCheckBox();
 		mContactP.add(mPhoneC);
 		mContactP.add(new JLabel("By Phone"));
 		
+		mEmailC = new JCheckBox();
 		mContactP.add(mEmailC);
 		mContactP.add(new JLabel("By Email"));
 		
@@ -196,9 +201,9 @@ public class ReservationFrame extends JFrame {
 		mMealPlanP.add(mMealPlanCB);
 		
 		mSaveMealB = new JButton("Save/Edit Plan");
-		mSaveB.setVisible(true);
+		mSaveMealB.setVisible(true);
 		ActionListener saveMealListener = new SaveMealButtonListener();
-		mSaveB.addActionListener(saveMealListener);
+		mSaveMealB.addActionListener(saveMealListener);
 		
 		mMealPlanP.add(mSaveMealB);
 		
@@ -234,9 +239,16 @@ public class ReservationFrame extends JFrame {
 		for (Time iTime: Time.ALL_TIMES) {
 			timeStrings.add(iTime.toString());
 		}
-		String[] times = (String[])timeStrings.toArray();
-		mRoomTypeCB = new JComboBox<String>(times);
-		mRoomP.add(mRoomTypeCB);
+		String[] times = new String [timeStrings.size()];
+		for (int i = 0; i < timeStrings.size(); i++) {
+			times [i] = timeStrings.get(i);
+		}
+		mRoomStartTimeCB = new JComboBox<String>(times);
+		mRoomEndTimeCB = new JComboBox<String>(times);
+		mRoomP.add(new JLabel("Start:"));
+		mRoomP.add(mRoomStartTimeCB);
+		mRoomP.add(new JLabel("End:"));
+		mRoomP.add(mRoomEndTimeCB);
 		
 	}
 
@@ -370,7 +382,7 @@ public class ReservationFrame extends JFrame {
 		}
 		
 		mRoomTypeCB.setSelectedIndex(lRoomIndex);
-		mRoomTimeCB.setSelectedItem(pReservation.getmFullStartTime().toString());
+		mRoomStartTimeCB.setSelectedItem(pReservation.getmFullStartTime().toString());
 		int lMealIndex;
 		if (lMeal instanceof BasicPlan) {
 			lMealIndex = 0 ;
