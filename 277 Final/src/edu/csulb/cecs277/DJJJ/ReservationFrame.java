@@ -27,7 +27,7 @@ import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 public class ReservationFrame extends JFrame {
 	
 	public static void main(String args[]) {
-		ReservationFrame lRF = new ReservationFrame();
+		ReservationFrame lRF = new ReservationFrame(false);
 		lRF.setVisible(true);
 	}
 
@@ -61,34 +61,34 @@ public class ReservationFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			RoomList lRoomList = RoomList.getmRoomList();
-			Room lRoom = mReservation.getmRoom();
+			Room lRoom = mOriginalReservation.getmRoom();
 			ArrayList<Room> lRooms;
 			Date dateToChange = null;
 			if (lRoom instanceof SmallPartyRoom) {
 				lRooms = lRoomList.getmSmallRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
 			}
 			else if (lRoom instanceof MediumPartyRoom) {
 				lRooms = lRoomList.getmMediumRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
 			}
 			else if (lRoom instanceof KaraokeLounge) {
 				lRooms = lRoomList.getmKaraokeRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
 			}
 			else if (lRoom instanceof BilliardsLounge) {
 				lRooms = lRoomList.getmBilliardRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
 			}
 			else {
 				lRooms = null;
 				for (Date iDate : lRoomList.getmAquaWorld().getRoomDates()) {
-					if (mReservation.getmDay().equals(iDate.getmDay())){
+					if (mOriginalReservation.getmDay().equals(iDate.getmDay())){
 						dateToChange = iDate;
 					}
 				}
 			}
-			dateToChange.removeReservation(mReservation);
+			dateToChange.removeReservation(mOriginalReservation);
 			lRoomList.notify();
 		}
 	}
@@ -100,8 +100,7 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
+			setVisible(false);
 		}
 
 	}
@@ -117,8 +116,15 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-
+			Reservation lAddReservation;
+			if (isEdit) {
+				
+				return;
+			}
+			if (isWaitList) {
+				return;
+			}
+			//TODO IF THE RESRVATION IS FOR BILLIARDS MUST BE OLD ENOUGH
 		}
 
 	}
@@ -136,24 +142,25 @@ public class ReservationFrame extends JFrame {
 	
 	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	
-	private boolean mMealEditted, isEdit;
+	private boolean mMealEditted, isWaitList, isEdit;
 	
 	private MealPlan mMealPlan;
 	
-	private Reservation mReservation;
+	private Reservation mOriginalReservation;
 	
 	
-	public ReservationFrame() {
+	public ReservationFrame(boolean pWaitList) {
 		this.setTitle("Reservation");
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
 		mMealEditted = false;
+		isWaitList = pWaitList;
 		mResFrame = this;
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
-		mReservation = pReservation;
+		mOriginalReservation = pReservation;
 		this.setTitle("Reservation");
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -161,7 +168,7 @@ public class ReservationFrame extends JFrame {
 		mMealEditted = false;
 		isEdit = true;
 		mDeleteB.setVisible(true);
-		FillByReservation(mReservation);
+		FillByReservation(mOriginalReservation);
 		mResFrame = this;
 	}
 	
@@ -258,7 +265,7 @@ public class ReservationFrame extends JFrame {
 		mRoomP.add(new JLabel("Room Info - "));
 		
 		mRoomP.add(new JLabel("Room Type:"));
-		String[] roomTypes = {"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Room", "Aqua World"};
+		String[] roomTypes = {"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Lounge", "Aqua World"};
 		mRoomTypeCB = new JComboBox<String>(roomTypes);
 		mRoomP.add(mRoomTypeCB);
 		
@@ -478,6 +485,154 @@ public class ReservationFrame extends JFrame {
 		return mMealPlanCB;
 	}
 	
+	/*
+	 *  mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
+	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
+	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
+	
+	private JCheckBox mPhoneC, mEmailC;
+	
+	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
+	
+	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
+	
+	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
+	
+	private boolean mMealEditted;
+	
+	private MealPlan mMealPlan;
+	 */
+	
+	private boolean AdjustChanged(Reservation pReservation) {
+		Guest lGuest = pReservation.getmGuest();
+		Room lRoom = pReservation.getmRoom();
+		MealPlan lMeal = pReservation.getmMealPlan();
+		CreditCard lCC = lGuest.getmCard();
+		int lDOBM = Integer.parseInt(mGuestDOBMTF.getText()), 
+				lDOBD = Integer.parseInt(mGuestDOBMTF.getText()),
+				lDOBY = Integer.parseInt(mGuestDOBMTF.getText());
+		Day lDOBDay = new Day(lDOBM, lDOBD, lDOBY);
+		RoomList lRoomList = RoomList.getmRoomList();
+		//Name Changed
+		if (!lGuest.getmName().equals(mGuestNameTF.getText())) {
+			lGuest.setmName(mGuestNameTF.getText());
+		}
+		//Phone Changed
+		if (!lGuest.getmPhone().equals(mGuestPhoneTF.getText())) {
+			lGuest.setmPhone(mGuestPhoneTF.getText());
+		}
+		//Address Changed
+		if (!lGuest.getmAddress().equals(mGuestAddressTF.getText())) {
+			lGuest.setmAddress(mGuestAddressTF.getText());
+		}
+		//DOB Changed
+		if (!lGuest.getmDOB().equals(lDOBDay)){
+			if (ChangeDOBViable(pReservation, lDOBDay)) {
+				lGuest.setmDOB(lDOBDay);
+			}
+			else {
+				return false;
+			}
+		}
+		//Email Changed
+		if (!lGuest.getmEmail().equals(mGuestEmailTF.getText())) {
+			lGuest.setmEmail(mGuestEmailTF.getText());
+		}
+		//CC Name Changed
+		if (!lCC.getmName().equals(mCCNameTF.getText())){
+			lCC.setmName(mCCNameTF.getText());
+		}
+		//CC Number Changed
+		if (!lCC.getmNumber().equals(mCCNumberTF.getText())){
+			lCC.setmNumber(mCCNumberTF.getText());
+		}
+		//CC Security Code Changed
+		if (!lCC.getmSecurityCode().equals(mCCSecurityTF.getText())){
+			lCC.setmSecurityCode(mCCSecurityTF.getText());
+		}
+		//CC Expiration Changed
+		if (!lCC.getmExpiration().equals(mCCExpirationTF.getText())){
+			lCC.setmExpiration(mCCExpirationTF.getText());
+		}
+		//Room Changed (make sure to handle adult)
+		//{"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Lounge", "Aqua World"};
+		
+		//Date Changed 
+		//Time Changed
+		//Meal Plan Changed
+		//Contact Method Changed
+		return true;
+	}
+	
+	private boolean ChangeDOBViable(Reservation pReservation, Day pDay) {
+		if ((!pReservation.getmGuest().getmDOB().DOBTwentyOneBy(pDay)) && mRoomTypeCB.getSelectedItem().toString() == "Billiards Lounge"){
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	private boolean RoomChanged(Reservation pReservation) {
+		Room lRoom = pReservation.getmRoom();
+		return ((lRoom instanceof SmallPartyRoom) && (!mRoomTypeCB.getSelectedItem().toString().equals("Small Party Room"))
+				|| (lRoom instanceof MediumPartyRoom) && (!mRoomTypeCB.getSelectedItem().toString().equals("Medium Party Room"))
+				|| (lRoom instanceof KaraokeLounge) && (!mRoomTypeCB.getSelectedItem().toString().equals("Karaoke Lounge"))
+				|| (lRoom instanceof BilliardsLounge) && (!mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge"))
+				|| (lRoom instanceof AquaWorld) && (!mRoomTypeCB.getSelectedItem().toString().equals("Aqua World")));
+	}
+	
+	private ArrayList<Room> GetRoomTypeList(String pRoomType){
+		RoomList lRoomList = RoomList.getmRoomList();
+		switch (pRoomType) {
+		case "Small Party Room":
+			return lRoomList.getmSmallRooms();
+		case "Medium Party Room": 
+			return lRoomList.getmMediumRooms();
+		case "Karaoke Lounge": 
+			return lRoomList.getmKaraokeRooms();
+		case "Billiards Lounge": 
+			return lRoomList.getmBilliardRooms();
+		default:
+			return null;
+		}
+	}
+	
+	private Date GetViableRoomChangeDate(Reservation pReservation, ArrayList <Room> pRooms) {
+		for (Room iRoom: pRooms) {
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (iDate.getmDay().equals(pReservation.getmDay())) {
+					if (iDate.isOpen(pReservation)) {
+						return iDate;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private boolean ChangeDayViable(Reservation pReservation, Day pDay,  ArrayList <Room> pRooms) {
+		for (Room iRoom: pRooms) {
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (iDate.getmDay().equals(pDay)) {
+					if (iDate.isOpen(pReservation)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean ChangeStartTime(Reservation pReservation, Time pTime) {
+		Date lDate = RoomList.getmRoomList().ReturnDateOfRes(pReservation);
+		return lDate.editReservationStart(pReservation, pTime);
+	}
+	
+	private boolean ChangeeTime(Reservation pReservation, Time pTime) {
+		Date lDate = RoomList.getmRoomList().ReturnDateOfRes(pReservation);
+		return lDate.editReservationEnd(pReservation, pTime);
+	}
 	
 	/*
 	 * Contains - 

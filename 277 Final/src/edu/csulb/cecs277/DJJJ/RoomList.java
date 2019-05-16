@@ -147,8 +147,34 @@ public class RoomList
 		return null;
 	}
 	
+	public Date ReturnDateOfRes(Reservation pReservation) {
+		Room lRoom = pReservation.getmRoom();
+		if (lRoom instanceof SmallPartyRoom) {
+			return ReturnDateOfRes(mSmallRooms, pReservation);
+		}
+		else if (lRoom instanceof MediumPartyRoom) {
+			return ReturnDateOfRes(mMediumRooms, pReservation);
+		}
+		else if (lRoom instanceof KaraokeLounge) {
+			return ReturnDateOfRes(mKaraokeRooms, pReservation);
+		}
+		else if (lRoom instanceof BilliardsLounge) {
+			return ReturnDateOfRes(mBilliardRooms, pReservation);
+		}
+		else {
+			for (Date iDate : mAquaWorld.getRoomDates()) {
+				if (pReservation.getmDay().equals(iDate.getmDay())) {
+					if (iDate.getmReservations().contains(pReservation)) {
+							return iDate;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	
-	public Date ReturnDateOfRes(ArrayList<Room> pRooms, Reservation pReservation) {
+	private Date ReturnDateOfRes(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			//Each room has a date 
 			for (Date iDate : iRoom.getRoomDates()) {

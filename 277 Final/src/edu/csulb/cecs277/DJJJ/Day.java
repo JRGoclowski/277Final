@@ -86,6 +86,28 @@ public class Day implements Comparable {
 		SUN
 	}
 	
+	/**
+	 * Returns if the DOB this is called on is 21 by the date given
+	 * @param DayToCompare - the day to compare against
+	 * @return boolean - if 21 by day
+	 */
+	public boolean DOBTwentyOneBy(Day DayToCompare) {
+		if ((DayToCompare.getmYearNumeral() - this.getmYearNumeral()) > 21) {
+			return true;
+		}
+		else if ((DayToCompare.getmYearNumeral() - this.getmYearNumeral()) == 21) {
+			if (DayToCompare.getmMonthNumeral() > this.getmMonthNumeral()) {
+				return true;
+			}
+			else if (DayToCompare.getmMonthNumeral() == this.getmMonthNumeral()) {
+				if (DayToCompare.getmDayNumeral() >= this.getmDayNumeral()) {
+					return true;
+				}
+			}
+		}
+		return false;
+		
+	}
 		
 	/**
 	 * @return the mMonthNumeral
