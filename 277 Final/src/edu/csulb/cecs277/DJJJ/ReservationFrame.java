@@ -42,8 +42,9 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-
+			MealFrame lMealFrame = new MealFrame(mResFrame);
+			lMealFrame.setVisible(true);
+			lMealFrame.setAlwaysOnTop(true);
 		}
 
 	}
@@ -122,6 +123,7 @@ public class ReservationFrame extends JFrame {
 
 	}
 	
+	private ReservationFrame mResFrame;
 	private JTextField mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
 	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
 	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
@@ -147,6 +149,7 @@ public class ReservationFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
 		mMealEditted = false;
+		mResFrame = this;
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
@@ -159,6 +162,7 @@ public class ReservationFrame extends JFrame {
 		isEdit = true;
 		mDeleteB.setVisible(true);
 		FillByReservation(mReservation);
+		mResFrame = this;
 	}
 	
 	private void InitializeGeneralComponents() {

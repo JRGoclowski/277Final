@@ -92,6 +92,21 @@ public class MealFrame extends JFrame {
 		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
 		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
+<<<<<<< HEAD
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public MealFrame(ReservationFrame pResFrame) {
+		
+		switch(pResFrame.getmMealPlanCB().getSelectedItem().toString()) {
+		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
+		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); break;
+		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); break;
+		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); break;
+		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); break;
+		}
+=======
+>>>>>>> 43bd68ae1b3a37ae2dbf3cc966612d538a58fa9d
 		this.setSize(800,400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
