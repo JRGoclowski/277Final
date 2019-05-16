@@ -420,7 +420,43 @@ public class MainFrame extends JFrame {
 			JComboBox day = new JComboBox(days);
 			day.setPreferredSize(new Dimension(100,25));
 			
-			JTextField year = new JTextField("Enter Year");
+			
+			month.addActionListener(new ActionListener()
+			{
+			public void actionPerformed(ActionEvent event)
+				{
+					JComboBox comboBox = (JComboBox) event.getSource();
+					int lInput = (int)comboBox.getSelectedItem();
+					day.removeAllItems();
+					
+					if(lInput == 1 || lInput == 3 || lInput == 5 || lInput == 7 || lInput == 8 || lInput == 10 || lInput == 12)
+					{
+						for(int i = 1; 31 >= i; i ++)
+						{
+							day.addItem(i);
+						}
+
+					}
+					else if(lInput == 2)
+					{
+						for(int i = 1; 28 >= i; i ++)
+						{
+							day.addItem(i);
+						}
+					}
+					else
+					{
+						for(int i = 1; 30 >= i; i ++)
+						{
+							day.addItem(i);
+						}
+					}
+
+				}
+			});
+			
+
+			JTextField year = new JTextField("2019");
 			year.setPreferredSize(new Dimension(100,25));
 			
 			
@@ -495,19 +531,20 @@ public class MainFrame extends JFrame {
 							int lYear = Integer.parseInt(year.getText());
 							//Code to look through the reservation 
 							
-							Day lIndexDay = new Day(lMonth, lDay, lYear);
-							
-							for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
-							{
-								//Each room has a date 
-								for (Date iDate : iRoom.getRoomDates()) 
-								{
-									if (iDate.getmDay().equals(lIndexDay))
-									{
-										//Get the guest name
-									}
-								}
-							}
+//							
+//							Day lIndexDay = new Day(lMonth, lDay, lYear);
+//							
+//							for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
+//							{
+//								//Each room has a date 
+//								for (Date iDate : iRoom.getRoomDates()) 
+//								{
+//									if (iDate.getmDay().equals(lIndexDay))
+//									{
+//										//Get the guest name
+//									}
+//								}
+//							}
 	
 							
 							
