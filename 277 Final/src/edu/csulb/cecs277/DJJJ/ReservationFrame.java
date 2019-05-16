@@ -72,9 +72,6 @@ public class ReservationFrame {
 
 	}
 
-	
-	
-	private JLabel mMealPlanHead;
 	private JLabel mContactByHead, mContactPhoneInd, mContactEmailInd;
 	
 	private JTextField mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
@@ -88,6 +85,8 @@ public class ReservationFrame {
 	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	
 	private boolean mMealEditted;
+	
+	private MealPlan mMealPlan;
 	
 	
 	public ReservationFrame() {
@@ -143,15 +142,50 @@ public class ReservationFrame {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	//private JButton mEditMealB,
 	private void InitializeMealPanel() {
-		// TODO Auto-generated method stub
+		mMealPlanP = new JPanel();
+		
+		mMealPlanP.add(new JLabel("Meal Plan -"));
+		
+		mMealPlanP
 		
 	}
 	
 	//private JLabel mRoomHead, mTypeInd, mDateInd, mTimeInd;
+	//private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
+	//	private JComboBox<String> mRoomTypeCB, mRoomTimeCB,
 	private void InitializeRoomPanel() {
+		mRoomP = new JPanel();
 		
+		mRoomP.add(new JLabel("Room Info - "));
+		
+		mRoomP.add(new JLabel("Room Type:"));
+		String[] roomTypes = {"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Room", "Aqua World"};
+		mRoomTypeCB = new JComboBox<String>(roomTypes);
+		mRoomP.add(mRoomTypeCB);
+		
+		mRoomP.add(new JLabel("Date:"));
+		mRoomDateMTF = new JTextField("M");
+		mRoomDateMTF.setColumns(5);
+		mRoomDateDTF = new JTextField("D");
+		mRoomDateDTF.setColumns(5);
+		mRoomDateYTF = new JTextField("Y");
+		mRoomDateYTF.setColumns(5);
+		mRoomP.add(mRoomDateDTF);
+		mRoomP.add(mRoomDateMTF);
+		mRoomP.add(mRoomDateYTF);
+		
+		
+		mRoomP.add(new JLabel("Time:"));
+		ArrayList<String> timeStrings = new ArrayList<String>();
+		for (Time iTime: Time.ALL_TIMES) {
+			timeStrings.add(iTime.toString());
+		}
+		String[] times = (String[])timeStrings.toArray();
+		mRoomTypeCB = new JComboBox<String>(times);
+		mRoomP.add(mRoomTypeCB);
 		
 	}
 
