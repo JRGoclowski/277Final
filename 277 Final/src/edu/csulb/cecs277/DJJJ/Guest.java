@@ -11,7 +11,36 @@ public class Guest {
 	
 	private String mPhone, mEmail, mName, mAddress;
 	private CreditCard mCard;
+	private boolean notifyPhone, notifyEmail;
 	
+	/**
+	 * @return the notifyPhone
+	 */
+	public boolean isNotifyPhone() {
+		return notifyPhone;
+	}
+
+	/**
+	 * @param notifyPhone the notifyPhone to set
+	 */
+	public void setNotifyPhone(boolean notifyPhone) {
+		this.notifyPhone = notifyPhone;
+	}
+
+	/**
+	 * @return the notifyEmail
+	 */
+	public boolean isNotifyEmail() {
+		return notifyEmail;
+	}
+
+	/**
+	 * @param notifyEmail the notifyEmail to set
+	 */
+	public void setNotifyEmail(boolean notifyEmail) {
+		this.notifyEmail = notifyEmail;
+	}
+
 	public Guest (String phone, String email, String name, String address, CreditCard card) {
 		mPhone = phone;
 		mEmail = email;

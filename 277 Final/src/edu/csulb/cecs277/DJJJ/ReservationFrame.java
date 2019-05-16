@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,10 +21,28 @@ import javax.swing.JTextField;
 import edu.csulb.cecs277.DJJJ.ReservationFrame.CancelButtonListener;
 import edu.csulb.cecs277.DJJJ.ReservationFrame.DeleteButtonListener;
 import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveButtonListener;
+import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 
 
-public class ReservationFrame {
+public class ReservationFrame extends JFrame {
 	
+
+	/**
+		 * @author Jonathan
+		 *
+		 */
+	public class SaveMealButtonListener implements ActionListener {
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
 
 	/**
 		 * @author Jonathan
@@ -71,16 +90,16 @@ public class ReservationFrame {
 		}
 
 	}
-
-	private JLabel mContactByHead, mContactPhoneInd, mContactEmailInd;
 	
 	private JTextField mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
 	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
 	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
 	
+	private JCheckBox mPhoneC, mEmailC;
+	
 	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
 	
-	private JButton mEditMealB, mSaveB, mCancelB, mDeleteB;
+	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
 	
 	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	
@@ -106,11 +125,18 @@ public class ReservationFrame {
 		InitializeContactPanel();
 		InitializeButtonPanel();
 		InitializeFullPanel();
+		this.add(mFrameP);
 	}
 	
+	//private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	private void InitializeFullPanel() {
-		// TODO Auto-generated method stub
-		
+		mFrameP = new JPanel();
+		mFrameP.add(mGuestP);
+		mFrameP.add(mCreditCardP);
+		mFrameP.add(mRoomP);
+		mFrameP.add(mMealPlanP);
+		mFrameP.add(mContactP);
+		mFrameP.add(mButtonP);
 	}
 
 	private void InitializeButtonPanel() {
@@ -139,7 +165,17 @@ public class ReservationFrame {
 	}
 
 	private void InitializeContactPanel() {
-		// TODO Auto-generated method stub
+		mContactP = new JPanel();
+		
+		mContactP.add(new JLabel("Contact Method:"));
+		
+		mContactP.add(mPhoneC);
+		mContactP.add(new JLabel("By Phone"));
+		
+		mContactP.add(mEmailC);
+		mContactP.add(new JLabel("By Email"));
+		
+		
 		
 	}
 	
@@ -153,6 +189,13 @@ public class ReservationFrame {
 		mMealPlanCB = new JComboBox<String>(plans);
 		
 		mMealPlanP.add(mMealPlanCB);
+		
+		mSaveMealB = new JButton("Save/Edit Plan");
+		mSaveB.setVisible(true);
+		ActionListener saveMealListener = new SaveMealButtonListener();
+		mSaveB.addActionListener(saveMealListener);
+		
+		mMealPlanP.add(mSaveMealB);
 		
 	}
 	
@@ -260,7 +303,7 @@ public class ReservationFrame {
 	}
 
 	private void FillByReservation(Reservation pReservation) {
-		
+		m
 	}
 
 	/**
