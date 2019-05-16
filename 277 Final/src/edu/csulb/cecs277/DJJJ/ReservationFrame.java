@@ -9,200 +9,233 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-public class ReservationFrame extends JFrame {
+import edu.csulb.cecs277.DJJJ.ReservationFrame.CancelButtonListener;
+import edu.csulb.cecs277.DJJJ.ReservationFrame.DeleteButtonListener;
+import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveButtonListener;
+
+
+public class ReservationFrame {
 	
-	private JLabel options;
-	
-	private JButton coffeeButton;
-	private JButton teaButton;
-	private JButton pastryButton;
-	private JButton doneButton;
-		
-	private JScrollPane receiptPane;
-	
-	private JTextArea receiptText;
-	
-	private Receipt mReceipt;
-	
-		
+
 	/**
-	 * Constructs an initial frame for the order to run on
-	 */
-	public InitialFrame() {
-		createComponents();
-		mReceipt = new Receipt();
-		this.setTitle("New Order");
-		this.setSize(800, 500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
-	/**
-	 * Updates the frame to show changes to the order
-	 */
-	public void update() {
-		doneButton.setVisible(true);
-		if (!mReceipt.isEmpty()) {
-			receiptText.setText(mReceipt.CreateFull());
-			receiptText.setVisible(true);
-			receiptPane.setVisible(true);
-		}
-		iF.repaint();
-	}
-	
-	/**
-	 * Creates the initial frame with all the desired components
-	 */
-	private void createComponents() {
-		options = new JLabel("Select an item to purchase: ");
-		receiptText = new JTextArea();
-		receiptText.setEditable(false);
-		receiptText.setVisible(false);
-		
-		receiptPane = new JScrollPane(receiptText);
-		receiptPane.setPreferredSize(new Dimension(600, 350));
-		receiptPane.setVisible(true);
-		
-		
-		coffeeButton = new JButton("Coffee");
-		ActionListener coffeeListener = new CoffeeButtonListener();
-		coffeeButton.addActionListener(coffeeListener);
-		
-		teaButton = new JButton("Tea");
-		ActionListener teaListener = new TeaButtonListener();
-		teaButton.addActionListener(teaListener);
-		
-		pastryButton = new JButton("Pastry");
-		ActionListener pastryListener = new PastryButtonListener();
-		pastryButton.addActionListener(pastryListener);
-		
-		doneButton = new JButton("Done");
-		ActionListener doneListener = new DoneButtonListener();
-		doneButton.addActionListener(doneListener);
-		doneButton.setVisible(false);
-				
-		JPanel initialPanel = new JPanel(new BorderLayout());
-		JPanel buttonPanel = new JPanel();
-		JPanel receiptPanel = new JPanel();
-		JPanel donePanel = new JPanel();
-		JPanel leftPanel = new JPanel();
-		JPanel rightPanel = new JPanel();
-		
-		donePanel.setSize(20,40);
-		
-		buttonPanel.add(options, BorderLayout.LINE_START);
-		buttonPanel.add(coffeeButton, BorderLayout.PAGE_START);
-		buttonPanel.add(teaButton,BorderLayout.PAGE_START);
-		buttonPanel.add(pastryButton);
-		
-		receiptPanel.add(receiptPane);
-		
-		donePanel.add(doneButton);
-		
-		initialPanel.add(buttonPanel, BorderLayout.NORTH);
-		initialPanel.add(leftPanel, BorderLayout.WEST);
-		initialPanel.add(rightPanel, BorderLayout.EAST);
-		
-		leftPanel.setPreferredSize(new Dimension(40,350));
-		rightPanel.setPreferredSize(new Dimension(40,350));
-		
-		initialPanel.add(receiptPanel, BorderLayout.CENTER);
-		initialPanel.add(donePanel, BorderLayout.PAGE_END);
-		
-		this.add(initialPanel);		
-	}
-	
-	/**
-	 * Creates the Coffee Button Listener
-	 * @author Jonathan
-	 *
-	 */
-	class CoffeeButtonListener implements ActionListener {
-		
-		/**
-		 * Creates a new Coffee Order frame and makes it visible
+		 * @author Jonathan
+		 *
 		 */
-		public void actionPerformed(ActionEvent click) {
-			CoffeeOrderFrame cF = new CoffeeOrderFrame(iF, mReceipt);
-			cF.setVisible(true);
-		}
-	}
-	
-	/**
-	 * Creates the Tea Button Listener
-	 * @author Jonathan
-	 *
-	 */
-	class TeaButtonListener implements ActionListener {
-		
-		/**
-		 * Creates a new Tea Order frame and makes it visible
+	public class DeleteButtonListener implements ActionListener {
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
-		public void actionPerformed(ActionEvent click) {
-			TeaOrderFrame tF = new TeaOrderFrame(iF, mReceipt);
-			tF.setVisible(true);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+
 		}
+
 	}
-	
-	/**
-	 * Creates the Pastry Button Listener
-	 * @author Jonathan
-	 *
-	 */
-	class PastryButtonListener implements ActionListener {
-		
-		/**
-		 * Creates a new Pastry Order frame and makes it visible
+
+	public class CancelButtonListener implements ActionListener {
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
-		public void actionPerformed(ActionEvent click) {
-			PastryOrderFrame pF = new PastryOrderFrame(iF, mReceipt);
-			pF.setVisible(true);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+
 		}
+
 	}
-	
+
 	/**
-	 * Creates the Done Button Listener
-	 * @author Jonathan
-	 *
-	 */
-	class DoneButtonListener implements ActionListener {
-		
-		/**
-		 * If the order is not empty, Creates a finalize Order 
-		 * frame and makes it visible, otherwise it closes the 
-		 * program
+		 * @author Jonathan
+		 *
 		 */
-		public void actionPerformed(ActionEvent click) {
-			if (!mReceipt.isEmpty()) {
-				FinalizeOrderFrame fF = new FinalizeOrderFrame(mReceipt);
-				fF.setVisible(true);
-			}
-			else {
-				System.exit(0);
-			}
+	public class SaveButtonListener implements ActionListener {
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+
 		}
+
+	}
+
+	
+	
+	private JLabel mMealPlanHead;
+	private JLabel mContactByHead, mContactPhoneInd, mContactEmailInd;
+	
+	private JTextField mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
+	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
+	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
+	
+	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
+	
+	private JButton mEditMealB, mSaveB, mCancelB, mDeleteB;
+	
+	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
+	
+	private boolean mMealEditted;
+	
+	
+	public ReservationFrame() {
+		InitializeGeneralComponents();
 	}
 	
-	/**
-	 * returns the receipt of the order
-	 * @return
-	 */
-	public Receipt getMReceipt() {
-		return mReceipt;
+	public ReservationFrame(Reservation pReservation) {
+		InitializeGeneralComponents();
+		FillByReservation(pReservation);
 	}
 	
-	/**
-	 * Runs the program
-	 */
-	public static void main (String[] args) {
-		iF = new InitialFrame();
-		iF.setVisible(true);
+	private void InitializeGeneralComponents() {
+		InitializeGuestPanel();
+		InitializeCCPanel();
+		InitializeRoomPanel();
+		InitializeMealPanel();
+		InitializeContactPanel();
+		InitializeButtonPanel();
+		InitializeFullPanel();
 	}
+	
+	private void InitializeFullPanel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void InitializeButtonPanel() {
+		mButtonP = new JPanel();
+		
+		mSaveB = new JButton("Save");
+		mSaveB.setVisible(true);
+		ActionListener saveListener = new SaveButtonListener();
+		mSaveB.addActionListener(saveListener);
+		
+		
+		mCancelB = new JButton("Cancel");
+		mCancelB.setVisible(true);
+		ActionListener cancelListener = new CancelButtonListener();
+		mCancelB.addActionListener(cancelListener);		
+		
+		mDeleteB = new JButton("Delete");
+		mDeleteB.setVisible(false);
+		ActionListener DeleteListener = new DeleteButtonListener();
+		mDeleteB.addActionListener(DeleteListener);
+		
+		mButtonP.add(mSaveB);
+		mButtonP.add(mCancelB);
+		mButtonP.add(mDeleteB);
+		
+	}
+
+	private void InitializeContactPanel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void InitializeMealPanel() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//private JLabel mRoomHead, mTypeInd, mDateInd, mTimeInd;
+	private void InitializeRoomPanel() {
+		
+		
+	}
+
+	//private JLabel mCreditCardHead, mCCNameInd, mCCNumberInd, mCCSecurityInd,  mCCExpireInd;
+	//private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
+	private void InitializeCCPanel() {
+		mCreditCardP = new JPanel();
+		
+		mCreditCardP.add(new JLabel ("Credit Card -"));
+		
+		mCreditCardP.add(new JLabel("Name:"));
+		mCCNameTF = new JTextField();
+		mCCNameTF.setColumns(15);
+		mCreditCardP.add(mCCNameTF);
+		
+		mCreditCardP.add(new JLabel("Number:"));
+		mCCNumberTF = new JTextField();
+		mCCNumberTF.setColumns(15);
+		mCreditCardP.add(mCCNumberTF);
+		
+		mCreditCardP.add(new JLabel("Security Code:"));
+		mCCSecurityTF = new JTextField();
+		mCCSecurityTF.setColumns(15);
+		mCreditCardP.add(mCCSecurityTF);
+		
+		mCreditCardP.add(new JLabel("Expiration:"));
+		mCCExpirationTF = new JTextField();
+		mCCExpirationTF.setColumns(15);
+		mCreditCardP.add(mCCExpirationTF);
+		
+	}
+	
+	//private JTextField mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
+	private void InitializeGuestPanel() {
+		mGuestP = new JPanel();		
+		
+		mGuestP.add(new JLabel ("Guest Info - "));
+		
+		mGuestP.add(new JLabel("Name:"));
+		mGuestNameTF = new JTextField();
+		mGuestNameTF.setColumns(15);
+		mGuestP.add(mGuestNameTF);
+		
+		mGuestP.add(new JLabel("Phone"));
+		mGuestPhoneTF = new JTextField();
+		mGuestPhoneTF.setColumns(15);
+		mGuestP.add(mGuestPhoneTF);
+		
+		mGuestP.add(new JLabel("Address:"));
+		mGuestAddressTF = new JTextField();
+		mGuestAddressTF.setColumns(15);
+		mGuestP.add(mGuestAddressTF);
+		
+		mGuestP.add(new JLabel("DOB:"));
+		mGuestDOBMTF = new JTextField("M");
+		mGuestDOBMTF.setColumns(5);
+		mGuestP.add(mGuestDOBMTF);
+		mGuestDOBDTF = new JTextField("D");
+		mGuestDOBDTF.setColumns(5);
+		mGuestP.add(mGuestDOBDTF);
+		mGuestDOBYTF = new JTextField("Y");
+		mGuestDOBYTF.setColumns(5);
+		mGuestP.add(mGuestDOBYTF);
+		
+		mGuestP.add(new JLabel("Email:"));
+		mGuestEmailTF = new JTextField();
+		mGuestEmailTF.setColumns(15);
+		mGuestP.add(mGuestEmailTF);		
+	}
+
+	private void FillByReservation(Reservation pReservation) {
+		
+	}
+	
+	/*
+	 * Contains - 
+	 * Guest info: name, phone, address, DOB, email - must check DOB for adult room
+	 * Credit Info - name, number, securit code, expiration
+	 * Room info - number, date, time. If coming from Date time, auto fill
+	 * Meal Plan Info
+	 * Check box for if contacted by phone or email
+	 * Save or cancel
+	 * on save, if valid, show confirmation; if not, return where on waitlist it is
+	 * 
+	 */
 	
 }
-
