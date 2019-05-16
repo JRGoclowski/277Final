@@ -495,15 +495,14 @@ public class MainFrame extends JFrame {
 							int lYear = Integer.parseInt(year.getText());
 							//Code to look through the reservation 
 							
+							Day lIndexDay = new Day(lMonth, lDay, lYear);
 							
 							for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
 							{
 								//Each room has a date 
 								for (Date iDate : iRoom.getRoomDates()) 
 								{
-									Day day = iDate.getmDay();
-									if(day.getmMonthNumeral() == lMonth && day.getmDayNumeral() == lDay 
-											&& day.getmYearNumeral() == lYear)
+									if (iDate.getmDay().equals(lIndexDay))
 									{
 										//Get the guest name
 									}
