@@ -83,9 +83,9 @@ public class MealFrame extends JFrame {
 		switch(plan) {
 		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
 		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
-		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); break;
-		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); break;
-		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); break;
+		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
+		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
+		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -175,6 +175,12 @@ public class MealFrame extends JFrame {
 		soda3 = new JLabel("Soda 3: ");
 		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
 		
+		soda4 = new JLabel("Soda 4: ");
+		sodaFlavor4 = new JComboBox<String>(sodaFlavors);
+		
+		soda5 = new JLabel("Soda 5: ");
+		sodaFlavor5 = new JComboBox<String>(sodaFlavors);
+		
 		addon = new JLabel("Addon: ");
 		addonChoice = new JComboBox<String>(addons);
 		
@@ -204,6 +210,12 @@ public class MealFrame extends JFrame {
 		
 		panel.add(soda3);
 		panel.add(sodaFlavor3);
+		
+		panel.add(soda4);
+		panel.add(sodaFlavor4);
+		
+		panel.add(soda5);
+		panel.add(sodaFlavor5);
 
 		panel.add(addon);
 		panel.add(addonChoice);
@@ -215,6 +227,85 @@ public class MealFrame extends JFrame {
 	
 	private void createSilverComponents() {
 		
+		pizza1 = new JLabel("Pizza 1: ");
+		piz1top1 = new JComboBox<String>(toppings);
+		piz1top2 = new JComboBox<String>(toppings);
+		piz1top3 = new JComboBox<String>(toppings);
+		
+		pizza2 = new JLabel("Pizza 2: ");
+		piz2top1 = new JComboBox<String>(toppings);
+		piz2top2 = new JComboBox<String>(toppings);
+		piz2top3 = new JComboBox<String>(toppings);
+		
+		pizza3 = new JLabel("Pizza 3: ");
+		piz3top1 = new JComboBox<String>(toppings);
+		piz3top2 = new JComboBox<String>(toppings);
+		piz3top3 = new JComboBox<String>(toppings);
+				
+		soda1 = new JLabel("Soda 1: ");
+		sodaFlavor1 = new JComboBox<String>(sodaFlavors);
+		
+		soda2 = new JLabel("Soda 2: ");
+		sodaFlavor2 = new JComboBox<String>(sodaFlavors);
+		
+		soda3 = new JLabel("Soda 3: ");
+		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
+		
+		addon = new JLabel("Addon: ");
+		addonChoice = new JComboBox<String>(addons);
+		
+		save = new JButton("Save");
+		cancel = new JButton("Cancel");
+		
+		soda4 = new JLabel("Soda 4: ");
+		sodaFlavor4 = new JComboBox<String>(sodaFlavors);
+		
+		soda5 = new JLabel("Soda 5: ");
+		sodaFlavor5 = new JComboBox<String>(sodaFlavors);
+		
+		addon = new JLabel("Salad & Breadsticks included");
+		
+		save = new JButton("Save");
+		cancel = new JButton("Cancel");
+		
+		JPanel panel = new JPanel();
+		this.setSize(335, 300);
+
+		panel.add(pizza1);
+		panel.add(piz1top1);
+		panel.add(piz1top2);
+		panel.add(piz1top3);
+		
+		panel.add(pizza2);
+		panel.add(piz2top1);
+		panel.add(piz2top2);
+		panel.add(piz2top3);
+		
+		panel.add(pizza3);
+		panel.add(piz3top1);
+		panel.add(piz3top2);
+		panel.add(piz3top3);
+		
+		panel.add(soda1);
+		panel.add(sodaFlavor1);
+		
+		panel.add(soda2);
+		panel.add(sodaFlavor2);
+		
+		panel.add(soda3);
+		panel.add(sodaFlavor3);
+		
+		panel.add(soda4);
+		panel.add(sodaFlavor4);
+		
+		panel.add(soda5);
+		panel.add(sodaFlavor5);
+
+		panel.add(addon);
+		
+		panel.add(save);
+		panel.add(cancel);
+		this.add(panel);
 	}
 	
 	private void createGoldComponents() {
@@ -227,7 +318,7 @@ public class MealFrame extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		MealFrame m = new MealFrame("Bronze");
+		MealFrame m = new MealFrame("Silver");
 		m.setVisible(true);
 	}
 }
