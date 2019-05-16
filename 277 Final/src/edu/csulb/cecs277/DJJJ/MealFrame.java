@@ -82,19 +82,6 @@ public class MealFrame extends JFrame {
 	private String[] addons = new String[] {"Salad", "Breadsticks"};
 	private String[] wingFlavors = new String[] {"Mild Spicy", "Diablo", "Lemon Pepper", "BBQ", "Sesame"};
 	private String[] iceFlavors = new String[] {"Chocolate Fudge", "Vanilla Bean", "Strawberry Shortcake", "Choco-mint", "Butter Pecan"};
-
-	
-	public MealFrame(String plan) {
-		
-		switch(plan) {
-		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
-		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
-		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
-		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
-		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
-		}
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 	
 	public MealFrame(ReservationFrame pResFrame) {
 		
