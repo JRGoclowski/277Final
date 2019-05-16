@@ -12,11 +12,12 @@ public abstract class Room {	//may not need to extend Cloneable
 	private int mHourlyCost;
 	private int mFlatCost;
 	private ArrayList<Date> mDates;
-	private ArrayList<String> mAmenities;
+	private ArrayList<String> mAmenities = new ArrayList<String>();
 	private MealPlan mMealPlan;
 	
 	//Default constructor
 	public Room() {
+		mDates = FillDates();
 		mNumber = 0;
 		mCapacity = 0;
 		mDescription = "";
@@ -38,6 +39,16 @@ public abstract class Room {	//may not need to extend Cloneable
 		mDates = dates;
 		mMealPlan = mealPlan;
 		mFlatCost = 0;
+	}
+	
+	private static ArrayList<Date> FillDates(){
+		ArrayList<Date> allDays = new ArrayList<Date>();
+		for (int i = 1; i < 13; i++) {
+			for (int j = 1; j < (Day.MONTHLY_DAY_COUNT[i-1] + 1); j++ ) {
+				allDays.add(new Date(new Day(i,j,2019)));
+			}
+		}
+		return allDays;
 	}
 	
 	//Retrieves the room number

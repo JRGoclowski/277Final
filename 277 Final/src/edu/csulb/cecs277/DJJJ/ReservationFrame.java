@@ -27,7 +27,7 @@ import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 public class ReservationFrame extends JFrame {
 	
 	public static void main(String args[]) {
-		ReservationFrame lRF = new ReservationFrame();
+		ReservationFrame lRF = new ReservationFrame(Reservation.TEST_RESERVATION);
 		lRF.setVisible(true);
 	}
 
@@ -117,11 +117,17 @@ public class ReservationFrame extends JFrame {
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
+		mMealEditted = false;
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
-		isEdit = true;
+		this.setTitle("Reservation");
+		this.setSize(1250,300);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
+		mMealEditted = false;
+		isEdit = true;
+		mDeleteB.setVisible(true);
 		FillByReservation(pReservation);
 	}
 	

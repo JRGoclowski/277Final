@@ -9,7 +9,7 @@ public class Day implements Comparable {
 	private Month mMonth;
 	private String mStringForm;
 	private static final int MONTHS = 12;
-	private static final int[] MONTHLY_DAY_COUNT = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	protected static final int[] MONTHLY_DAY_COUNT = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private static final Month[] MONTH_ARRAY = Month.values();
 	private static final Weekday[] DAY_ARRAY = Weekday.values();
 	

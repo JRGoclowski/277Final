@@ -2,6 +2,8 @@ package edu.csulb.cecs277.DJJJ;
 
 public class Reservation {
 	
+	public static final Reservation TEST_RESERVATION = new Reservation(Time.ALL_TIMES[2], Time.ALL_TIMES[6], new Day(1,1,2015), new SmallPartyRoom(), Guest.DIO_BRANDO);
+	
 	private int mConfirmationNumber;
 	private int mMaintenanceTime;
 	private Time mFunctionStartTime; 
