@@ -1,6 +1,10 @@
 package edu.csulb.cecs277.DJJJ;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,9 +53,11 @@ public class MealFrame extends JFrame {
 
 	private JLabel wing1;
 	private JComboBox<String> wingFlavor1;
+	private JCheckBox bone1;
 
 	private JLabel wing2;
 	private JComboBox<String> wingFlavor2;
+	private JCheckBox bone2;
 	
 	private JLabel ice1;
 	private JComboBox<String> iceFlavor1;
@@ -76,17 +82,17 @@ public class MealFrame extends JFrame {
 	private String[] addons = new String[] {"Salad", "Breadsticks"};
 	private String[] wingFlavors = new String[] {"Mild Spicy", "Diablo", "Lemon Pepper", "BBQ", "Sesame"};
 	private String[] iceFlavors = new String[] {"Chocolate Fudge", "Vanilla Bean", "Strawberry Shortcake", "Choco-mint", "Butter Pecan"};
-
 	
-	public MealFrame(String plan) {
+	public MealFrame(ReservationFrame pResFrame) {
 		
-		switch(plan) {
+		switch(pResFrame.getmMealPlan().toString()) {
 		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
 		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
 		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
 		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
 		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
+<<<<<<< HEAD
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -99,6 +105,8 @@ public class MealFrame extends JFrame {
 		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); break;
 		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); break;
 		}
+=======
+>>>>>>> 43bd68ae1b3a37ae2dbf3cc966612d538a58fa9d
 		this.setSize(800,400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -251,12 +259,6 @@ public class MealFrame extends JFrame {
 		soda3 = new JLabel("Soda 3: ");
 		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
 		
-		addon = new JLabel("Addon: ");
-		addonChoice = new JComboBox<String>(addons);
-		
-		save = new JButton("Save");
-		cancel = new JButton("Cancel");
-		
 		soda4 = new JLabel("Soda 4: ");
 		sodaFlavor4 = new JComboBox<String>(sodaFlavors);
 		
@@ -269,7 +271,7 @@ public class MealFrame extends JFrame {
 		cancel = new JButton("Cancel");
 		
 		JPanel panel = new JPanel();
-		this.setSize(335, 300);
+		this.setSize(1200, 300);
 
 		panel.add(pizza1);
 		panel.add(piz1top1);
@@ -310,15 +312,229 @@ public class MealFrame extends JFrame {
 	
 	private void createGoldComponents() {
 		
+		pizza1 = new JLabel("Pizza 1: ");
+		piz1top1 = new JComboBox<String>(toppings);
+		piz1top2 = new JComboBox<String>(toppings);
+		piz1top3 = new JComboBox<String>(toppings);
+		
+		pizza2 = new JLabel("Pizza 2: ");
+		piz2top1 = new JComboBox<String>(toppings);
+		piz2top2 = new JComboBox<String>(toppings);
+		piz2top3 = new JComboBox<String>(toppings);
+		
+		pizza3 = new JLabel("Pizza 3: ");
+		piz3top1 = new JComboBox<String>(toppings);
+		piz3top2 = new JComboBox<String>(toppings);
+		piz3top3 = new JComboBox<String>(toppings);
+				
+		soda1 = new JLabel("Soda 1: ");
+		sodaFlavor1 = new JComboBox<String>(sodaFlavors);
+		
+		soda2 = new JLabel("Soda 2: ");
+		sodaFlavor2 = new JComboBox<String>(sodaFlavors);
+		
+		soda3 = new JLabel("Soda 3: ");
+		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
+		
+		soda4 = new JLabel("Soda 4: ");
+		sodaFlavor4 = new JComboBox<String>(sodaFlavors);
+		
+		soda5 = new JLabel("Soda 5: ");
+		sodaFlavor5 = new JComboBox<String>(sodaFlavors);
+		
+		addon = new JLabel("Salad & Breadsticks included");
+		
+		wing1 = new JLabel("Wing 1: ");
+		wingFlavor1 = new JComboBox<String>(wingFlavors);
+		bone1 = new JCheckBox("Bone-In");
+		
+		wing2 = new JLabel("Wing 2: ");
+		wingFlavor2 = new JComboBox<String>(wingFlavors);
+		bone2 = new JCheckBox("Bone-In");
+		
+		save = new JButton("Save");
+		cancel = new JButton("Cancel");
+		
+		JPanel panel = new JPanel();
+		this.setSize(450, 300);
+
+		panel.add(pizza1);
+		panel.add(piz1top1);
+		panel.add(piz1top2);
+		panel.add(piz1top3);
+		
+		panel.add(pizza2);
+		panel.add(piz2top1);
+		panel.add(piz2top2);
+		panel.add(piz2top3);
+		
+		panel.add(pizza3);
+		panel.add(piz3top1);
+		panel.add(piz3top2);
+		panel.add(piz3top3);
+		
+		panel.add(soda1);
+		panel.add(sodaFlavor1);
+		
+		panel.add(soda2);
+		panel.add(sodaFlavor2);
+		
+		panel.add(soda3);
+		panel.add(sodaFlavor3);
+		
+		panel.add(soda4);
+		panel.add(sodaFlavor4);
+		
+		panel.add(soda5);
+		panel.add(sodaFlavor5);
+
+		panel.add(addon);
+		
+		panel.add(wing1);
+		panel.add(wingFlavor1);
+		panel.add(bone1);
+		
+		panel.add(wing2);
+		panel.add(wingFlavor2);
+		panel.add(bone2);
+		
+		panel.add(save);
+		panel.add(cancel);
+		this.add(panel);
 	}
 	
 	private void createPlatinumComponents() {
 		
+		pizza1 = new JLabel("Pizza 1: ");
+		piz1top1 = new JComboBox<String>(toppings);
+		piz1top2 = new JComboBox<String>(toppings);
+		piz1top3 = new JComboBox<String>(toppings);
+		piz1top4 = new JComboBox<String>(toppings);
+		
+		pizza2 = new JLabel("Pizza 2: ");
+		piz2top1 = new JComboBox<String>(toppings);
+		piz2top2 = new JComboBox<String>(toppings);
+		piz2top3 = new JComboBox<String>(toppings);
+		piz2top4 = new JComboBox<String>(toppings);
+		
+		pizza3 = new JLabel("Pizza 3: ");
+		piz3top1 = new JComboBox<String>(toppings);
+		piz3top2 = new JComboBox<String>(toppings);
+		piz3top3 = new JComboBox<String>(toppings);
+		piz3top4 = new JComboBox<String>(toppings);
+		
+		pizza4 = new JLabel("Pizza 4: ");
+		piz4top1 = new JComboBox<String>(toppings);
+		piz4top2 = new JComboBox<String>(toppings);
+		piz4top3 = new JComboBox<String>(toppings);
+		piz4top4 = new JComboBox<String>(toppings);
+				
+		soda1 = new JLabel("Soda 1: ");
+		sodaFlavor1 = new JComboBox<String>(sodaFlavors);
+		
+		soda2 = new JLabel("Soda 2: ");
+		sodaFlavor2 = new JComboBox<String>(sodaFlavors);
+		
+		soda3 = new JLabel("Soda 3: ");
+		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
+		
+		soda4 = new JLabel("Soda 4: ");
+		sodaFlavor4 = new JComboBox<String>(sodaFlavors);
+		
+		soda5 = new JLabel("Soda 5: ");
+		sodaFlavor5 = new JComboBox<String>(sodaFlavors);
+		
+		addon = new JLabel("Salad & Breadsticks included");
+		
+		wing1 = new JLabel("Wing 1: ");
+		wingFlavor1 = new JComboBox<String>(wingFlavors);
+		bone1 = new JCheckBox("Bone-In");
+		
+		wing2 = new JLabel("Wing 2: ");
+		wingFlavor2 = new JComboBox<String>(wingFlavors);
+		bone2 = new JCheckBox("Bone-In");
+		
+		ice1 = new JLabel("Ice Cream 1: ");
+		iceFlavor1 = new JComboBox<String>(iceFlavors);
+		
+		ice2 = new JLabel("Ice Cream 2: ");
+		iceFlavor2 = new JComboBox<String>(iceFlavors);
+		
+		save = new JButton("Save");
+		cancel = new JButton("Cancel");
+		
+		JPanel panel = new JPanel();
+		this.setSize(525, 400);
+
+		panel.add(pizza1);
+		panel.add(piz1top1);
+		panel.add(piz1top2);
+		panel.add(piz1top3);
+		panel.add(piz1top4);
+		
+		panel.add(pizza2);
+		panel.add(piz2top1);
+		panel.add(piz2top2);
+		panel.add(piz2top3);
+		panel.add(piz2top4);
+		
+		panel.add(pizza3);
+		panel.add(piz3top1);
+		panel.add(piz3top2);
+		panel.add(piz3top3);
+		panel.add(piz3top4);
+		
+		panel.add(pizza4);
+		panel.add(piz4top1);
+		panel.add(piz4top2);
+		panel.add(piz4top3);
+		panel.add(piz4top4);
+		
+		panel.add(soda1);
+		panel.add(sodaFlavor1);
+		
+		panel.add(soda2);
+		panel.add(sodaFlavor2);
+		
+		panel.add(soda3);
+		panel.add(sodaFlavor3);
+		
+		panel.add(soda4);
+		panel.add(sodaFlavor4);
+		
+		panel.add(soda5);
+		panel.add(sodaFlavor5);
+
+		panel.add(addon);
+		
+		panel.add(wing1);
+		panel.add(wingFlavor1);
+		panel.add(bone1);
+		
+		panel.add(wing2);
+		panel.add(wingFlavor2);
+		panel.add(bone2);
+		
+		panel.add(ice1);
+		panel.add(iceFlavor1);
+		
+		panel.add(ice2);
+		panel.add(iceFlavor2);
+		
+		panel.add(save);
+		panel.add(cancel);
+		this.add(panel);
 	}
 	
-	public static void main(String[] args) {
+	class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent click) {
+			// TODO Auto-generated method stub
+			if (click.getSource() == save) {
+				
+			}
+		}
 		
-		MealFrame m = new MealFrame("Silver");
-		m.setVisible(true);
 	}
 }
