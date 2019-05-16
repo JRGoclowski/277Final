@@ -11,8 +11,23 @@ public class Guest {
 	
 	private String mPhone, mEmail, mName, mAddress;
 	private CreditCard mCard;
+	private Day mDOB;
 	private boolean notifyPhone, notifyEmail;
 	
+	/**
+	 * @return the mDOB
+	 */
+	public Day getmDOB() {
+		return mDOB;
+	}
+
+	/**
+	 * @param mDOB the mDOB to set
+	 */
+	public void setmDOB(Day mDOB) {
+		this.mDOB = mDOB;
+	}
+
 	/**
 	 * @return the notifyPhone
 	 */

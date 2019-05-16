@@ -95,6 +95,20 @@ public class Day implements Comparable {
 	}
 
 	/**
+	 * @return the mYearNumeral
+	 */
+	public int getmYearNumeral() {
+		return mYearNumeral;
+	}
+
+	/**
+	 * @param mYearNumeral the mYearNumeral to set
+	 */
+	public void setmYearNumeral(int mYearNumeral) {
+		this.mYearNumeral = mYearNumeral;
+	}
+
+	/**
 	 * @param mMonthNumeral the mMonthNumeral to set
 	 */
 	public void setmMonthNumeral(int mMonthNumeral) {

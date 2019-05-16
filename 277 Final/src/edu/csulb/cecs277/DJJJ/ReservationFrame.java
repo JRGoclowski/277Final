@@ -26,6 +26,10 @@ import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 
 public class ReservationFrame extends JFrame {
 	
+	public static void main(String args[]) {
+		ReservationFrame lRF = new ReservationFrame();
+		lRF.setVisible();
+	}
 
 	/**
 		 * @author Jonathan
@@ -103,7 +107,7 @@ public class ReservationFrame extends JFrame {
 	
 	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	
-	private boolean mMealEditted;
+	private boolean mMealEditted, isEdit;
 	
 	private MealPlan mMealPlan;
 	
@@ -113,6 +117,7 @@ public class ReservationFrame extends JFrame {
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
+		isEdit = true;
 		InitializeGeneralComponents();
 		FillByReservation(pReservation);
 	}
@@ -301,9 +306,89 @@ public class ReservationFrame extends JFrame {
 		mGuestEmailTF.setColumns(15);
 		mGuestP.add(mGuestEmailTF);		
 	}
-
+	
+	/*
+	 *  mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
+	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
+	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
+	
+	private JCheckBox mPhoneC, mEmailC;
+	
+	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
+	
+	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
+	
+	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
+	
+	private boolean mMealEditted;
+	
+	private MealPlan mMealPlan;
+	 */
 	private void FillByReservation(Reservation pReservation) {
-		m
+		Guest lGuest = pReservation.getmGuest();
+		Room lRoom = pReservation.getmRoom();
+		MealPlan lMeal = pReservation.getmMealPlan();
+		
+		mGuestNameTF.setText(lGuest.getmName());
+		mGuestPhoneTF.setText(lGuest.getmPhone()); 
+		mGuestAddressTF.setText(lGuest.getmAddress());
+		mGuestDOBMTF.setText(Integer.toString(lGuest.getmDOB().getmMonthNumeral()));
+		mGuestDOBDTF.setText(Integer.toString(lGuest.getmDOB().getmDayNumeral()));
+		mGuestDOBYTF.setText(Integer.toString(lGuest.getmDOB().getmYearNumeral()));
+		mGuestEmailTF.setText(lGuest.getmEmail());
+		mCCNameTF.setText(lGuest.getmCard().getmName());
+		mCCNumberTF.setText(lGuest.getmCard().getmNumber());
+		mCCSecurityTF.setText(lGuest.getmCard().getmSecurityCode());
+		mCCExpirationTF.setText(lGuest.getmCard().getmExpiration());
+		mRoomDateMTF.setText(Integer.toString(pReservation.getmDay().getmMonthNumeral()));
+		mRoomDateDTF.setText(Integer.toString(pReservation.getmDay().getmDayNumeral()));
+		mRoomDateYTF.setText(Integer.toString(pReservation.getmDay().getmYearNumeral()));
+		
+		if (lGuest.isNotifyEmail()) {
+			mEmailC.setSelected(true);
+		}
+		if (lGuest.isNotifyPhone()) {
+			mPhoneC.setSelected(true);
+		}
+		
+		//"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Room", "Aqua World"
+		int lRoomIndex;
+		if (lRoom instanceof SmallPartyRoom) {
+			lRoomIndex = 0 ;
+		}
+		else if (lRoom instanceof MediumPartyRoom) {
+			lRoomIndex = 1;
+		}
+		else if (lRoom instanceof KaraokeLounge) {
+			lRoomIndex = 2;
+		}
+		else if (lRoom instanceof BilliardsLounge) {
+			lRoomIndex = 3;
+		}
+		else {
+			lRoomIndex = 4;
+		}
+		
+		mRoomTypeCB.setSelectedIndex(lRoomIndex);
+		mRoomTimeCB.setSelectedItem(pReservation.getmFullStartTime().toString());
+		int lMealIndex;
+		if (lMeal instanceof BasicPlan) {
+			lMealIndex = 0 ;
+		}
+		else if (lMeal instanceof BronzePlan) {
+			lMealIndex = 1;
+		}
+		else if (lMeal instanceof SilverPlan) {
+			lMealIndex = 2;
+		}
+		else if (lMeal instanceof GoldPlan) {
+			lMealIndex = 3;
+		}
+		else {
+			lMealIndex = 4;
+		}
+		mMealPlanCB.setSelectedIndex(lMealIndex);
+		mMealEditted = false;
 	}
 
 	/**
