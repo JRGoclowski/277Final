@@ -77,6 +77,8 @@ public class MealFrame extends JFrame {
 	private GoldPlan myGold;
 	private PlatinumPlan myPlat;
 	
+	private ReservationFrame mResFrame;
+	
 	private String[] toppings = new String[] {"None", "Cheese", "Pepperoni", "Ham", "Jalapeno", "Sausage", "Mushroom", "Pineapple", "Bell Pepper", "Onion", "Garlic Chicken"};
 	private String[] sodaFlavors = new String[] {"Coca-Cola", "Diet Coke", "Canada Dry", "Orange Crush", "Squirt", "Root Beer"};
 	private String[] addons = new String[] {"Salad", "Breadsticks"};
@@ -84,7 +86,7 @@ public class MealFrame extends JFrame {
 	private String[] iceFlavors = new String[] {"Chocolate Fudge", "Vanilla Bean", "Strawberry Shortcake", "Choco-mint", "Butter Pecan"};
 	
 	public MealFrame(ReservationFrame pResFrame) {
-		
+		mResFrame = pResFrame;
 		switch(pResFrame.getmMealPlanCB().getSelectedItem().toString()) {
 		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
 		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
