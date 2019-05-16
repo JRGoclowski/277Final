@@ -61,24 +61,35 @@ public class ReservationFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			RoomList lRoomList = RoomList.getmRoomList();
 			Room lRoom = mReservation.getmRoom();
+			ArrayList<Room> lRooms;
+			Date dateToChange = null;
 			if (lRoom instanceof SmallPartyRoom) {
-				
+				lRooms = lRoomList.getmSmallRooms();
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
 			}
 			else if (lRoom instanceof MediumPartyRoom) {
-				lRoomIndex = 1;
+				lRooms = lRoomList.getmMediumRooms();
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
 			}
 			else if (lRoom instanceof KaraokeLounge) {
-				lRoomIndex = 2;
+				lRooms = lRoomList.getmKaraokeRooms();
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
 			}
 			else if (lRoom instanceof BilliardsLounge) {
-				lRoomIndex = 3;
+				lRooms = lRoomList.getmBilliardRooms();
+				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mReservation);
 			}
 			else {
-				lRoomIndex = 4;
+				lRooms = null;
+				for (Date iDate : lRoomList.getmAquaWorld().getRoomDates()) {
+					if (mReservation.getmDay().equals(iDate.getmDay())){
+						dateToChange = iDate;
+					}
+				}
 			}
-			
+			dateToChange.removeReservation(mReservation);
+			lRoomList.notify();
 		}
-
 	}
 
 	public class CancelButtonListener implements ActionListener {

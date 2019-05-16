@@ -148,7 +148,7 @@ public class RoomList
 	}
 	
 	
-	public static Date ReturnDateOfRes(ArrayList<Room> pRooms, Reservation pReservation) {
+	public Date ReturnDateOfRes(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			//Each room has a date 
 			for (Date iDate : iRoom.getRoomDates()) {

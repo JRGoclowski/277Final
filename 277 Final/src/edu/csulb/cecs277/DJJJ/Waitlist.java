@@ -14,7 +14,7 @@ public class Waitlist
 	}
 	
 	//Array list of reservations 
-	ArrayList<Reservation> WaitList = new ArrayList<Reservation>();
+	ArrayList<Reservation> mReservationList = new ArrayList<Reservation>();
 
 	/**
 	 * @return the mWaitlist arraylist 
@@ -30,11 +30,11 @@ public class Waitlist
 	 */
 	public ArrayList<Reservation> getWaitListReservation()
 	{
-		return WaitList;
+		return mReservationList;
 	}
 	
 	public void addToWaitList(Reservation pReservation) {
-		WaitList.add(pReservation);
+		mReservationList.add(pReservation);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class Waitlist
 	 */
 	private Reservation GetOpenReservation() {
 		
-		for (Reservation iRes : WaitList) {
+		for (Reservation iRes : mReservationList) {
 			Room desiredRoom = iRes.getmRoom(), defaultRoom, openRoom;
 			if (desiredRoom instanceof SmallPartyRoom) {
 				openRoom = RoomList.checkRooms(RoomList.getmRoomList().getmSmallRooms(), iRes);
