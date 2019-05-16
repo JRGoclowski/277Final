@@ -85,7 +85,7 @@ public class MealFrame extends JFrame {
 	
 	public MealFrame(ReservationFrame pResFrame) {
 		
-		switch(pResFrame.getmMealPlan().toString()) {
+		switch(pResFrame.getmMealPlanCB().getSelectedItem().toString()) {
 		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
 		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
 		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
