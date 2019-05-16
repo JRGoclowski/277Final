@@ -3,20 +3,21 @@ package edu.csulb.cecs277.DJJJ;
 public class Guest {
 	
 	public static final Guest JOESEPH_JOESTAR = new Guest("1", "OHMYGAWD@hamon.com", "Joeseph Joestar",
-			"Hermit... Purple", "Your next line is I need a credit card");
+			"Hermit... Purple",  new CreditCard());
 	public static final Guest DIO_BRANDO = new Guest("2", "BUTITWASME@DIO.com", "Dio Brando", 
-			"ZA WARUDO", "I REJECT MY CREDIT CARD JOJO");
+			"ZA WARUDO",  new CreditCard());
 	public static final Guest JOTARO_KUJO = new Guest("3", "YareYare@Daze.com", "Jotaro Kujo", 
-			"Japan", "Star Platinum Members Card");
+			"Japan", new CreditCard());
 	
-	private String mPhone, mEmail, mName, mAddress, mCardInfo;
+	private String mPhone, mEmail, mName, mAddress;
+	private CreditCard mCard;
 	
-	public Guest (String phone, String email, String name, String address, String card) {
+	public Guest (String phone, String email, String name, String address, CreditCard card) {
 		mPhone = phone;
 		mEmail = email;
 		mName = name;
 		mAddress = address;
-		mCardInfo = card;
+		mCard = card;
 	}
 
 	/**
@@ -76,18 +77,20 @@ public class Guest {
 	}
 
 	/**
-	 * @return the mCardInfo
+	 * @return the mCard
 	 */
-	public String getmCardInfo() {
-		return mCardInfo;
+	public CreditCard getmCard() {
+		return mCard;
 	}
 
 	/**
-	 * @param mCardInfo the mCardInfo to set
+	 * @param mCard the mCard to set
 	 */
-	public void setmCardInfo(String mCardInfo) {
-		this.mCardInfo = mCardInfo;
+	public void setmCard(CreditCard mCard) {
+		this.mCard = mCard;
 	}
+
+	
 	
 	
 }
