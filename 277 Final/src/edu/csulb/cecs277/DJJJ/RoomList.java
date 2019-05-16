@@ -147,6 +147,20 @@ public class RoomList
 		return null;
 	}
 	
+	
+	public static Date ReturnDateOfRes(ArrayList<Room> pRooms, Reservation pReservation) {
+		for (Room iRoom : pRooms) {
+			//Each room has a date 
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (pReservation.getmDay().equals(iDate.getmDay())){
+					if (iDate.getmReservations().contains(pReservation)) {
+						return iDate;
+					}
+				}
+			}
+		}
+		return null;		
+	}
 	/**
 	 * Adds a reservation that has a valid room
 	 * @param pReservation - the room to be added.

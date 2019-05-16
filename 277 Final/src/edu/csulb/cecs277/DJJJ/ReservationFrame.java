@@ -27,7 +27,7 @@ import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 public class ReservationFrame extends JFrame {
 	
 	public static void main(String args[]) {
-		ReservationFrame lRF = new ReservationFrame(Reservation.TEST_RESERVATION);
+		ReservationFrame lRF = new ReservationFrame();
 		lRF.setVisible(true);
 	}
 
@@ -42,7 +42,7 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
 
 		}
 
@@ -59,8 +59,24 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
+			RoomList lRoomList = RoomList.getmRoomList();
+			Room lRoom = mReservation.getmRoom();
+			if (lRoom instanceof SmallPartyRoom) {
+				
+			}
+			else if (lRoom instanceof MediumPartyRoom) {
+				lRoomIndex = 1;
+			}
+			else if (lRoom instanceof KaraokeLounge) {
+				lRoomIndex = 2;
+			}
+			else if (lRoom instanceof BilliardsLounge) {
+				lRoomIndex = 3;
+			}
+			else {
+				lRoomIndex = 4;
+			}
+			
 		}
 
 	}
@@ -111,6 +127,8 @@ public class ReservationFrame extends JFrame {
 	
 	private MealPlan mMealPlan;
 	
+	private Reservation mReservation;
+	
 	
 	public ReservationFrame() {
 		this.setTitle("Reservation");
@@ -121,6 +139,7 @@ public class ReservationFrame extends JFrame {
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
+		mReservation = pReservation;
 		this.setTitle("Reservation");
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -128,7 +147,7 @@ public class ReservationFrame extends JFrame {
 		mMealEditted = false;
 		isEdit = true;
 		mDeleteB.setVisible(true);
-		FillByReservation(pReservation);
+		FillByReservation(mReservation);
 	}
 	
 	private void InitializeGeneralComponents() {
