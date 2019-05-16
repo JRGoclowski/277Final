@@ -149,7 +149,10 @@ public class ReservationFrame {
 		
 		mMealPlanP.add(new JLabel("Meal Plan -"));
 		
-		mMealPlanP
+		String[] plans = {"Basic", "Bronze", "Silver", "Gold", "Platinum"};
+		mMealPlanCB = new JComboBox<String>(plans);
+		
+		mMealPlanP.add(mMealPlanCB);
 		
 	}
 	
@@ -259,6 +262,42 @@ public class ReservationFrame {
 	private void FillByReservation(Reservation pReservation) {
 		
 	}
+
+	/**
+	 * @return the mMealEditted
+	 */
+	public boolean ismMealEditted() {
+		return mMealEditted;
+	}
+
+	/**
+	 * @param mMealEditted the mMealEditted to set
+	 */
+	public void setmMealEditted(boolean mMealEditted) {
+		this.mMealEditted = mMealEditted;
+	}
+
+	/**
+	 * @return the mMealPlan
+	 */
+	public MealPlan getmMealPlan() {
+		return mMealPlan;
+	}
+
+	/**
+	 * @param mMealPlan the mMealPlan to set
+	 */
+	public void setmMealPlan(MealPlan mMealPlan) {
+		this.mMealPlan = mMealPlan;
+	}
+
+	/**
+	 * @return the mMealPlanCB
+	 */
+	public JComboBox<String> getmMealPlanCB() {
+		return mMealPlanCB;
+	}
+	
 	
 	/*
 	 * Contains - 
