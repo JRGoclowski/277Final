@@ -134,7 +134,10 @@ public class ReservationFrame extends JFrame {
 			CreditCard lAddCard = new CreditCard(mCCNameTF.getText(), mCCNumberTF.getText(), mCCSecurityTF.getText(), mCCExpirationTF.getText());
 			Guest lAddGuest = new Guest(mGuestPhoneTF.getText(), mGuestEmailTF.getText(), mGuestNameTF.getText(), mGuestAddressTF.getText(), lAddCard);
 			lAddGuest.setmDOB(lDOBDay);
+			lAddGuest.setNotifyPhone(mPhoneC.isSelected());
+			lAddGuest.setNotifyEmail(mEmailC.isSelected());
 			Reservation lAddRes = new Reservation(startTime , endTime, lAddDay, GetRoomType(mRoomTypeCB.getSelectedItem().toString()), lAddGuest);
+			lAddRes.setmMealPlan(mMealPlan);
 			if (isEdit) {
 				if (!AdjustChanged(mOriginalReservation)) {
 					ErrorFrame EF = new ErrorFrame();
