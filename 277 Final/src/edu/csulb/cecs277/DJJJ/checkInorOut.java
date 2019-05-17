@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -26,10 +27,10 @@ import javax.swing.JTextField;
 			//_______________________________________________________________________________________initial startup
 			//Gets what the user clicked, either check in or check out 
 			JMenuItem menuItem = (JMenuItem) click.getSource();
-			String item = menuItem.getText();
+			String checkInOrOut = menuItem.getText();
 			
 			//Creates the frame and panal
-			JFrame frame = new JFrame(item);
+			JFrame frame = new JFrame(checkInOrOut);
 			JPanel panel = new JPanel();
 			
 			//sets the frame set and set the visibility to true
@@ -130,18 +131,7 @@ import javax.swing.JTextField;
 			});
 			//___________________________________________________________________
 			
-			
-			//This JButton is used when the user wants to check in or out a specific guest______________________________
-			JButton check = new JButton(item);
-			check.setPreferredSize(new Dimension(120, 50));
-			check.addActionListener(new ActionListener()
-			{
-			public void actionPerformed(ActionEvent event)
-				{
-					
-				}
-			});
-			//_________________________________________________________________________________________________________
+
 			
 			
 			
@@ -155,12 +145,12 @@ import javax.swing.JTextField;
 			submit.addActionListener(new ActionListener()
 					{
 					public void actionPerformed(ActionEvent event)
-						{
+						{			
 							//Make the panel
 							DefaultListModel demoList = new DefaultListModel();
 							JList lists = new JList(demoList);
 				    
-				    	
+				    
 							JScrollPane list = new JScrollPane(lists);
 				    		list.setPreferredSize(new Dimension(100,100));
 				    		
@@ -170,28 +160,59 @@ import javax.swing.JTextField;
 							int lYear = Integer.parseInt(year.getText());
 							//Code to look through the reservation 
 							
-//							//This part of the code gets the user input and finds the specific date 
+							//This part of the code gets the user input and finds the specific date 
 							Day lIndexDay = new Day(lMonth, lDay, lYear);
 							
-							for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
+							
+							//This function should edit the guestList with the reservations with the matching
+//							//day that the user passed in 
+//							//This array list will be used to add the reservation to when the matching date is found
+//							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
+//							searchReservationForGuest(guestReservation, lIndexDay);
+//							
+//							//Now that we have the reservation we can add it to the JList of lists
+//							//Get each reservation inside the guestList
+//							for(Reservation res : guestReservation)
+//							{
+//								//Adding to the jScrollpane each guest name inside the reservation of that specific day 
+//								//Selects the guest based on whether or not the check in or check out is false
+//								if(checkInOrOut.equals("Check-in"))
+//								{
+//									//If the reservation is check in 
+//									if(!res.isCheckedIn())
+//									{
+//										res.setCheckedIn(true);
+//										guestReservation.add(res);
+//									}
+//								}
+//								else if(checkInOrOut.equals("Check-out"))
+//								{
+//									if(!res.isCheckedOut() && res.isCheckedIn())
+//									{
+//										res.setCheckedOut(true);
+//										guestReservation.add(res);
+//									}
+//								}
+//								else
+//								{
+//									//if the guest is checked out (true) and checked in (true), then not do anything 
+//								}
+//
+//							}
+							
+							//Now handle it when the user highlists a guest and clicks check in or checks out 
+							
+							//This JButton is used when the user wants to check in or out a specific guest______________________________
+							JButton check = new JButton(checkInOrOut);
+							check.setPreferredSize(new Dimension(120, 50));
+							check.addActionListener(new ActionListener()
 							{
-								System.out.println("hi");
-								//Each room has a date 
-								for (Date iDate : iRoom.getRoomDates()) 
+							public void actionPerformed(ActionEvent event)
 								{
-									if (iDate.getmDay().equals(lIndexDay))
-									{
-										//Get the guest name
-									}
-								}
-							}
 	
-							
-							
-							
-							
-							
-							
+								}
+							});
+							//_________________________________________________________________________________________________________
 							
 							
 							
@@ -211,6 +232,79 @@ import javax.swing.JTextField;
 						}
 				});
 			frame.add(panel);
+		}
+		
+		
+		//This function looks through each room inside roomlist for the matching dates that the user passed in 
+		private void searchReservationForGuest(ArrayList<Reservation> guestList, Day matchingDay)
+		{
+			for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
+			{
+				//Each room has a date 
+				for (Date iDate : iRoom.getRoomDates()) 
+				{
+					if (iDate.getmDay().equals(matchingDay))
+					{
+						for(Reservation res : iDate.getmReservations())
+						{
+							guestList.add(res);
+						}
+					}
+				}
+			}
+			for (Room iRoom : RoomList.getmRoomList().getmMediumRooms()) 
+			{
+				//Each room has a date 
+				for (Date iDate : iRoom.getRoomDates()) 
+				{
+					if (iDate.getmDay().equals(matchingDay))
+					{
+						for(Reservation res : iDate.getmReservations())
+						{
+							guestList.add(res);
+						}
+					}
+				}
+			}
+			for (Room iRoom : RoomList.getmRoomList().getmBilliardRooms()) 
+			{
+				//Each room has a date 
+				for (Date iDate : iRoom.getRoomDates()) 
+				{
+					if (iDate.getmDay().equals(matchingDay))
+					{
+						for(Reservation res : iDate.getmReservations())
+						{
+							guestList.add(res);
+						}
+					}
+				}
+			}
+			for (Room iRoom : RoomList.getmRoomList().getmKaraokeRooms()) 
+			{
+				//Each room has a date 
+				for (Date iDate : iRoom.getRoomDates()) 
+				{
+					if (iDate.getmDay().equals(matchingDay))
+					{
+						for(Reservation res : iDate.getmReservations())
+						{
+							guestList.add(res);
+						}
+					}
+				}
+			}
+			
+			for(Date iDate : RoomList.getmRoomList().getmAquaWorld().getRoomDates())
+			{
+				if (iDate.getmDay().equals(matchingDay))
+				{
+					for(Reservation res : iDate.getmReservations())
+					{
+						guestList.add(res);
+					}
+				}
+			}
 		}
 	}
 
