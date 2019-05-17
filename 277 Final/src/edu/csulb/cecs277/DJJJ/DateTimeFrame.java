@@ -29,8 +29,8 @@ public class DateTimeFrame extends JFrame {
 			Time startTime = Time.GetTimeFromString(mStartTimeCB.getSelectedItem().toString());
 			Time endTime = Time.GetTimeFromString(mEndTimeCB.getSelectedItem().toString());
 			
-			
-			
+			ReservationFrame rf = new ReservationFrame(startTime, endTime, nDate, mRoomTypeCB.getSelectedItem().toString());
+			rf.setVisible(true);
 		}
 
 	}
