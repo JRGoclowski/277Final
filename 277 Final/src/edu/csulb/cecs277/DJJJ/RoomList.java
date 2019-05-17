@@ -29,7 +29,41 @@ public class RoomList
 	//SingleTon 
 	private RoomList () 
 	{
-		mRoomList = this;
+		populateRoomList();
+	}
+	
+	private void populateRoomList() {
+		
+		SmallPartyRoom mySmall = new SmallPartyRoom();
+		MediumPartyRoom myMedium = new MediumPartyRoom();
+		KaraokeLounge myKaraoke = new KaraokeLounge();
+		BilliardsLounge myBilliards = new BilliardsLounge();
+		
+		for (int i = 0; i < 10; i++) {
+			SmallPartyRoom newSmall = (SmallPartyRoom) mySmall.clone();
+			newSmall.setRoomNumber(i+1);
+			mSmallRooms.add(newSmall);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
+			newMedium.setRoomNumber(i+1);
+			mMediumRooms.add(newMedium);
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
+			newKaraoke.setRoomNumber(i+1);
+			mKaraokeRooms.add(newKaraoke);
+		}
+		
+		for (int i = 0; i < 5; i++) {
+			BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
+			newBilliards.setRoomNumber(i+1);
+			mBilliardRooms.add(newBilliards);
+		}
+		
+		mAquaWorld.setRoomNumber(1);
 	}
 	
 	//Create a base room (new SmallRoom() or whatever)
