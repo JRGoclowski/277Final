@@ -87,6 +87,9 @@ public class MealFrame extends JFrame {
 	private String[] wingFlavors = new String[] {"Mild Spicy", "Diablo", "Lemon Pepper", "BBQ", "Sesame"};
 	private String[] iceFlavors = new String[] {"Chocolate Fudge", "Vanilla Bean", "Strawberry Shortcake", "Choco-mint", "Butter Pecan"};
 	
+	/**
+	 * Sets up the Meal Plan Frame according to what was selected in the ReservationFrame
+	 * **/
 	public MealFrame(ReservationFrame pResFrame) {
 		mResFrame = pResFrame;
 		switch(pResFrame.getmMealPlanCB().getSelectedItem().toString()) {
@@ -100,6 +103,9 @@ public class MealFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * Creates the components for a Basic Meal Plan
+	 * **/
 	private void createBasicComponents() {
 		
 		pizza1 = new JLabel("Pizza 1: ");
@@ -149,6 +155,9 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+	/**
+	 * Creates the components for a Bronze Meal Plan
+	 * **/
 	private void createBronzeComponents() {
 		
 		pizza1 = new JLabel("Pizza 1: ");
@@ -222,6 +231,9 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+	/**
+	 * Creates the components for a Silver Meal Plan
+	 * **/
 	private void createSilverComponents() {
 		
 		pizza1 = new JLabel("Pizza 1: ");
@@ -299,6 +311,9 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+	/**
+	 * Creates the components for a Gold Meal Plan
+	 * **/
 	private void createGoldComponents() {
 		
 		pizza1 = new JLabel("Pizza 1: ");
@@ -392,6 +407,9 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+	/**
+	 * Creates the components for a Platinum Meal Plan
+	 * **/
 	private void createPlatinumComponents() {
 		
 		pizza1 = new JLabel("Pizza 1: ");
@@ -515,6 +533,11 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+	/**
+	 * Button Listener that checks to see whether "save" or "cancel" is clicked
+	 * If "save" is clicked, then the appropriate meal plan is saved to the reservation frame
+	 * If "cancel" is clicked, then the frame closes and returns to the reservation frame
+	 * **/
 	class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent click) {
@@ -647,6 +670,5 @@ public class MealFrame extends JFrame {
 				frame.setVisible(false);
 			}
 		}
-		
 	}
 }
