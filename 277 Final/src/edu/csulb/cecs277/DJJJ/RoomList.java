@@ -32,6 +32,12 @@ public class RoomList
 		mRoomList = this;
 	}
 	
+	//Create a base room (new SmallRoom() or whatever)
+	//For (i = 1; i < Number of that room type + 1 [you need the plus one, so it goes up to that number]; i++)
+	//Room newRoom = BaseRoom.clone()
+	//newRoom.setNumer(i);
+	
+	
 	/**
 	 * Takes these parameters and attempts to create a 
 	 * @param pGuestStart
@@ -145,6 +151,25 @@ public class RoomList
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Room> GetRoomsSameAs(Reservation pReservation){
+		Room lRoom = pReservation.getmRoom();
+		if (lRoom instanceof SmallPartyRoom) {
+			return mSmallRooms;
+		}
+		else if (lRoom instanceof MediumPartyRoom) {
+			return mMediumRooms;
+		}
+		else if (lRoom instanceof KaraokeLounge) {
+			return mKaraokeRooms;
+		}
+		else if (lRoom instanceof BilliardsLounge) {
+			return mBilliardRooms;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public Date ReturnDateOfRes(Reservation pReservation) {

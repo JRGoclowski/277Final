@@ -62,26 +62,11 @@ public class ReservationFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			RoomList lRoomList = RoomList.getmRoomList();
 			Room lRoom = mOriginalReservation.getmRoom();
-			ArrayList<Room> lRooms;
 			Date dateToChange = null;
-			if (lRoom instanceof SmallPartyRoom) {
-				lRooms = lRoomList.getmSmallRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
-			}
-			else if (lRoom instanceof MediumPartyRoom) {
-				lRooms = lRoomList.getmMediumRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
-			}
-			else if (lRoom instanceof KaraokeLounge) {
-				lRooms = lRoomList.getmKaraokeRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
-			}
-			else if (lRoom instanceof BilliardsLounge) {
-				lRooms = lRoomList.getmBilliardRooms();
-				dateToChange = lRoomList.ReturnDateOfRes(lRooms, mOriginalReservation);
+			if (!(lRoom instanceof AquaWorld)) {
+				dateToChange = lRoomList.ReturnDateOfRes(mOriginalReservation);
 			}
 			else {
-				lRooms = null;
 				for (Date iDate : lRoomList.getmAquaWorld().getRoomDates()) {
 					if (mOriginalReservation.getmDay().equals(iDate.getmDay())){
 						dateToChange = iDate;
@@ -142,7 +127,7 @@ public class ReservationFrame extends JFrame {
 	
 	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
 	
-	private boolean mMealEditted, isWaitList, isEdit;
+	private boolean mMealEditted, isWaitList, isEdit, mDayChanged, mTimeChanged, mRoomChanged;
 	
 	private MealPlan mMealPlan;
 	
@@ -509,8 +494,8 @@ public class ReservationFrame extends JFrame {
 		MealPlan lMeal = pReservation.getmMealPlan();
 		CreditCard lCC = lGuest.getmCard();
 		int lDOBM = Integer.parseInt(mGuestDOBMTF.getText()), 
-				lDOBD = Integer.parseInt(mGuestDOBMTF.getText()),
-				lDOBY = Integer.parseInt(mGuestDOBMTF.getText());
+				lDOBD = Integer.parseInt(mGuestDOBDTF.getText()),
+				lDOBY = Integer.parseInt(mGuestDOBYTF.getText());
 		Day lDOBDay = new Day(lDOBM, lDOBD, lDOBY);
 		RoomList lRoomList = RoomList.getmRoomList();
 		//Name Changed
@@ -555,9 +540,25 @@ public class ReservationFrame extends JFrame {
 			lCC.setmExpiration(mCCExpirationTF.getText());
 		}
 		//Room Changed (make sure to handle adult)
+		if (RoomChanged(pReservation)) {
+			Room lNewRoom = GetViableRoomChangeRoom(pReservation, GetRoomTypeList(mRoomTypeCB.getSelectedItem().toString()));
+			if (lNewRoom != null) {
+				Date lNewDate = GetViableRoomChangeDate(pReservation, lNewRoom);
+				RoomList.getmRoomList().ReturnDateOfRes(pReservation).removeReservation(pReservation);
+				lNewDate.addReservation(pReservation);
+				pReservation.setmRoom(lNewRoom);
+			}
+		}
 		//{"Small Party Room", "Medium Party Room", "Karaoke Lounge", "Billiards Lounge", "Aqua World"};
 		
-		//Date Changed 
+		//Date Changed mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
+		int lNewM = Integer.parseInt(mRoomDateDTF.getText()), 
+				lNewD = Integer.parseInt(mRoomDateMTF.getText()),
+				lNewY= Integer.parseInt(mRoomDateYTF.getText());
+		Day lNewDay = new Day(lNewM, lNewD, lNewY);
+		if (!pReservation.getmDay().equals(lNewDay)){
+			
+		}
 		//Time Changed
 		//Meal Plan Changed
 		//Contact Method Changed
@@ -598,13 +599,26 @@ public class ReservationFrame extends JFrame {
 		}
 	}
 	
-	private Date GetViableRoomChangeDate(Reservation pReservation, ArrayList <Room> pRooms) {
+	
+	
+	private Room GetViableRoomChangeRoom(Reservation pReservation, ArrayList <Room> pRooms) {
 		for (Room iRoom: pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
 				if (iDate.getmDay().equals(pReservation.getmDay())) {
 					if (iDate.isOpen(pReservation)) {
-						return iDate;
+						return iRoom;
 					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Date GetViableRoomChangeDate(Reservation pReservation, Room pRoom) {
+		for (Date iDate : pRoom.getRoomDates()) {
+			if (iDate.getmDay().equals(pReservation.getmDay())) {
+				if (iDate.isOpen(pReservation)) {
+					return iDate;
 				}
 			}
 		}
