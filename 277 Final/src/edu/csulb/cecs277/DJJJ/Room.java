@@ -2,8 +2,7 @@ package edu.csulb.cecs277.DJJJ;
 
 import java.util.ArrayList;
 
-public abstract class Room {	//may not need to extend Cloneable
-								//As a matter of fact it doesn't, and actually breaks my code if you do. so plz no. -Jonathan
+public abstract class Room {	
 	
 	private int mNumber;
 	private int mCapacity;
@@ -26,19 +25,6 @@ public abstract class Room {	//may not need to extend Cloneable
 		mFlatCost = 0;
 		mDates = null;
 		mMealPlan = null;
-	}
-	
-	//------------------This method may not be necessary, revisit------------------------------------
-	//Overloaded constructor for full information
-	public Room(int number, int capacity, String description, int hourlyCost, ArrayList<Date> dates, MealPlan mealPlan) {
-		mNumber = number;
-		mCapacity = capacity;
-		mDescription = description;
-		mRestrictions = "";
-		mHourlyCost = hourlyCost;
-		mDates = dates;
-		mMealPlan = mealPlan;
-		mFlatCost = 0;
 	}
 	
 	private static ArrayList<Date> FillDates(){

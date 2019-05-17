@@ -19,15 +19,11 @@ public class RoomList
 	//Array list of guest 
 	private ArrayList<Guest> mGuestList = new ArrayList<Guest>();
 	
-//	Each room has a waitlist?
+	//Each room has a waitlist?
 	private Waitlist mWaitlist = Waitlist.getmWaitlist();
-//	private Waitlist mMediumList = new Waitlist();
-//	private Waitlist mKaraokeList = new Waitlist();
-//	private Waitlist mBilliardsList = new Waitlist();
-//	private Waitlist mAquaWorldList = new Waitlist();
 	
 	//SingleTon 
-	private RoomList () 
+	private RoomList() 
 	{
 		populateRoomList();
 	}
@@ -39,27 +35,27 @@ public class RoomList
 		BilliardsLounge myBilliards = new BilliardsLounge();
 		
 		for (int i = 0; i < 10; i++) {
-			SmallPartyRoom newSmall = (SmallPartyRoom) mySmall.clone();
+			Room newSmall = new SmallPartyRoom();
 			newSmall.setRoomNumber(i+1);
-			mSmallRooms.add(mySmall);
+			//mSmallRooms.add(newSmall);
 		}
 		
 		for (int i = 0; i < 2; i++) {
-			MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
-			newMedium.setRoomNumber(i+1);
-			mMediumRooms.add(newMedium);
+			//MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
+			//newMedium.setRoomNumber(i+1);
+			//mMediumRooms.add(newMedium);
 		}
 		
 		for (int i = 0; i < 10; i++) {
-			KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
-			newKaraoke.setRoomNumber(i+1);
-			mKaraokeRooms.add(newKaraoke);
+			//KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
+			//newKaraoke.setRoomNumber(i+1);
+			//mKaraokeRooms.add(newKaraoke);
 		}
 		
 		for (int i = 0; i < 5; i++) {
-			BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
-			newBilliards.setRoomNumber(i+1);
-			mBilliardRooms.add(newBilliards);
+			//BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
+			//newBilliards.setRoomNumber(i+1);
+			//mBilliardRooms.add(newBilliards);
 		}
 		
 		mAquaWorld.setRoomNumber(1);
