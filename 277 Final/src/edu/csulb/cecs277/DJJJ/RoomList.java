@@ -42,25 +42,25 @@ public class RoomList
 		for (int i = 0; i < 10; i++) {
 			Room newSmall = new SmallPartyRoom();
 			newSmall.setRoomNumber(i+1);
-			//mSmallRooms.add(newSmall);
+			mSmallRooms.add(newSmall);
 		}
 		
 		for (int i = 0; i < 2; i++) {
-			//MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
-			//newMedium.setRoomNumber(i+1);
-			//mMediumRooms.add(newMedium);
+			MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
+			newMedium.setRoomNumber(i+1);
+			mMediumRooms.add(newMedium);
 		}
 		
 		for (int i = 0; i < 10; i++) {
-			//KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
-			//newKaraoke.setRoomNumber(i+1);
-			//mKaraokeRooms.add(newKaraoke);
+			KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
+			newKaraoke.setRoomNumber(i+1);
+			mKaraokeRooms.add(newKaraoke);
 		}
 		
 		for (int i = 0; i < 5; i++) {
-			//BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
-			//newBilliards.setRoomNumber(i+1);
-			//mBilliardRooms.add(newBilliards);
+			BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
+			newBilliards.setRoomNumber(i+1);
+			mBilliardRooms.add(newBilliards);
 		}
 		
 		mAquaWorld.setRoomNumber(1);
