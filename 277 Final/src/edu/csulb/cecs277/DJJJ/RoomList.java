@@ -10,11 +10,11 @@ public class RoomList
 	private static int mConfirmationCount = 1000;
 	
 	//ArrayList of rooms for waitlist, when we make the rooms, we add it to this array list of rooms 
-	private static ArrayList<Room> mSmallRooms = new ArrayList<Room>();
-	private static ArrayList<Room> mMediumRooms = new ArrayList<Room>();
-	private static ArrayList<Room> mKaraokeRooms = new ArrayList<Room>();
-	private static ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
-	private static AquaWorld mAquaWorld = new AquaWorld();
+	private static ArrayList<Room> mSmallRooms;
+	private static ArrayList<Room> mMediumRooms;
+	private static ArrayList<Room> mKaraokeRooms;
+	private static ArrayList<Room> mBilliardRooms;
+	private static AquaWorld mAquaWorld;
 	
 	//Array list of guest 
 	private ArrayList<Guest> mGuestList = new ArrayList<Guest>();
@@ -25,6 +25,11 @@ public class RoomList
 	//SingleTon 
 	private RoomList() 
 	{
+		mSmallRooms = new ArrayList<Room>();
+		mMediumRooms = new ArrayList<Room>();
+		mKaraokeRooms = new ArrayList<Room>();
+		mBilliardRooms = new ArrayList<Room>();
+		mAquaWorld = new AquaWorld();
 		populateRoomList();
 	}
 	
