@@ -268,10 +268,12 @@ public class MainFrame extends JFrame {
 		//New reservation item
 		menuItem = new JMenuItem("New Reservation...");
 		menu.add(menuItem);
+		menuItem.addActionListener(new ReservationItemListener());
 		menu.addSeparator();
 		//Edit reservation item
 		menuItem = new JMenuItem("Edit Existing Reservation...");
 		menu.add(menuItem);
+		menuItem.addActionListener(new ReservationItemListener());
 		menu.addSeparator();
 		//Manage reservation sub menu 
 		submenu = new JMenu("Manage Current Reservation");
@@ -323,6 +325,7 @@ public class MainFrame extends JFrame {
 		 p.add(description);
 		 JButton bookButton = new JButton("Book Now");
 		 p.add(bookButton);
+		 bookButton.addActionListener(new BookItemListener(roomName));
 		 container.add(p);
 	}
 	 
@@ -373,6 +376,7 @@ public class MainFrame extends JFrame {
 		p.add(description);
 		JButton bookButton = new JButton("Book Now");
 		p.add(bookButton);
+		bookButton.addActionListener(new BookItemListener(loungeName));
 		container.add(p);
 	}
 	
@@ -521,7 +525,44 @@ public class MainFrame extends JFrame {
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------
+	class ReservationItemListener implements ActionListener {
+		public void actionPerformed(ActionEvent select) {
+			JMenuItem item = (JMenuItem) select.getSource();
+			if (item.getText().equals("New Reservation...")) {
+				DateTimeFrame dtf = new DateTimeFrame();
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				dtf.setLocation(dim.width/2-dtf.getSize().width/2, dim.height/2-dtf.getSize().height/2);
+				dtf.setVisible(true);
+			}
+			else if (item.getText().equals("Edit Existing Reservation...")) {
+				EditReservationFrame eRF = new EditReservationFrame();
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				eRF.setLocation(dim.width/2-eRF.getSize().width/2, dim.height/2-eRF.getSize().height/2);
+				eRF.setVisible(true);
+			}
+		}
+	}
 	
+	//---------------------------------------------------------------------------------------------------------------------
+	
+	class BookItemListener implements ActionListener {
+		private String roomName;
+		
+		public BookItemListener(String name) {
+			roomName = name;
+			if (roomName.equals("Aqua Room")) { roomName = "Aqua World"; }
+		}
+		
+		public void actionPerformed(ActionEvent select) {
+			DateTimeFrame dtf = new DateTimeFrame(roomName);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			dtf.setLocation(dim.width/2-dtf.getSize().width/2, dim.height/2-dtf.getSize().height/2);
+			dtf.setVisible(true);
+		}
+	}
+	
+	//---------------------------------------------------------------------------------------------------------------------
+		
 	public static void main(String[] args) {
 		MainFrame f = new MainFrame();
 	}

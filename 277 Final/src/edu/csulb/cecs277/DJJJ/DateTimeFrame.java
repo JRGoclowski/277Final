@@ -29,8 +29,10 @@ public class DateTimeFrame extends JFrame {
 			Time startTime = Time.GetTimeFromString(mStartTimeCB.getSelectedItem().toString());
 			Time endTime = Time.GetTimeFromString(mEndTimeCB.getSelectedItem().toString());
 			
-			ReservationFrame rf = new ReservationFrame(startTime, endTime, nDate, mRoomTypeCB.getSelectedItem().toString());
+			ReservationFrame rf = new ReservationFrame(nDate, endTime, startTime, mRoomTypeCB.getSelectedItem().toString());
 			rf.setVisible(true);
+			
+			setVisible(false);
 		}
 
 	}
@@ -48,7 +50,6 @@ public class DateTimeFrame extends JFrame {
 	private JComboBox<String> mStartTimeCB, mEndTimeCB, mRoomTypeCB;
 	private JButton mSaveB, mCancelB;
 	private JPanel mDTP, mMainP, mButtonP; 
-	private boolean isWaitlisted;
 	
 	public DateTimeFrame() {
 		this.setTitle("Date Time Frame");
@@ -57,7 +58,17 @@ public class DateTimeFrame extends JFrame {
 		InitializeDateTimeP();
 		InitializeButtonP();
 		InitializeMainP();
-		isWaitlisted = false;
+		mDTFrame = this;
+	}
+	
+	public DateTimeFrame(String roomName) {
+		this.setTitle("Date Time Frame");
+		this.setSize(1250,300);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		InitializeDateTimeP();
+		InitializeButtonP();
+		InitializeMainP();
+		mRoomTypeCB.setSelectedItem(roomName);
 		mDTFrame = this;
 	}
 	

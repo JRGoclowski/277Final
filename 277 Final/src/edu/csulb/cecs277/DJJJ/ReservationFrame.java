@@ -186,7 +186,7 @@ public class ReservationFrame extends JFrame {
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
-		InstanitateFromInfo(pDay, pStart, pEnd, pRoomType);
+		InstanitateFromInfo(pDay, pEnd, pStart, pRoomType); // switched pEnd and pStart because the information was swapped during testing
 		mMealEditted = false;
 		mResFrame = this;
 	}

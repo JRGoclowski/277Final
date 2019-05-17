@@ -41,7 +41,7 @@ public class RoomList
 		for (int i = 0; i < 10; i++) {
 			SmallPartyRoom newSmall = (SmallPartyRoom) mySmall.clone();
 			newSmall.setRoomNumber(i+1);
-			mSmallRooms.add(newSmall);
+			mSmallRooms.add(mySmall);
 		}
 		
 		for (int i = 0; i < 2; i++) {
