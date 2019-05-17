@@ -320,17 +320,7 @@ public class RoomList
 	//We have to pass in a reservation to compare? 
 	public void notifyWaitlist()
 	{
-		int sizeWaitList = mWaitlist.getWaitListReservation().size();
-		//If there is any change in the reservation and we run notify, if there are no reservations to begin with, exit. 
-		if(sizeWaitList == 0)
-		{
-			//Just do nothing here
-		}
-		else 
-		{
-			mWaitlist.notify();
-		}
-		
+		mWaitlist.notify();
 	}
 	
 }

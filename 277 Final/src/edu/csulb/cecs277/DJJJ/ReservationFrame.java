@@ -26,6 +26,26 @@ import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
 
 public class ReservationFrame extends JFrame {
 	
+	public class ErrorFrame extends JFrame {
+		
+		public ErrorFrame() {
+			this.setTitle("Error");
+			this.setSize(250,300);
+			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			this.add(new JLabel("There were some changes that were not supported"));
+		}
+	}
+	
+	public class FinishedFrame extends JFrame {
+		
+		public FinishedFrame() {
+			this.setTitle("Success!");
+			this.setSize(250,300);
+			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			this.add(new JLabel("Finish this implementation"));
+		}
+	}
+
 	public static void main(String args[]) {
 		ReservationFrame lRF = new ReservationFrame(false);
 		lRF.setVisible(true);
@@ -101,13 +121,21 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Reservation lAddReservation;
+			CreditCard lAddCard = new CreditCard(mCCNameTF.getText(), mCCNumberTF.getText(), mCCSecurityTF.getText(), mCCExpirationTF.getText());
+			Guest lAddGuest = new Guest();
+			Reservation lAdd = new Reservation();
 			if (isEdit) {
+				if (!AdjustChanged(mOriginalReservation)) {
+					ErrorFrame EF = new ErrorFrame();
+					EF.setVisible(true);
+				}
+			}
+			if (isWaitList) {
 				
 				return;
 			}
-			if (isWaitList) {
-				return;
+			if (mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge")) {
+				
 			}
 			//TODO IF THE RESRVATION IS FOR BILLIARDS MUST BE OLD ENOUGH
 		}
@@ -241,9 +269,6 @@ public class ReservationFrame extends JFrame {
 		
 	}
 	
-	//private JLabel mRoomHead, mTypeInd, mDateInd, mTimeInd;
-	//private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
-	//	private JComboBox<String> mRoomTypeCB, mRoomTimeCB,
 	private void InitializeRoomPanel() {
 		mRoomP = new JPanel();
 		
@@ -284,8 +309,6 @@ public class ReservationFrame extends JFrame {
 		
 	}
 
-	//private JLabel mCreditCardHead, mCCNameInd, mCCNumberInd, mCCSecurityInd,  mCCExpireInd;
-	//private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
 	private void InitializeCCPanel() {
 		mCreditCardP = new JPanel();
 		
@@ -351,23 +374,7 @@ public class ReservationFrame extends JFrame {
 		mGuestP.add(mGuestEmailTF);		
 	}
 	
-	/*
-	 *  mGuestNameTF, mGuestPhoneTF, mGuestAddressTF, mGuestDOBMTF, mGuestDOBDTF, mGuestDOBYTF, mGuestEmailTF;
-	private JTextField mCCNameTF, mCCNumberTF, mCCSecurityTF, mCCExpirationTF;
-	private JTextField mRoomDateMTF, mRoomDateDTF, mRoomDateYTF;
-	
-	private JCheckBox mPhoneC, mEmailC;
-	
-	private JComboBox<String> mRoomTypeCB, mRoomTimeCB, mMealPlanCB; 
-	
-	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
-	
-	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
-	
-	private boolean mMealEditted;
-	
-	private MealPlan mMealPlan;
-	 */
+
 	private void FillByReservation(Reservation pReservation) {
 		Guest lGuest = pReservation.getmGuest();
 		Room lRoom = pReservation.getmRoom();
@@ -557,11 +564,21 @@ public class ReservationFrame extends JFrame {
 				lNewY= Integer.parseInt(mRoomDateYTF.getText());
 		Day lNewDay = new Day(lNewM, lNewD, lNewY);
 		if (!pReservation.getmDay().equals(lNewDay)){
-			
+			if (ChangeDayIfViable(pReservation, lNewDay, lRoomList.GetRoomsSameAs(pReservation))) {
+				lRoomList.ReturnDateOfRes(pReservation).removeReservation(pReservation);
+			}
 		}
 		//Time Changed
-		//Meal Plan Changed
-		//Contact Method Changed
+		if (!pReservation.getmFunctionStartTime().toString().equals(mRoomStartTimeCB.getSelectedItem().toString())){
+			if (!ChangeStartTime(pReservation, Time.GetTimeFromString(mRoomStartTimeCB.getSelectedItem().toString()))) {
+				
+			}
+		}
+		if (!pReservation.getmFunctionEndTime().toString().equals(mRoomEndTimeCB.getSelectedItem().toString())){
+			if (!ChangeEndTime(pReservation, Time.GetTimeFromString(mRoomEndTimeCB.getSelectedItem().toString()))) {
+				
+			}
+		}
 		return true;
 	}
 	
@@ -625,11 +642,14 @@ public class ReservationFrame extends JFrame {
 		return null;
 	}
 	
-	private boolean ChangeDayViable(Reservation pReservation, Day pDay,  ArrayList <Room> pRooms) {
+	private boolean ChangeDayIfViable(Reservation pReservation, Day pDay,  ArrayList <Room> pRooms) {
 		for (Room iRoom: pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
 				if (iDate.getmDay().equals(pDay)) {
 					if (iDate.isOpen(pReservation)){
+						iDate.addReservation(pReservation);
+						pReservation.setmRoom(iRoom);
+						pReservation.setmDay(pDay);
 						return true;
 					}
 				}
@@ -643,7 +663,7 @@ public class ReservationFrame extends JFrame {
 		return lDate.editReservationStart(pReservation, pTime);
 	}
 	
-	private boolean ChangeeTime(Reservation pReservation, Time pTime) {
+	private boolean ChangeEndTime(Reservation pReservation, Time pTime) {
 		Date lDate = RoomList.getmRoomList().ReturnDateOfRes(pReservation);
 		return lDate.editReservationEnd(pReservation, pTime);
 	}

@@ -23,66 +23,12 @@ public class Time implements Comparable {
 		return timeArray;
 	}
 	
-	public static void main(String args[]) {
-		Time noon = new Time(12, 0);
-		Time afternoon = new Time(15, 23);
-		Time morning = new Time(8, 20);
-		Time dayBegin = new Time();
-		Time dayEnd = new Time();
-		
-		Time test = new Time(9, 14);
-		Time test1 = new Time(19, 0);
-		Time test2 = new Time (7, 0);
-		Time test3 = new Time (11, 45);
-		
-		noon.add(noon.difference(test)[0], noon.difference(test)[1]);
-		System.out.println(noon.toString());
-		
-		Time after = new Time (23, 50);
-		Time before = new Time(8,55);
-		Time atClose = new Time(23,59);
-		Time atOpen = new Time(9,0);
-		Time justBeforeClose = new Time(11,48);
-		
-		System.out.println(after.isBefore(noon));
-		System.out.println(before.isBefore(noon));
-		System.out.println(after.isBusinessHours());
-		System.out.println(before.isBusinessHours());
-		System.out.println(atClose.isBusinessHours());
-		System.out.println(atOpen.isBusinessHours());
-		System.out.println(justBeforeClose.isBusinessHours());
-		/*
-		System.out.print(noon.difference(test1)[0] + ",");
-		System.out.println(noon.difference(test1)[1]);
-		System.out.print(noon.difference(test2)[0] + ",");
-		System.out.println(noon.difference(test2)[1]);
-		System.out.print(noon.difference(test3)[0] + ",");
-		System.out.println(noon.difference(test3)[1]);
-		System.out.print(afternoon.difference(test1)[0] + ",");
-		System.out.println(afternoon.difference(test1)[1]);
-		System.out.print(afternoon.difference(test2)[0] + ",");
-		System.out.println(afternoon.difference(test2)[1]);
-		System.out.print(afternoon.difference(test3)[0] + ",");
-		System.out.println(afternoon.difference(test3)[1]);
-		System.out.print(morning.difference(test1)[0] + ",");
-		System.out.println(morning.difference(test1)[1]);
-		System.out.print(morning.difference(test2)[0] + ",");
-		System.out.println(morning.difference(test2)[1]);
-		System.out.print(morning.difference(test3)[0] + ",");
-		System.out.println(morning.difference(test3)[1]);
-		System.out.print(dayBegin.difference(test1)[0] + ",");
-		System.out.println(dayBegin.difference(test1)[1]);
-		System.out.print(dayBegin.difference(test2)[0] + ",");
-		System.out.println(dayBegin.difference(test2)[1]);
-		System.out.print(dayBegin.difference(test3)[0] + ",");
-		System.out.println(dayBegin.difference(test3)[1]);
-		System.out.print(dayEnd.difference(test1)[0] + ",");
-		System.out.println(dayEnd.difference(test1)[1]);
-		System.out.print(dayEnd.difference(test2)[0] + ",");
-		System.out.println(dayEnd.difference(test2)[1]);
-		System.out.print(dayEnd.difference(test3)[0] + ",");
-		System.out.println(dayEnd.difference(test3)[1]);
-		*/
+	public static Time GetTimeFromString(String pTime) {
+		int i = 0;
+		while (!pTime.toString().equals(ALL_TIMES[i].toString()) && i < 60) {
+			i++;
+		}
+		return ALL_TIMES[i]; 
 	}
 	
 	NumberFormat formatter = new DecimalFormat("#00"); 
