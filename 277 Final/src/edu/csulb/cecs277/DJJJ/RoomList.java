@@ -10,10 +10,10 @@ public class RoomList
 	private static int mConfirmationCount = 1000;
 	
 	//ArrayList of rooms for waitlist, when we make the rooms, we add it to this array list of rooms 
-	private ArrayList<Room> mSmallRooms = new ArrayList<Room>();
-	private ArrayList<Room> mMediumRooms = new ArrayList<Room>();
-	private ArrayList<Room> mKaraokeRooms = new ArrayList<Room>();
-	private ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
+	private static ArrayList<Room> mSmallRooms = new ArrayList<Room>();
+	private static ArrayList<Room> mMediumRooms = new ArrayList<Room>();
+	private static ArrayList<Room> mKaraokeRooms = new ArrayList<Room>();
+	private static ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
 	private AquaWorld mAquaWorld = new AquaWorld();
 	
 	//Array list of guest 
@@ -111,44 +111,7 @@ public class RoomList
 	//Places the reservation but first make sure that it's valid. If not, this put it inside waitlist 
 	public boolean PlaceReservation(Reservation pReservation) {
 		Room desiredRoom = pReservation.getmRoom(), openRoom;
-		if (desiredRoom instanceof SmallPartyRoom) {
-			//Checking if the reservation is valid by checking each arraylist of rooms. openRoom is the room inside the 
-			//arraylist that is open and it will return it so we can edit it. The room that is free 
-			openRoom = checkRooms(RoomList.getmRoomList().getmSmallRooms(), pReservation);
-			if (openRoom != null) {
-				//Set the reservation to the room 
-				pReservation.setmRoom(openRoom);
-				
-				//Just founds the room and finally sets the reservation to that date 
-				addValidRes(pReservation);
-				return true;
-			}
-		}
-		else if (desiredRoom instanceof MediumPartyRoom) {
-			openRoom = checkRooms(RoomList.getmRoomList().getmMediumRooms(), pReservation);
-			if (openRoom != null) {
-				pReservation.setmRoom(openRoom);
-				addValidRes(pReservation);
-				return true;
-			}
-		}
-		else if (desiredRoom instanceof KaraokeLounge) {
-			openRoom = checkRooms(RoomList.getmRoomList().getmKaraokeRooms(), pReservation);
-			if (openRoom != null) {
-				pReservation.setmRoom(openRoom);
-				addValidRes(pReservation);
-				return true;
-			}
-		}
-		else if (desiredRoom instanceof BilliardsLounge) {
-			openRoom = checkRooms(RoomList.getmRoomList().getmKaraokeRooms(), pReservation);
-			if (openRoom != null) {
-				pReservation.setmRoom(openRoom);
-				addValidRes(pReservation);
-				return true;
-			}
-		}
-		else if (desiredRoom instanceof AquaWorld) {
+		if (desiredRoom instanceof AquaWorld) {
 			Room lAqua = RoomList.getmRoomList().getmAquaWorld();
 			for (Date iDate : lAqua.getRoomDates()) {
 				if (pReservation.getmDay().equals(iDate.getmDay())){
@@ -160,22 +123,34 @@ public class RoomList
 				}
 			}
 		}
-		Waitlist.getmWaitlist().addToWaitList(pReservation);
+		openRoom = checkRooms(GetRoomsSameAs(pReservation), pReservation);
+		if (openRoom != null) {
+			pReservation.setmRoom(openRoom);
+			addValidRes(pReservation);
+			return true;
+		}		
 		return false; 
 	}
-
-		/**
-		 * Goes through each room and returns any that are open for the res.
-		 * @param pRooms - The list of rooms possible
-		 * @param pReservation - The reservation desired
-		 * @param pDefault - a
-		 * @return
-		 */
+	
+	
 	
 	//Checks if the room is open 
-	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
+	public static Room checkRooms(ArrayList<Room> pRooms, Day pDay, Time pStart, Time pEnd) {
 		for (Room iRoom : pRooms) {
 			//Each room has a date 
+			for (Date iDate : iRoom.getRoomDates()) {
+				if (pDay.equals(iDate.getmDay())){
+					if (iDate.isOpen(pStart, pEnd)) {
+						return iRoom;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
+		for (Room iRoom : pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
 				if (pReservation.getmDay().equals(iDate.getmDay())){
 					if (iDate.isOpen(pReservation)) {
@@ -187,7 +162,7 @@ public class RoomList
 		return null;
 	}
 	
-	public ArrayList<Room> GetRoomsSameAs(Reservation pReservation){
+	public static ArrayList<Room> GetRoomsSameAs(Reservation pReservation){
 		Room lRoom = pReservation.getmRoom();
 		if (lRoom instanceof SmallPartyRoom) {
 			return mSmallRooms;

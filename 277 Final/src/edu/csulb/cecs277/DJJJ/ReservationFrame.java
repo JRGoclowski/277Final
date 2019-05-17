@@ -121,9 +121,20 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int lDOBM = Integer.parseInt(mGuestDOBMTF.getText()), 
+					lDOBD = Integer.parseInt(mGuestDOBDTF.getText()),
+					lDOBY = Integer.parseInt(mGuestDOBYTF.getText());
+			Day lDOBDay = new Day(lDOBM, lDOBD, lDOBY);
+			int lAddM = Integer.parseInt(mRoomDateDTF.getText()), 
+					lAddD = Integer.parseInt(mRoomDateMTF.getText()),
+					lAddY= Integer.parseInt(mRoomDateYTF.getText());
+			Day lAddDay = new Day(lAddM, lAddD, lAddY);
+			Time startTime = Time.GetTimeFromString(mRoomStartTimeCB.getSelectedItem().toString());
+			Time endTime = Time.GetTimeFromString(mRoomEndTimeCB.getSelectedItem().toString());
 			CreditCard lAddCard = new CreditCard(mCCNameTF.getText(), mCCNumberTF.getText(), mCCSecurityTF.getText(), mCCExpirationTF.getText());
-			Guest lAddGuest = new Guest();
-			Reservation lAdd = new Reservation();
+			Guest lAddGuest = new Guest(mGuestPhoneTF.getText(), mGuestEmailTF.getText(), mGuestNameTF.getText(), mGuestAddressTF.getText(), lAddCard);
+			lAddGuest.setmDOB(lDOBDay);
+			Reservation lAddRes = new Reservation(startTime , endTime, lAddDay, GetRoomType(mRoomTypeCB.getSelectedItem().toString()), lAddGuest);
 			if (isEdit) {
 				if (!AdjustChanged(mOriginalReservation)) {
 					ErrorFrame EF = new ErrorFrame();
@@ -131,12 +142,16 @@ public class ReservationFrame extends JFrame {
 				}
 			}
 			if (isWaitList) {
-				
+				Waitlist.getmWaitlist().addToWaitList(lAddRes);
+				int lWaitlistPos = Waitlist.getmWaitlist().getWaitListReservation().size();
 				return;
 			}
 			if (mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge")) {
-				
+				if (!lAddGuest.getmDOB().DOBTwentyOneBy(lAddDay)) {
+					//TODO handle not making reservation
+				}
 			}
+			RoomList.getmRoomList().PlaceReservation(lAddRes);
 			//TODO IF THE RESRVATION IS FOR BILLIARDS MUST BE OLD ENOUGH
 		}
 
@@ -286,8 +301,8 @@ public class ReservationFrame extends JFrame {
 		mRoomDateDTF.setColumns(5);
 		mRoomDateYTF = new JTextField("Y");
 		mRoomDateYTF.setColumns(5);
-		mRoomP.add(mRoomDateDTF);
 		mRoomP.add(mRoomDateMTF);
+		mRoomP.add(mRoomDateDTF);
 		mRoomP.add(mRoomDateYTF);
 		
 		
@@ -611,6 +626,24 @@ public class ReservationFrame extends JFrame {
 			return lRoomList.getmKaraokeRooms();
 		case "Billiards Lounge": 
 			return lRoomList.getmBilliardRooms();
+		default:
+			return null;
+		}
+	}
+	
+	private Room GetRoomType(String pRoomType){
+		RoomList lRoomList = RoomList.getmRoomList();
+		switch (pRoomType) {
+		case "Small Party Room":
+			return new SmallPartyRoom();
+		case "Medium Party Room": 
+			return new MediumPartyRoom();
+		case "Karaoke Lounge": 
+			return new KaraokeLounge();
+		case "Billiards Lounge": 
+			return new BilliardsLounge();
+		case "Aqua World":
+			return lRoomList.getmAquaWorld();
 		default:
 			return null;
 		}
