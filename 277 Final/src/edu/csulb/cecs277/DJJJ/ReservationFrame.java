@@ -38,7 +38,7 @@ public class ReservationFrame extends JFrame {
 	
 	public class FinishedFrame extends JFrame {
 		
-		public FinishedFrame() {
+		public FinishedFrame(String pRoomNumber, String pConfirmationNumber) {
 			this.setTitle("Success!");
 			this.setSize(250,300);
 			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -155,7 +155,7 @@ public class ReservationFrame extends JFrame {
 				}
 			}
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
-			FinishedFrame FF = new FinishedFrame();
+			FinishedFrame FF = new FinishedFrame("Room Number HERE", "Confirmation Number Here");
 			FF.setVisible(true);
 		}
 
