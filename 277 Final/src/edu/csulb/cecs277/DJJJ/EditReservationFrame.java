@@ -125,15 +125,20 @@ public class EditReservationFrame extends JFrame {
 			Reservation lFoundRes = null;
 			if (!mConfirmationTF.getText().equals("Confirmation #")) {
 				lFoundRes = RoomList.getmRoomList().FindReservation(Integer.parseInt(mConfirmationTF.getText()));
+				if (lFoundRes != null) {
+					ReservationFrame editResFrame = new ReservationFrame(lFoundRes);
+					editResFrame.setVisible(true);
+					return;
+				}
 			}
 			else if (!mNameTF.getText().equals("Guest Name")) {
 				lFoundRes = RoomList.getmRoomList().FindReservation(mNameTF.getText());
-			}
-			
-			if (lFoundRes != null) {
-				ReservationFrame editResFrame = new ReservationFrame(lFoundRes);
-				editResFrame.setVisible(true);
-			}
+				if (lFoundRes != null) {
+					ReservationFrame editResFrame = new ReservationFrame(lFoundRes);
+					editResFrame.setVisible(true);
+					return;
+				}
+			}			
 			else {
 				UnfoundErrorFrame UEF = new UnfoundErrorFrame();
 				UEF.setVisible(true);
