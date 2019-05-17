@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RoomList 
 {
 	//implement the singleton 
-	private static RoomList mRoomList;
+	private static RoomList mRoomList = new RoomList();
 	
 	private static int mConfirmationCount = 1000;
 	
