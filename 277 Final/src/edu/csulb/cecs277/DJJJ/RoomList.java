@@ -337,6 +337,10 @@ public class RoomList
 	 */
 	public static RoomList getmRoomList() 
 	{
+		
+		if (mRoomList == null) {
+			mRoomList = new RoomList();
+		}
 		return mRoomList;
 	}
 
