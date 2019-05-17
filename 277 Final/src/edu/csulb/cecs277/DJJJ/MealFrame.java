@@ -1,5 +1,6 @@
 package edu.csulb.cecs277.DJJJ;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class MealFrame extends JFrame {
 	
@@ -514,12 +516,135 @@ public class MealFrame extends JFrame {
 	}
 	
 	class ButtonListener implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent click) {
-			// TODO Auto-generated method stub
+			Component button = (Component) click.getSource();
+			JFrame frame = (JFrame) SwingUtilities.getRoot(button);
+			
 			if (click.getSource() == save) {
-				
+				if (myBasic != null) {
+					myBasic.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
+					myBasic.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
+					myBasic.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
+					myBasic.getSodas().get(0).setSoda(sodaFlavor1.getSelectedItem().toString());
+					myBasic.getSodas().get(1).setSoda(sodaFlavor2.getSelectedItem().toString());
+					myBasic.getSodas().get(2).setSoda(sodaFlavor3.getSelectedItem().toString());
+					
+					mResFrame.setmMealPlan(myBasic);
+					mResFrame.setmMealEditted(false);
+					frame.setVisible(false);
+				}
+				else if (myBronze != null) {
+					myBronze.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
+					myBronze.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
+					
+					myBronze.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
+					myBronze.getPizzas().get(1).addTop(piz2top2.getSelectedItem().toString());
+					
+					myBronze.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
+					myBronze.getPizzas().get(2).addTop(piz3top2.getSelectedItem().toString());
+					
+					myBronze.getSodas().get(0).setSoda(sodaFlavor1.getSelectedItem().toString());
+					myBronze.getSodas().get(1).setSoda(sodaFlavor2.getSelectedItem().toString());
+					myBronze.getSodas().get(2).setSoda(sodaFlavor3.getSelectedItem().toString());
+					myBronze.getSodas().get(3).setSoda(sodaFlavor4.getSelectedItem().toString());
+					myBronze.getSodas().get(4).setSoda(sodaFlavor5.getSelectedItem().toString());
+					
+					myBronze.setAddon(addonChoice.getSelectedItem().toString());
+					
+					mResFrame.setmMealPlan(myBronze);
+					mResFrame.setmMealEditted(true);
+					frame.setVisible(false);
+				}
+				else if (mySilver != null) {
+					mySilver.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
+					mySilver.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
+					mySilver.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
+					
+					mySilver.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
+					mySilver.getPizzas().get(1).addTop(piz2top2.getSelectedItem().toString());
+					mySilver.getPizzas().get(1).addTop(piz2top3.getSelectedItem().toString());
+					
+					mySilver.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
+					mySilver.getPizzas().get(2).addTop(piz3top2.getSelectedItem().toString());
+					mySilver.getPizzas().get(2).addTop(piz3top3.getSelectedItem().toString());
+					
+					mySilver.getSodas().get(0).setSoda(sodaFlavor1.getSelectedItem().toString());
+					mySilver.getSodas().get(1).setSoda(sodaFlavor2.getSelectedItem().toString());
+					mySilver.getSodas().get(2).setSoda(sodaFlavor3.getSelectedItem().toString());
+					mySilver.getSodas().get(3).setSoda(sodaFlavor4.getSelectedItem().toString());
+					mySilver.getSodas().get(4).setSoda(sodaFlavor5.getSelectedItem().toString());
+					
+					mResFrame.setmMealPlan(mySilver);
+					mResFrame.setmMealEditted(true);
+					frame.setVisible(false);
+				}
+				else if (myGold != null) {
+					myGold.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
+					myGold.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
+					myGold.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
+					
+					myGold.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
+					myGold.getPizzas().get(1).addTop(piz2top2.getSelectedItem().toString());
+					myGold.getPizzas().get(1).addTop(piz2top3.getSelectedItem().toString());
+					
+					myGold.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
+					myGold.getPizzas().get(2).addTop(piz3top2.getSelectedItem().toString());
+					myGold.getPizzas().get(2).addTop(piz3top3.getSelectedItem().toString());
+					
+					myGold.getSodas().get(0).setSoda(sodaFlavor1.getSelectedItem().toString());
+					myGold.getSodas().get(1).setSoda(sodaFlavor2.getSelectedItem().toString());
+					myGold.getSodas().get(2).setSoda(sodaFlavor3.getSelectedItem().toString());
+					myGold.getSodas().get(3).setSoda(sodaFlavor4.getSelectedItem().toString());
+					myGold.getSodas().get(4).setSoda(sodaFlavor5.getSelectedItem().toString());
+					
+					myGold.getWings().get(0).setWings(wingFlavor1.getSelectedItem().toString(), bone1.isSelected());
+					myGold.getWings().get(1).setWings(wingFlavor2.getSelectedItem().toString(), bone2.isSelected());
+					
+					mResFrame.setmMealPlan(myGold);
+					mResFrame.setmMealEditted(true);
+					frame.setVisible(false);
+				}
+				else if (myPlat != null) {
+					myPlat.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
+					myPlat.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
+					myPlat.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
+					myPlat.getPizzas().get(0).addTop(piz1top4.getSelectedItem().toString());
+
+					myPlat.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
+					myPlat.getPizzas().get(1).addTop(piz2top2.getSelectedItem().toString());
+					myPlat.getPizzas().get(1).addTop(piz2top3.getSelectedItem().toString());
+					myPlat.getPizzas().get(1).addTop(piz2top4.getSelectedItem().toString());
+					
+					myPlat.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
+					myPlat.getPizzas().get(2).addTop(piz3top2.getSelectedItem().toString());
+					myPlat.getPizzas().get(2).addTop(piz3top3.getSelectedItem().toString());
+					myPlat.getPizzas().get(2).addTop(piz3top4.getSelectedItem().toString());
+					
+					myPlat.getPizzas().get(3).addTop(piz4top1.getSelectedItem().toString());
+					myPlat.getPizzas().get(3).addTop(piz4top2.getSelectedItem().toString());
+					myPlat.getPizzas().get(3).addTop(piz4top3.getSelectedItem().toString());
+					myPlat.getPizzas().get(3).addTop(piz4top4.getSelectedItem().toString());
+					
+					myPlat.getSodas().get(0).setSoda(sodaFlavor1.getSelectedItem().toString());
+					myPlat.getSodas().get(1).setSoda(sodaFlavor2.getSelectedItem().toString());
+					myPlat.getSodas().get(2).setSoda(sodaFlavor3.getSelectedItem().toString());
+					myPlat.getSodas().get(3).setSoda(sodaFlavor4.getSelectedItem().toString());
+					myPlat.getSodas().get(4).setSoda(sodaFlavor5.getSelectedItem().toString());
+					
+					myPlat.getWings().get(0).setWings(wingFlavor1.getSelectedItem().toString(), bone1.isSelected());
+					myPlat.getWings().get(1).setWings(wingFlavor2.getSelectedItem().toString(), bone2.isSelected());
+					
+					myPlat.getIce().get(0).setIceCream(iceFlavor1.getSelectedItem().toString());
+					myPlat.getIce().get(1).setIceCream(iceFlavor2.getSelectedItem().toString());
+					
+					mResFrame.setmMealPlan(myPlat);
+					mResFrame.setmMealEditted(true);
+					frame.setVisible(false);
+				}
+			}
+			if (click.getSource() == cancel) {
+				frame.setVisible(false);
 			}
 		}
 		
