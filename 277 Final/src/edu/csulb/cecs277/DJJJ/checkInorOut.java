@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 //This action listeners creates a panel according to whether the user clicked check in or out 
@@ -135,13 +136,13 @@ import javax.swing.JTextField;
 			
 			
 			
-			//_____________________________________________________________________________deals with getting the name of the reservation
-			//making the scrollpane for the list of guest
-			//TO DO create a function to look through each reservation at the specific day 
-	    	//_________________________________________________________________________________________________
+//_____________________________________________________________________________deals with getting the name of the reservation
+//making the scrollpane for the list of guest
+//TO DO create a function to look through each reservation at the specific day 
+//_________________________________________________________________________________________________
 			
 			
-			//____________________________________________________________________________Checking in and out the guest
+//_____________________________________________________________________________________________Checking in and out the guest
 			submit.addActionListener(new ActionListener()
 					{
 					public void actionPerformed(ActionEvent event)
@@ -149,6 +150,8 @@ import javax.swing.JTextField;
 							//Make the panel
 							DefaultListModel demoList = new DefaultListModel();
 							JList lists = new JList(demoList);
+							demoList.addElement(1);
+							demoList.addElement(2);
 				    
 				    
 							JScrollPane list = new JScrollPane(lists);
@@ -163,11 +166,11 @@ import javax.swing.JTextField;
 							//This part of the code gets the user input and finds the specific date 
 							Day lIndexDay = new Day(lMonth, lDay, lYear);
 							
-							
+//_______________________________________________________________________________________________________________________________
 							//This function should edit the guestList with the reservations with the matching
 //							//day that the user passed in 
 //							//This array list will be used to add the reservation to when the matching date is found
-//							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
+							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
 //							searchReservationForGuest(guestReservation, lIndexDay);
 //							
 //							//Now that we have the reservation we can add it to the JList of lists
@@ -181,15 +184,13 @@ import javax.swing.JTextField;
 //									//If the reservation is check in 
 //									if(!res.isCheckedIn())
 //									{
-//										res.setCheckedIn(true);
 //										guestReservation.add(res);
 //									}
 //								}
 //								else if(checkInOrOut.equals("Check-out"))
 //								{
-//									if(!res.isCheckedOut() && res.isCheckedIn())
+//									if(res.isCheckedIn() && !res.isCheckOut())
 //									{
-//										res.setCheckedOut(true);
 //										guestReservation.add(res);
 //									}
 //								}
@@ -199,20 +200,53 @@ import javax.swing.JTextField;
 //								}
 //
 //							}
+//_______________________________________________________________________________________________________________________
 							
-							//Now handle it when the user highlists a guest and clicks check in or checks out 
+							 
 							
-							//This JButton is used when the user wants to check in or out a specific guest______________________________
+							
+//This JButton is used when the user wants to check in or out a specific guest_______________________________________________
+//Now handle it when the user highlists a guest and clicks check in or checks out
 							JButton check = new JButton(checkInOrOut);
 							check.setPreferredSize(new Dimension(120, 50));
 							check.addActionListener(new ActionListener()
 							{
 							public void actionPerformed(ActionEvent event)
 								{
-	
+									if(checkInOrOut.equals("Check-in"))
+									{
+										//Removes the guest's name 
+										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
+										
+										//Now go to the guest's index in the arraylist and change check in to true
+										guestReservation.get(lists.getSelectedIndex()).setCheckedIn(true);
+										
+										//Furthermore, we can just remove them from the arraylist because the user 
+										//will need to go back and click check in and check out again
+										guestReservation.remove(lists.getSelectedIndex());
+									}
+									else
+									{
+										printReceipt();
+										
+										//Removes the guest's name 
+//										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
+//										
+//										//Now go to the guest's index in the arraylist and change check out to true
+//										guestReservation.get(lists.getSelectedIndex()).setCheckedOut(true);
+//														
+//										//print out the receipt of the guest 
+//										printReceipt(guestReservation.get(lists.getSelectedIndex()));
+//										
+//										//Furthermore, we can just remove them from the arraylist because the user 
+//										//will need to go back and click check in and check out again
+//										guestReservation.remove(lists.getSelectedIndex());
+										
+									}
 								}
 							});
-							//_________________________________________________________________________________________________________
+							
+//_________________________________________________________________________________________________________________________________
 							
 							
 							
@@ -233,7 +267,9 @@ import javax.swing.JTextField;
 				});
 			frame.add(panel);
 		}
-		
+//______________________________________________________________________________________________________________________________
+
+
 		
 		//This function looks through each room inside roomlist for the matching dates that the user passed in 
 		private void searchReservationForGuest(ArrayList<Reservation> guestList, Day matchingDay)
@@ -306,6 +342,115 @@ import javax.swing.JTextField;
 				}
 			}
 		}
+		
+		
+		public void printReceipt()
+		{
+			//TO DO
+			//Open up a new frame and ask if the guest has any damages
+			//After clicking submit, finally print out the receipt
+			//Receipt screen has a close button 
+//_________________________________________________________________________________________________________________________
+			//Asks the user for any damages
+			JFrame frame = new JFrame("Damages");
+			JPanel panel = new JPanel();
+			
+			//sets the frame set and set the visibility to true
+			frame.setSize(800, 600);
+			frame.setVisible(true);
+			
+			//Sets it so the frame is in the middle of the screen
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+			
+			//JLabel and textfields for the damage and cost 
+			JLabel damageDescriptionText = new JLabel("Damage: ");
+			damageDescriptionText.setFont(new Font("Courier", Font.BOLD,30));
+			
+			JTextField damagesDescription = new JTextField("none");
+			damagesDescription.setPreferredSize(new Dimension(100,25));
+			
+			JLabel damageCostText = new JLabel("Damage Cost: ");
+			damageCostText.setFont(new Font("Courier", Font.BOLD,30));
+			
+			JTextField damagesCost = new JTextField("0");
+			damagesCost.setPreferredSize(new Dimension(100,25));
+			
+			JButton submitDamage = new JButton("Submit");
+			submitDamage.setPreferredSize(new Dimension(120, 50));
+			
+			panel.add(damageDescriptionText);
+			panel.add(damagesDescription);
+			panel.add(damageCostText);
+			panel.add(damagesCost);
+			
+			panel.add(submitDamage);
+			
+			frame.add(panel);
+//___________________________________________________________________________________________________________________________
+		
+			
+			
+			
+//______________________________________________________________________________________________________________________________
+			//prints out the invoice 
+			submitDamage.addActionListener(new ActionListener()
+			{
+			public void actionPerformed(ActionEvent event)
+				{
+					//Get the description in a string and the cost in an integer 
+					String damageDescription = damagesDescription.getText();
+					int damageCost = Integer.parseInt(damagesCost.getText());
+					
+					//Remove everything from the jpanel and jframe
+					panel.removeAll();
+					frame.getContentPane().removeAll();
+					frame.setTitle("Invoice");
+					
+					//Setting up the pane
+					JTextArea textArea = new JTextArea(
+						 "                   ----------------------Basic Information----------------------\n"
+					+    "Name: " + "\n"
+					+    "Phone Number: " + "\n"
+					+	 "Email: " + "\n"
+					+    "Address: " + "\n"
+					+    "Credit Card: " + "\n"
+					+    "                  ------------------------Charges-----------------------\n" 
+					+    "Room Type: " + "\n"
+					+    "Meal Plan: " + "\n"
+					+    "Damage Info and Cost:"
+						);
+					
+					textArea.setFont(new Font("Serif", Font.ITALIC, 24));
+					textArea.setLineWrap(true);
+					textArea.setWrapStyleWord(true);
+					
+					
+					JScrollPane box = new JScrollPane(textArea);
+					box.setVerticalScrollBarPolicy(
+			                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+					box.setPreferredSize(new Dimension(700, 500));
+					
+					panel.add(box);
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					//Add the panel to the frame and remake
+					frame.add(panel);
+					frame.repaint();
+					frame.revalidate();
+				}
+			});
+//_________________________________________________________________________________________________________________________
+		}
+		
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------

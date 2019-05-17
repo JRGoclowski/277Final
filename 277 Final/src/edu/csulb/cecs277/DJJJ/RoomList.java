@@ -33,7 +33,6 @@ public class RoomList
 	}
 	
 	private void populateRoomList() {
-		
 		SmallPartyRoom mySmall = new SmallPartyRoom();
 		MediumPartyRoom myMedium = new MediumPartyRoom();
 		KaraokeLounge myKaraoke = new KaraokeLounge();
