@@ -42,7 +42,7 @@ public class ReservationFrame extends JFrame {
 			this.setTitle("Success!");
 			this.setSize(250,300);
 			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			this.add(new JLabel("Finish this implementation"));
+			this.add(new JLabel("Finish this implementation. Needs to show The room number and confirmation number"));
 		}
 	}
 
@@ -152,7 +152,8 @@ public class ReservationFrame extends JFrame {
 				}
 			}
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
-			//TODO IF THE RESRVATION IS FOR BILLIARDS MUST BE OLD ENOUGH
+			FinishedFrame FF = new FinishedFrame();
+			FF.setVisible(true);
 		}
 
 	}

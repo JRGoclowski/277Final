@@ -14,7 +14,7 @@ public class RoomList
 	private static ArrayList<Room> mMediumRooms = new ArrayList<Room>();
 	private static ArrayList<Room> mKaraokeRooms = new ArrayList<Room>();
 	private static ArrayList<Room> mBilliardRooms = new ArrayList<Room>();
-	private AquaWorld mAquaWorld = new AquaWorld();
+	private static AquaWorld mAquaWorld = new AquaWorld();
 	
 	//Array list of guest 
 	private ArrayList<Guest> mGuestList = new ArrayList<Guest>();
@@ -134,6 +134,7 @@ public class RoomList
 	
 	
 	
+	
 	//Checks if the room is open 
 	public static Room checkRooms(ArrayList<Room> pRooms, Day pDay, Time pStart, Time pEnd) {
 		for (Room iRoom : pRooms) {
@@ -233,6 +234,102 @@ public class RoomList
 			}
 		}
 		
+	}
+	
+	public Reservation FindReservation(int pConfirmation) {
+		for (Room iRoom : mSmallRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmConfirmationNumber() == pConfirmation) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mMediumRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmConfirmationNumber() == pConfirmation) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mKaraokeRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmConfirmationNumber() == pConfirmation) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mBilliardRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmConfirmationNumber() == pConfirmation) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Date iDate: mAquaWorld.getRoomDates()) {
+			for (Reservation iRes : iDate.getmReservations()) {
+				if (iRes.getmConfirmationNumber() == pConfirmation) {
+					return iRes;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public Reservation FindReservation(String pName) {
+		for (Room iRoom : mSmallRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmGuest().getmName().equals(pName)) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mMediumRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmGuest().getmName().equals(pName)) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mKaraokeRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmGuest().getmName().equals(pName)) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Room iRoom : mBilliardRooms) {
+			for (Date iDate: iRoom.getRoomDates()) {
+				for (Reservation iRes : iDate.getmReservations()) {
+					if (iRes.getmGuest().getmName().equals(pName)) {
+						return iRes;
+					}
+				}
+			}
+		}
+		for (Date iDate: mAquaWorld.getRoomDates()) {
+			for (Reservation iRes : iDate.getmReservations()) {
+				if (iRes.getmGuest().getmName().equals(pName)) {
+					return iRes;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	/**
