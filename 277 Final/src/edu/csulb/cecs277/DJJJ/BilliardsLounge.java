@@ -30,7 +30,7 @@ public class BilliardsLounge extends Room implements Cloneable {
 	
 	//creates a clone of the room
 	public Room clone() {
-		KaraokeLounge cloneRoom = (KaraokeLounge) this.clone();
+		BilliardsLounge cloneRoom = (BilliardsLounge) this.clone();
 		return cloneRoom;
 	}
 	
