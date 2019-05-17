@@ -181,6 +181,28 @@ public class ReservationFrame extends JFrame {
 	private Reservation mOriginalReservation;
 	
 	
+	public ReservationFrame(Day pDay, Time pStart, Time pEnd, String pRoomType) {
+		this.setTitle("Reservation");
+		this.setSize(1250,300);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		InitializeGeneralComponents();
+		InstanitateFromInfo(pDay, pStart, pEnd, pRoomType);
+		mMealEditted = false;
+		mResFrame = this;
+	}
+	
+	private void InstanitateFromInfo(Day pDay, Time pStart, Time pEnd, String pRoomType) {
+		mRoomDateMTF.setText(Integer.toString(pDay.getmMonthNumeral()));
+		mRoomDateDTF.setText(Integer.toString(pDay.getmDayNumeral()));
+		mRoomDateYTF.setText(Integer.toString(pDay.getmYearNumeral()));
+		
+		mRoomStartTimeCB.setSelectedItem(pStart.toString());
+		mRoomEndTimeCB.setSelectedItem(pEnd.toString());
+		
+		mRoomTypeCB.setSelectedItem(pRoomType);
+		
+	}
+
 	public ReservationFrame(boolean pWaitList) {
 		this.setTitle("Reservation");
 		this.setSize(1250,300);
@@ -590,12 +612,12 @@ public class ReservationFrame extends JFrame {
 		//Time Changed
 		if (!pReservation.getmFunctionStartTime().toString().equals(mRoomStartTimeCB.getSelectedItem().toString())){
 			if (!ChangeStartTime(pReservation, Time.GetTimeFromString(mRoomStartTimeCB.getSelectedItem().toString()))) {
-				
+				mTimeChanged = true;
 			}
 		}
 		if (!pReservation.getmFunctionEndTime().toString().equals(mRoomEndTimeCB.getSelectedItem().toString())){
 			if (!ChangeEndTime(pReservation, Time.GetTimeFromString(mRoomEndTimeCB.getSelectedItem().toString()))) {
-				
+				mTimeChanged = true;
 			}
 		}
 		return true;
