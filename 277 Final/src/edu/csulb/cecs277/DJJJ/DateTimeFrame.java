@@ -150,11 +150,22 @@ public class DateTimeFrame extends JFrame {
 	}
 	
 	private boolean waitlisted(String pRoom, Day pDate, Time pStart, Time pEnd) {
+		Time tStart = pStart.Clone();
+		Time tEnd = pEnd.Clone();
+		
+		System.out.println("running waitlisted");
+
 		if(pRoom.equals("Small Party Room")) {
+			tStart.sub(0,  30);
+			tEnd.add(0,  30);
 			for (Room iRoom : RoomList.getmSmallRooms()) {
 				for (Date iDate : iRoom.getRoomDates()) {
-					if (pDate.equals(iDate.getmDay())){
-						if (iDate.isOpen(pStart, pEnd)) {
+					if (!(iDate.getmReservations().equals(null))) {
+						for (Reservation iRes : iDate.getmReservations()) {
+							if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
+							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
+								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							}
 							return true;
 						}
 					}
@@ -163,10 +174,16 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Medium Party Room")) {
+			tStart.sub(1,  0);
+			tEnd.add(1,  0);
 			for (Room iRoom : RoomList.getmMediumRooms()) {
 				for (Date iDate : iRoom.getRoomDates()) {
-					if (pDate.equals(iDate.getmDay())){
-						if (iDate.isOpen(pStart, pEnd)) {
+					if (!(iDate.getmReservations().equals(null))) {
+						for (Reservation iRes : iDate.getmReservations()) {
+							if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
+							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
+								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							}
 							return true;
 						}
 					}
@@ -175,10 +192,16 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Karaoke Lounge")) {
+			tStart.sub(0,  15);
+			tEnd.add(0,  15);
 			for (Room iRoom : RoomList.getmKaraokeRooms()) {
 				for (Date iDate : iRoom.getRoomDates()) {
-					if (pDate.equals(iDate.getmDay())){
-						if (iDate.isOpen(pStart, pEnd)) {
+					if (!(iDate.getmReservations().equals(null))) {
+						for (Reservation iRes : iDate.getmReservations()) {
+							if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
+							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
+								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							}
 							return true;
 						}
 					}
@@ -187,10 +210,16 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Billiards Lounge")) {
+			tStart.sub(0, 15);
+			tEnd.add(0, 15);
 			for (Room iRoom : RoomList.getmBilliardRooms()) {
 				for (Date iDate : iRoom.getRoomDates()) {
-					if (pDate.equals(iDate.getmDay())){
-						if (iDate.isOpen(pStart, pEnd)) {
+					if (!(iDate.getmReservations().equals(null))) {
+						for (Reservation iRes : iDate.getmReservations()) {
+							if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
+							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
+								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							}
 							return true;
 						}
 					}
@@ -199,9 +228,27 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Aqua World")) {
+			tStart.sub(1, 0);
+			tEnd.add(1, 0);
 			for (Date iDate : RoomList.getmAquaWorld().getRoomDates()) {
-				if (pDate.equals(iDate.getmDay())){
-					if (iDate.isOpen(pStart, pEnd)) {
+				
+				System.out.print("made it 1");
+				
+				if (!(iDate.getmReservations().equals(null))) {
+					
+					System.out.print("made it 2");
+					for (Reservation iRes : iDate.getmReservations()) {
+						
+						System.out.print("made it 3");
+						System.out.print(iRes.getmFullStartTime().getmHours() + " ");
+						System.out.println(iRes.getmFullStartTime().getmMinutes());
+						System.out.print(iRes.getmFullEndTime().getmHours() + " ");
+						System.out.println(iRes.getmFullEndTime().getmMinutes());
+						
+						if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
+						if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
+							if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+						}
 						return true;
 					}
 				}

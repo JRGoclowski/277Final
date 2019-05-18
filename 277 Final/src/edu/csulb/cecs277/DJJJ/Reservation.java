@@ -8,7 +8,7 @@ public class Reservation {
 	private int mMaintenanceTime;
 	private Time mFunctionStartTime; 
 	private Time mFunctionEndTime;
-	private Time mFullStartTime; 
+	private Time mFullStartTime;
 	private Time mFullEndTime;
 	private MealPlan mMealPlan;
 	private Day mDay;
