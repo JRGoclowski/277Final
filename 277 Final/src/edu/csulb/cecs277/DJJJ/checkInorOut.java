@@ -276,11 +276,9 @@ import javax.swing.JTextField;
 		{
 			for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
 			{
-				System.out.println("room");
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					System.out.println("date");
 					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
 							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
 							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
