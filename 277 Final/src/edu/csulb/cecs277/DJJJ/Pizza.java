@@ -48,31 +48,21 @@ public class Pizza extends MealPlanDecorator {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
+		
+		ArrayList<String> tempTop = new ArrayList<String>();
 
 		for (int i = 0; i < myTop.size(); i++) {
-			if (myTop.get(i).equals("None")) {
-				myTop.remove(i);
+			if (!myTop.get(i).equals("None")) {
+				tempTop.add(myTop.get(i));
 			}
 		}
 		
-		for (int i = 0; i < myTop.size(); i++) {
-			if (myTop.get(i).equals("None")) {
-				myTop.remove(i);
-			}
-		}
-		
-		for (int i = 0; i < myTop.size(); i++) {
-			if (myTop.get(i).equals("None")) {
-				myTop.remove(i);
-			}
-		}
-		
-		if (myTop.size() == 0) {
+		if (tempTop.size() == 0) {
 			myPizza = "XL Gourmet Pizza w/ No Toppings";
 		} else {
-			String finalTop[] = new String[myTop.size()];
+			String finalTop[] = new String[tempTop.size()];
 			for (int i = 0; i < finalTop.length; i++) {
-				finalTop[i] = myTop.get(i);
+				finalTop[i] = tempTop.get(i);
 			}
 			String joinTop = String.join(", ", finalTop);
 			myPizza = "XL Gourmet Pizza w/ " + joinTop;

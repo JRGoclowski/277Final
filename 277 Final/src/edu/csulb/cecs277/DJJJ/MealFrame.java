@@ -99,7 +99,6 @@ public class MealFrame extends JFrame {
 		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
 		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
-		this.setSize(800,400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -380,7 +379,7 @@ public class MealFrame extends JFrame {
 		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
-		this.setSize(450, 300);
+		this.setSize(1240, 300);
 
 		panel.add(pizza1);
 		panel.add(piz1top1);
