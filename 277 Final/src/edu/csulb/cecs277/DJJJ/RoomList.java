@@ -153,7 +153,7 @@ public class RoomList
 	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
-				if (iDate.getmDay().equals(pReservation.getmDay())){
+				if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
 					if (iDate.isOpen(pReservation)) {
 						return iRoom;
 					}
