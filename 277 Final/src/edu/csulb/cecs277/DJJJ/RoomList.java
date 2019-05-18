@@ -123,12 +123,16 @@ public class RoomList
 				}
 			}
 		}
+		
+		//this is the problem
 		openRoom = checkRooms(GetRoomsSameAs(pReservation), pReservation);
+		
 		if (openRoom != null) {
 			pReservation.setmRoom(openRoom);
 			addValidRes(pReservation);
 			return true;
-		}		
+		}
+
 		return false; 
 	}
 	
@@ -153,7 +157,7 @@ public class RoomList
 	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
-				if (pReservation.getmDay().equals(iDate.getmDay())){
+				if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
 					if (iDate.isOpen(pReservation)) {
 						return iRoom;
 					}
@@ -233,7 +237,6 @@ public class RoomList
 				iDate.addReservation(pReservation);
 			}
 		}
-		
 	}
 	
 	public Reservation FindReservation(int pConfirmation) {

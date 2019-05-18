@@ -160,8 +160,8 @@ public class ReservationFrame extends JFrame {
 			}
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
 			String sConNum;
-			if (isWaitList) { sConNum = "Unavailable"; }
-			else { conNumber++; sConNum = ConNumToString(conNumber); }
+			if (isWaitList) { sConNum = "Unavailable";	lAddRes.setmConfirmationNumber(0); }
+			else { conNumber++; sConNum = ConNumToString(conNumber); lAddRes.setmConfirmationNumber(conNumber); }
 			FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			FF.setLocation(dim.width/2-FF.getSize().width/2, dim.height/2-FF.getSize().height/2);
