@@ -299,7 +299,9 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().equals(matchingDay))
+					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
+							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
+							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
 					{
 						for(Reservation res : iDate.getmReservations())
 						{
@@ -313,7 +315,9 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().equals(matchingDay))
+					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
+							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
+							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
 					{
 						for(Reservation res : iDate.getmReservations())
 						{
@@ -327,7 +331,9 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().equals(matchingDay))
+					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
+							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
+							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
 					{
 						for(Reservation res : iDate.getmReservations())
 						{
@@ -339,7 +345,9 @@ import javax.swing.JTextField;
 			
 			for(Date iDate : RoomList.getmRoomList().getmAquaWorld().getRoomDates())
 			{
-				if (iDate.getmDay().equals(matchingDay))
+				if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
+						iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
+						iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
 				{
 					for(Reservation res : iDate.getmReservations())
 					{
