@@ -168,6 +168,9 @@ import javax.swing.JTextField;
 //							//day that the user passed in 
 //							//This array list will be used to add the reservation to when the matching date is found
 							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
+							
+							ArrayList<Reservation> checkInorOut = new ArrayList<Reservation>();
+						
 							searchReservationForGuest(guestReservation, lIndexDay);
 							
 							System.out.println(guestReservation.size());
@@ -183,14 +186,16 @@ import javax.swing.JTextField;
 									//If the reservation is check in 
 									if(!res.isCheckedIn())
 									{
-										guestReservation.add(res);
+										demoList.addElement(res.getmGuest().getmName());
+										checkInorOut.add(res);
 									}
 								}
 								else if(checkInOrOut.equals("Check-out"))
 								{
 									if(res.isCheckedIn() && !res.isCheckedOut())
 									{
-										guestReservation.add(res);
+										demoList.addElement(res.getmGuest().getmName());
+										checkInorOut.add(res);
 									}
 								}
 								else
@@ -214,33 +219,32 @@ import javax.swing.JTextField;
 								{
 									if(checkInOrOut.equals("Check-in"))
 									{
-										//Removes the guest's name 
-										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
 										
 										//Now go to the guest's index in the arraylist and change check in to true
-										guestReservation.get(lists.getSelectedIndex()).setCheckedIn(true);
+										checkInorOut.get(lists.getSelectedIndex()).setCheckedIn(true);
 										
 										//Furthermore, we can just remove them from the arraylist because the user 
 										//will need to go back and click check in and check out again
-										guestReservation.remove(lists.getSelectedIndex());
+										checkInorOut.remove(lists.getSelectedIndex());
+										
+										//Removes the guest's name 
+										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
 									}
 									else
 									{
 										//Gets the guest that is hightlighted then prints out the receipt for that particular guest 
-										printReceipt(guestReservation.get(lists.getSelectedIndex()));
+										printReceipt(checkInorOut.get(lists.getSelectedIndex()));
+										
+										
+										//Now go to the guest's index in the arraylist and change check out to true
+										checkInorOut.get(lists.getSelectedIndex()).setCheckedOut(true);
+														
+										//Furthermore, we can just remove them from the arraylist because the user 
+										//will need to go back and click check in and check out again
+										checkInorOut.remove(lists.getSelectedIndex());
 										
 										//Removes the guest's name 
 										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
-										
-										//Now go to the guest's index in the arraylist and change check out to true
-										guestReservation.get(lists.getSelectedIndex()).setCheckedOut(true);
-														
-										//print out the receipt of the guest 
-										printReceipt(guestReservation.get(lists.getSelectedIndex()));
-										
-										//Furthermore, we can just remove them from the arraylist because the user 
-										//will need to go back and click check in and check out again
-										guestReservation.remove(lists.getSelectedIndex());
 										
 									}
 								}
@@ -412,14 +416,14 @@ import javax.swing.JTextField;
 					//Setting up the pane
 					JTextArea textArea = new JTextArea(
 						 "                   ----------------------Basic Information----------------------\n"
-					+    "Name: " + "\n"
-					+    "Phone Number: " + "\n"
-					+	 "Email: " + "\n"
-					+    "Address: " + "\n"
-					+    "Credit Card: " + "\n"
+					+    "Name: " + res.getmGuest().getmName() + "\n"
+					+    "Phone Number: " + res.getmGuest().getmPhone() +  "\n"
+					+	 "Email: " + res.getmGuest().getmEmail() + "\n"
+					+    "Address: " + res.getmGuest().getmAddress() +"\n"
+					+    "Credit Card Number : " + res.getmGuest().getmCard().getmNumber() + "\n"
 					+    "                  ------------------------Charges-----------------------\n" 
-					+    "Room Type: " + "\n"
-					+    "Meal Plan: " + "\n"
+					+    "Room Type: " + res.getmRoom().getRoomDescription() +"\n"
+					+    "Meal Plan: " + res.getmRoomTheme() + "\n"
 					+    "Damage Info and Cost:"
 						);
 					
