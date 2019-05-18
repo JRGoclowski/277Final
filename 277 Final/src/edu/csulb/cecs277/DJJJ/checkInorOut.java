@@ -150,9 +150,6 @@ import javax.swing.JTextField;
 							//Make the panel
 							DefaultListModel demoList = new DefaultListModel();
 							JList lists = new JList(demoList);
-							demoList.addElement(1);
-							demoList.addElement(2);
-				    
 				    
 							JScrollPane list = new JScrollPane(lists);
 				    		list.setPreferredSize(new Dimension(100,100));
@@ -171,35 +168,37 @@ import javax.swing.JTextField;
 //							//day that the user passed in 
 //							//This array list will be used to add the reservation to when the matching date is found
 							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
-//							searchReservationForGuest(guestReservation, lIndexDay);
+							searchReservationForGuest(guestReservation, lIndexDay);
+							
+							System.out.println(guestReservation.size());
 //							
 //							//Now that we have the reservation we can add it to the JList of lists
 //							//Get each reservation inside the guestList
-//							for(Reservation res : guestReservation)
-//							{
-//								//Adding to the jScrollpane each guest name inside the reservation of that specific day 
-//								//Selects the guest based on whether or not the check in or check out is false
-//								if(checkInOrOut.equals("Check-in"))
-//								{
-//									//If the reservation is check in 
-//									if(!res.isCheckedIn())
-//									{
-//										guestReservation.add(res);
-//									}
-//								}
-//								else if(checkInOrOut.equals("Check-out"))
-//								{
-//									if(res.isCheckedIn() && !res.isCheckOut())
-//									{
-//										guestReservation.add(res);
-//									}
-//								}
-//								else
-//								{
-//									//if the guest is checked out (true) and checked in (true), then not do anything 
-//								}
-//
-//							}
+							for(Reservation res : guestReservation)
+							{
+								//Adding to the jScrollpane each guest name inside the reservation of that specific day 
+								//Selects the guest based on whether or not the check in or check out is false
+								if(checkInOrOut.equals("Check-in"))
+								{
+									//If the reservation is check in 
+									if(!res.isCheckedIn())
+									{
+										guestReservation.add(res);
+									}
+								}
+								else if(checkInOrOut.equals("Check-out"))
+								{
+									if(res.isCheckedIn() && !res.isCheckedOut())
+									{
+										guestReservation.add(res);
+									}
+								}
+								else
+								{
+									//if the guest is checked out (true) and checked in (true), then not do anything 
+								}
+
+							}
 //_______________________________________________________________________________________________________________________
 							
 							 
@@ -227,20 +226,21 @@ import javax.swing.JTextField;
 									}
 									else
 									{
-										printReceipt();
+										//Gets the guest that is hightlighted then prints out the receipt for that particular guest 
+										printReceipt(guestReservation.get(lists.getSelectedIndex()));
 										
 										//Removes the guest's name 
-//										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
-//										
-//										//Now go to the guest's index in the arraylist and change check out to true
-//										guestReservation.get(lists.getSelectedIndex()).setCheckedOut(true);
-//														
-//										//print out the receipt of the guest 
-//										printReceipt(guestReservation.get(lists.getSelectedIndex()));
-//										
-//										//Furthermore, we can just remove them from the arraylist because the user 
-//										//will need to go back and click check in and check out again
-//										guestReservation.remove(lists.getSelectedIndex());
+										((DefaultListModel) lists.getModel()).remove(lists.getSelectedIndex());
+										
+										//Now go to the guest's index in the arraylist and change check out to true
+										guestReservation.get(lists.getSelectedIndex()).setCheckedOut(true);
+														
+										//print out the receipt of the guest 
+										printReceipt(guestReservation.get(lists.getSelectedIndex()));
+										
+										//Furthermore, we can just remove them from the arraylist because the user 
+										//will need to go back and click check in and check out again
+										guestReservation.remove(lists.getSelectedIndex());
 										
 									}
 								}
@@ -276,10 +276,14 @@ import javax.swing.JTextField;
 		{
 			for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
 			{
+				System.out.println("room");
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().equals(matchingDay))
+					System.out.println("date");
+					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
+							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
+							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
 					{
 						for(Reservation res : iDate.getmReservations())
 						{
@@ -344,7 +348,7 @@ import javax.swing.JTextField;
 		}
 		
 		
-		public void printReceipt()
+		public void printReceipt(Reservation res)
 		{
 			//TO DO
 			//Open up a new frame and ask if the guest has any damages
