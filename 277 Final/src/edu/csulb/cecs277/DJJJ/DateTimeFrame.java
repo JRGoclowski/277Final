@@ -1,5 +1,7 @@
 package edu.csulb.cecs277.DJJJ;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,14 +27,25 @@ public class DateTimeFrame extends JFrame {
 			sMonth = Integer.parseInt(mMonthTF.getText());
 			sDay = Integer.parseInt(mDayTF.getText());
 			sYear= Integer.parseInt(mYearTF.getText());
-			Day nDate = new Day(sMonth, sDay, sYear);
+			Day sDate = new Day(sMonth, sDay, sYear);
 			Time startTime = Time.GetTimeFromString(mStartTimeCB.getSelectedItem().toString());
 			Time endTime = Time.GetTimeFromString(mEndTimeCB.getSelectedItem().toString());
+			String sRoom = mRoomTypeCB.getSelectedItem().toString();
 			
-			ReservationFrame rf = new ReservationFrame(nDate, endTime, startTime, mRoomTypeCB.getSelectedItem().toString());
-			rf.setVisible(true);
-			
-			setVisible(false);
+			if (!waitlisted(sRoom, sDate, startTime, endTime)) {
+				ReservationFrame rf = new ReservationFrame(sDate, endTime, startTime, sRoom, false);
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				rf.setLocation(dim.width/2-rf.getSize().width/2, dim.height/2-rf.getSize().height/2);
+				rf.setVisible(true);
+				
+				setVisible(false);
+			}
+			else {
+				WaitlistMsgFrame wmf = new WaitlistMsgFrame(sDate, startTime, endTime, sRoom);
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				wmf.setLocation(dim.width/2-wmf.getSize().width/2, dim.height/2-wmf.getSize().height/2);
+				wmf.setVisible(true);
+			}
 		}
 
 	}
@@ -62,7 +75,7 @@ public class DateTimeFrame extends JFrame {
 	}
 	
 	public DateTimeFrame(String roomName) {
-		this.setTitle("Date Time Frame");
+		this.setTitle(roomName);
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeDateTimeP();
@@ -134,6 +147,68 @@ public class DateTimeFrame extends JFrame {
 		mDTP.add(new JLabel("End:"));
 		mDTP.add(mEndTimeCB);
 		
+	}
+	
+	private boolean waitlisted(String pRoom, Day pDate, Time pStart, Time pEnd) {
+		if(pRoom.equals("Small Party Room")) {
+			for (Room iRoom : RoomList.getmSmallRooms()) {
+				for (Date iDate : iRoom.getRoomDates()) {
+					if (pDate.equals(iDate.getmDay())){
+						if (iDate.isOpen(pStart, pEnd)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		else if(pRoom.equals("Medium Party Room")) {
+			for (Room iRoom : RoomList.getmMediumRooms()) {
+				for (Date iDate : iRoom.getRoomDates()) {
+					if (pDate.equals(iDate.getmDay())){
+						if (iDate.isOpen(pStart, pEnd)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		else if(pRoom.equals("Karaoke Lounge")) {
+			for (Room iRoom : RoomList.getmKaraokeRooms()) {
+				for (Date iDate : iRoom.getRoomDates()) {
+					if (pDate.equals(iDate.getmDay())){
+						if (iDate.isOpen(pStart, pEnd)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		else if(pRoom.equals("Billiards Lounge")) {
+			for (Room iRoom : RoomList.getmBilliardRooms()) {
+				for (Date iDate : iRoom.getRoomDates()) {
+					if (pDate.equals(iDate.getmDay())){
+						if (iDate.isOpen(pStart, pEnd)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		else if(pRoom.equals("Aqua World")) {
+			for (Date iDate : RoomList.getmAquaWorld().getRoomDates()) {
+				if (pDate.equals(iDate.getmDay())){
+					if (iDate.isOpen(pStart, pEnd)) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 }

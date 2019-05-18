@@ -114,7 +114,7 @@ public class RoomList
 		if (desiredRoom instanceof AquaWorld) {
 			Room lAqua = RoomList.getmRoomList().getmAquaWorld();
 			for (Date iDate : lAqua.getRoomDates()) {
-				if (pReservation.getmDay().equals(iDate.getmDay())){
+				if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
 					if (iDate.isOpen(pReservation)) {
 						pReservation.setmRoom(RoomList.getmRoomList().getmAquaWorld());
 						addValidRes(pReservation);
@@ -348,7 +348,7 @@ public class RoomList
 	/**
 	 * @return the mSmallRooms
 	 */
-	public ArrayList<Room> getmSmallRooms() 
+	public static ArrayList<Room> getmSmallRooms() 
 	{
 		return mSmallRooms;
 	}
@@ -357,7 +357,7 @@ public class RoomList
 	/**
 	 * @return the mMediumRooms
 	 */
-	public ArrayList<Room> getmMediumRooms() 
+	public static ArrayList<Room> getmMediumRooms() 
 	{
 		return mMediumRooms;
 	}
@@ -366,7 +366,7 @@ public class RoomList
 	/**
 	 * @return the mKaraokeRooms
 	 */
-	public ArrayList<Room> getmKaraokeRooms() 
+	public static ArrayList<Room> getmKaraokeRooms() 
 	{
 		return mKaraokeRooms;
 	}
@@ -375,7 +375,7 @@ public class RoomList
 	/**
 	 * @return the mBilliardRooms
 	 */
-	public ArrayList<Room> getmBilliardRooms() 
+	public static ArrayList<Room> getmBilliardRooms() 
 	{
 		return mBilliardRooms;
 	}
@@ -384,7 +384,7 @@ public class RoomList
 	/**
 	 * @return the mAquaWorld
 	 */
-	public AquaWorld getmAquaWorld() 
+	public static AquaWorld getmAquaWorld() 
 	{
 		return mAquaWorld;
 	}

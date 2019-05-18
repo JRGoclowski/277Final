@@ -3,6 +3,7 @@ package edu.csulb.cecs277.DJJJ;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -42,7 +43,8 @@ public class ReservationFrame extends JFrame {
 			this.setTitle("Success!");
 			this.setSize(250,300);
 			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			this.add(new JLabel("Finish this implementation. Needs to show The room number and confirmation number"));
+			this.add(new JLabel("Your room number is: " + pRoomNumber));
+			this.add(new JLabel("Your confirmation number is: " + pConfirmationNumber));
 		}
 	}
 
@@ -155,8 +157,15 @@ public class ReservationFrame extends JFrame {
 				}
 			}
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
-			FinishedFrame FF = new FinishedFrame("Room Number HERE", "Confirmation Number Here");
+			String sConNum;
+			if (isWaitList) { sConNum = "Unavailable"; }
+			else { conNumber++; sConNum = ConNumToString(conNumber); }
+			FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			FF.setLocation(dim.width/2-FF.getSize().width/2, dim.height/2-FF.getSize().height/2);
 			FF.setVisible(true);
+			
+			setVisible(false);
 		}
 
 	}
@@ -180,14 +189,17 @@ public class ReservationFrame extends JFrame {
 	
 	private Reservation mOriginalReservation;
 	
+	private static int conNumber = 0;
 	
-	public ReservationFrame(Day pDay, Time pStart, Time pEnd, String pRoomType) {
+	
+	public ReservationFrame(Day pDay, Time pStart, Time pEnd, String pRoomType, boolean pWaitlist) {
 		this.setTitle("Reservation");
 		this.setSize(1250,300);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		InitializeGeneralComponents();
 		InstanitateFromInfo(pDay, pEnd, pStart, pRoomType); // switched pEnd and pStart because the information was swapped during testing
 		mMealEditted = false;
+		isWaitList = pWaitlist;
 		mResFrame = this;
 	}
 	
@@ -725,6 +737,13 @@ public class ReservationFrame extends JFrame {
 	private boolean ChangeEndTime(Reservation pReservation, Time pTime) {
 		Date lDate = RoomList.getmRoomList().ReturnDateOfRes(pReservation);
 		return lDate.editReservationEnd(pReservation, pTime);
+	}
+	
+	private String ConNumToString(int num) {
+		String temp = Integer.toString(num);
+		if (num<10) { temp = "00" + temp; }
+		else if (num<100) { temp = "0" + temp; }
+		return temp;
 	}
 	
 	/*
