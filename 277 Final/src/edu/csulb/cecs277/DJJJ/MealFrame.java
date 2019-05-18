@@ -99,7 +99,6 @@ public class MealFrame extends JFrame {
 		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
 		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
-		this.setSize(800,400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -127,7 +126,12 @@ public class MealFrame extends JFrame {
 		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
 		
 		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
 		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
 		this.setSize(550, 300);
@@ -191,7 +195,12 @@ public class MealFrame extends JFrame {
 		addonChoice = new JComboBox<String>(addons);
 		
 		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
 		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
 		this.setSize(335, 300);
@@ -269,7 +278,12 @@ public class MealFrame extends JFrame {
 		addon = new JLabel("Salad & Breadsticks included");
 		
 		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
 		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
 		this.setSize(1200, 300);
@@ -357,10 +371,15 @@ public class MealFrame extends JFrame {
 		bone2 = new JCheckBox("Bone-In");
 		
 		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
 		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
-		this.setSize(450, 300);
+		this.setSize(1240, 300);
 
 		panel.add(pizza1);
 		panel.add(piz1top1);
@@ -468,7 +487,12 @@ public class MealFrame extends JFrame {
 		iceFlavor2 = new JComboBox<String>(iceFlavors);
 		
 		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
 		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
 		
 		JPanel panel = new JPanel();
 		this.setSize(525, 400);
