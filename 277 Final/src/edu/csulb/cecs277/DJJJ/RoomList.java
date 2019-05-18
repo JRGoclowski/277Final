@@ -123,16 +123,12 @@ public class RoomList
 				}
 			}
 		}
-		
-		//this is the problem
 		openRoom = checkRooms(GetRoomsSameAs(pReservation), pReservation);
-		
 		if (openRoom != null) {
 			pReservation.setmRoom(openRoom);
 			addValidRes(pReservation);
 			return true;
-		}
-
+		}		
 		return false; 
 	}
 	
@@ -233,10 +229,12 @@ public class RoomList
 	private static void addValidRes(Reservation pReservation) {
 		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
 			if (pReservation.getmDay().equals(iDate.getmDay())){
+				System.out.println("reservation sucessful");
 				pReservation.setmConfirmationNumber(mConfirmationCount++);
 				iDate.addReservation(pReservation);
 			}
 		}
+		
 	}
 	
 	public Reservation FindReservation(int pConfirmation) {
