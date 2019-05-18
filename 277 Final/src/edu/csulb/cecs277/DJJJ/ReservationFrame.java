@@ -43,8 +43,10 @@ public class ReservationFrame extends JFrame {
 			this.setTitle("Success!");
 			this.setSize(250,300);
 			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			this.add(new JLabel("Your room number is: " + pRoomNumber));
-			this.add(new JLabel("Your confirmation number is: " + pConfirmationNumber));
+			mFinFrameP = new JPanel();
+			mFinFrameP.add(new JLabel("Your room number is: " + pRoomNumber));
+			mFinFrameP.add(new JLabel("Your confirmation number is: " + pConfirmationNumber));
+			this.add(mFinFrameP);
 		}
 	}
 
@@ -181,7 +183,7 @@ public class ReservationFrame extends JFrame {
 	
 	private JButton mSaveMealB, mSaveB, mCancelB, mDeleteB;
 	
-	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP; 
+	private JPanel mFrameP, mGuestP, mCreditCardP, mRoomP, mMealPlanP, mContactP, mButtonP, mFinFrameP;
 	
 	private boolean mMealEditted, isWaitList, isEdit, mDayChanged, mTimeChanged, mRoomChanged;
 	
