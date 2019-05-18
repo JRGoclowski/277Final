@@ -110,6 +110,7 @@ public class RoomList
 
 	//Places the reservation but first make sure that it's valid. If not, this put it inside waitlist 
 	public boolean PlaceReservation(Reservation pReservation) {
+		System.out.println("reservation sucessful2");
 		Room desiredRoom = pReservation.getmRoom(), openRoom;
 		if (desiredRoom instanceof AquaWorld) {
 			Room lAqua = RoomList.getmRoomList().getmAquaWorld();
@@ -123,8 +124,10 @@ public class RoomList
 				}
 			}
 		}
+		System.out.println("reservation sucessful5");
 		openRoom = checkRooms(GetRoomsSameAs(pReservation), pReservation);
 		if (openRoom != null) {
+			System.out.println("reservation sucessful6");
 			pReservation.setmRoom(openRoom);
 			addValidRes(pReservation);
 			return true;
@@ -142,6 +145,7 @@ public class RoomList
 			for (Date iDate : iRoom.getRoomDates()) {
 				if (pDay.equals(iDate.getmDay())){
 					if (iDate.isOpen(pStart, pEnd)) {
+						System.out.println("reservation sucessful7");
 						return iRoom;
 					}
 				}
@@ -153,8 +157,12 @@ public class RoomList
 	public static Room checkRooms(ArrayList<Room> pRooms, Reservation pReservation) {
 		for (Room iRoom : pRooms) {
 			for (Date iDate : iRoom.getRoomDates()) {
-				if (pReservation.getmDay().equals(iDate.getmDay())){
+				if (pReservation.getmDay().getmYearNumeral() == iDate.getmDay().getmYearNumeral()
+						&& pReservation.getmDay().getmMonthNumeral() == iDate.getmDay().getmMonthNumeral()
+						&& pReservation.getmDay().getmDayNumeral() == iDate.getmDay().getmDayNumeral()){
+					System.out.println("yes");
 					if (iDate.isOpen(pReservation)) {
+						System.out.println("reservation sucessful1");
 						return iRoom;
 					}
 				}
@@ -229,6 +237,7 @@ public class RoomList
 	private static void addValidRes(Reservation pReservation) {
 		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
 			if (pReservation.getmDay().equals(iDate.getmDay())){
+				System.out.println("reservation sucessful");
 				pReservation.setmConfirmationNumber(mConfirmationCount++);
 				iDate.addReservation(pReservation);
 			}
