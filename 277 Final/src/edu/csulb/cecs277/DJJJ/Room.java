@@ -23,7 +23,6 @@ public abstract class Room {
 		mRestrictions = "";
 		mHourlyCost = 0;
 		mFlatCost = 0;
-		mDates = null;
 		mMealPlan = null;
 	}
 	

@@ -10,8 +10,9 @@ public class dummyTester {
 	
 	public static void adder() {
 		SmallPartyRoom smallRoom = new SmallPartyRoom();
-		
 		smallRoom.setRoomNumber(1);
+		
+		System.out.println(smallRoom.getRoomDates().size());
 		
 		holder.add(smallRoom);
 	}

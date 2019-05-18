@@ -40,25 +40,25 @@ public class RoomList
 		BilliardsLounge myBilliards = new BilliardsLounge();
 		
 		for (int i = 0; i < 10; i++) {
-			Room newSmall = new SmallPartyRoom();
+			SmallPartyRoom newSmall = new SmallPartyRoom();
 			newSmall.setRoomNumber(i+1);
 			mSmallRooms.add(newSmall);
 		}
 		
 		for (int i = 0; i < 2; i++) {
-			MediumPartyRoom newMedium = (MediumPartyRoom) myMedium.clone();
+			MediumPartyRoom newMedium = new MediumPartyRoom();
 			newMedium.setRoomNumber(i+1);
 			mMediumRooms.add(newMedium);
 		}
 		
 		for (int i = 0; i < 10; i++) {
-			KaraokeLounge newKaraoke = (KaraokeLounge) myKaraoke.clone();
+			KaraokeLounge newKaraoke = new KaraokeLounge();
 			newKaraoke.setRoomNumber(i+1);
 			mKaraokeRooms.add(newKaraoke);
 		}
 		
 		for (int i = 0; i < 5; i++) {
-			BilliardsLounge newBilliards = (BilliardsLounge) myBilliards.clone();
+			BilliardsLounge newBilliards = new BilliardsLounge();
 			newBilliards.setRoomNumber(i+1);
 			mBilliardRooms.add(newBilliards);
 		}
