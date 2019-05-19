@@ -150,7 +150,7 @@ public class ReservationFrame extends JFrame {
 			}
 			if (isWaitList) {
 				Waitlist.getmWaitlist().addToWaitList(lAddRes);
-				int lWaitlistPos = Waitlist.getmWaitlist().getWaitListReservation().size();
+				//int lWaitlistPos = Waitlist.getmWaitlist().getWaitListReservation().size();
 				return;
 			}
 			if (mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge")) {
