@@ -73,11 +73,7 @@ public class MealFrame extends JFrame {
 	private JButton save;
 	private JButton cancel;
 	
-	private BasicPlan myBasic;
-	private BronzePlan myBronze;
-	private SilverPlan mySilver;
-	private GoldPlan myGold;
-	private PlatinumPlan myPlat;
+	private String planChoice;
 	
 	private ReservationFrame mResFrame;
 	
@@ -93,11 +89,11 @@ public class MealFrame extends JFrame {
 	public MealFrame(ReservationFrame pResFrame) {
 		mResFrame = pResFrame;
 		switch(pResFrame.getmMealPlanCB().getSelectedItem().toString()) {
-		case "Basic": myBasic = new BasicPlan(); this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
-		case "Bronze": myBronze = new BronzePlan(); this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
-		case "Silver": mySilver = new SilverPlan(); this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
-		case "Gold": myGold = new GoldPlan(); this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
-		case "Platinum": myPlat = new PlatinumPlan(); this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
+		case "Basic": planChoice = "Basic"; this.setTitle("Basic Meal Plan"); createBasicComponents(); break;
+		case "Bronze": planChoice = "Bronze"; this.setTitle("Bronze Meal Plan"); createBronzeComponents(); break;
+		case "Silver": planChoice = "Silver"; this.setTitle("Silver Meal Plan"); createSilverComponents(); break;
+		case "Gold": planChoice = "Gold"; this.setTitle("Gold Meal Plan"); createGoldComponents(); break;
+		case "Platinum": planChoice = "Platinum"; this.setTitle("Platinum Meal Plan"); createPlatinumComponents(); break;
 		}
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -109,61 +105,6 @@ public class MealFrame extends JFrame {
 		
 		pizza1 = new JLabel("Pizza 1: ");
 		piz1top1 = new JComboBox<String>(toppings);
-		
-		pizza2 = new JLabel("Pizza 2: ");
-		piz2top1 = new JComboBox<String>(toppings);
-		
-		pizza3 = new JLabel("Pizza 3: ");
-		piz3top1 = new JComboBox<String>(toppings);
-		
-		soda1 = new JLabel("Soda 1: ");
-		sodaFlavor1 = new JComboBox<String>(sodaFlavors);
-		
-		soda2 = new JLabel("Soda 2: ");
-		sodaFlavor2 = new JComboBox<String>(sodaFlavors);
-		
-		soda3 = new JLabel("Soda 3: ");
-		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
-		
-		save = new JButton("Save");
-		ActionListener saveListener = new ButtonListener();
-		save.addActionListener(saveListener);
-		
-		cancel = new JButton("Cancel");
-		ActionListener cancelListener = new ButtonListener();
-		cancel.addActionListener(cancelListener);
-		
-		JPanel panel = new JPanel();
-		this.setSize(550, 300);
-		
-		panel.add(pizza1);
-		panel.add(piz1top1);
-		
-		panel.add(pizza2);
-		panel.add(piz2top1);
-		
-		panel.add(pizza3);
-		panel.add(piz3top1);
-		
-		panel.add(soda1);
-		panel.add(sodaFlavor1);
-		
-		panel.add(soda2);
-		panel.add(sodaFlavor2);
-		
-		panel.add(soda3);
-		panel.add(sodaFlavor3);
-		
-		panel.add(save);
-		panel.add(cancel);
-		this.add(panel);
-	}
-	
-private void createBasicComponents(Reservation pReservation) {
-		
-		pizza1 = new JLabel("Pizza 1: ");
-		piz1top1 = new JComboBox<String>(toppings);
-		piz1top1.setSelectedItem(pReservation.getmMealPlan());  //pReservation.getmMealPlan().getPizza1top1()   -needs getters for pizza -MARKER
 		
 		pizza2 = new JLabel("Pizza 2: ");
 		piz2top1 = new JComboBox<String>(toppings);
@@ -624,7 +565,8 @@ private void createBasicComponents(Reservation pReservation) {
 			JFrame frame = (JFrame) SwingUtilities.getRoot(button);
 			
 			if (click.getSource() == save) {
-				if (myBasic != null) {
+				if (planChoice.equals("Basic")) {
+					BasicPlan myBasic = new BasicPlan();
 					myBasic.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
 					myBasic.getPizzas().get(1).addTop(piz2top1.getSelectedItem().toString());
 					myBasic.getPizzas().get(2).addTop(piz3top1.getSelectedItem().toString());
@@ -636,7 +578,8 @@ private void createBasicComponents(Reservation pReservation) {
 					mResFrame.setmMealEditted(false);
 					frame.setVisible(false);
 				}
-				else if (myBronze != null) {
+				else if (planChoice.equals("Bronze")) {
+					BronzePlan myBronze = new BronzePlan();
 					myBronze.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
 					myBronze.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
 					
@@ -658,7 +601,8 @@ private void createBasicComponents(Reservation pReservation) {
 					mResFrame.setmMealEditted(true);
 					frame.setVisible(false);
 				}
-				else if (mySilver != null) {
+				else if (planChoice.equals("Silver")) {
+					SilverPlan mySilver = new SilverPlan();
 					mySilver.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
 					mySilver.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
 					mySilver.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
@@ -681,7 +625,8 @@ private void createBasicComponents(Reservation pReservation) {
 					mResFrame.setmMealEditted(true);
 					frame.setVisible(false);
 				}
-				else if (myGold != null) {
+				else if (planChoice.equals("Gold")) {
+					GoldPlan myGold = new GoldPlan();
 					myGold.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
 					myGold.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
 					myGold.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
@@ -707,7 +652,8 @@ private void createBasicComponents(Reservation pReservation) {
 					mResFrame.setmMealEditted(true);
 					frame.setVisible(false);
 				}
-				else if (myPlat != null) {
+				else if (planChoice.equals("Platinum")) {
+					PlatinumPlan myPlat = new PlatinumPlan();
 					myPlat.getPizzas().get(0).addTop(piz1top1.getSelectedItem().toString());
 					myPlat.getPizzas().get(0).addTop(piz1top2.getSelectedItem().toString());
 					myPlat.getPizzas().get(0).addTop(piz1top3.getSelectedItem().toString());
