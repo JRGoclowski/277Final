@@ -19,12 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import edu.csulb.cecs277.DJJJ.ReservationFrame.CancelButtonListener;
-import edu.csulb.cecs277.DJJJ.ReservationFrame.DeleteButtonListener;
-import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveButtonListener;
-import edu.csulb.cecs277.DJJJ.ReservationFrame.SaveMealButtonListener;
-
-
 public class ReservationFrame extends JFrame {
 	
 	public class ErrorFrame extends JFrame {
@@ -84,21 +78,8 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			RoomList lRoomList = RoomList.getmRoomList();
-			Room lRoom = mOriginalReservation.getmRoom();
-			Date dateToChange = null;
-			if (!(lRoom instanceof AquaWorld)) {
-				dateToChange = lRoomList.ReturnDateOfRes(mOriginalReservation);
-			}
-			else {
-				for (Date iDate : lRoomList.getmAquaWorld().getRoomDates()) {
-					if (mOriginalReservation.getmDay().equals(iDate.getmDay())){
-						dateToChange = iDate;
-					}
-				}
-			}
-			dateToChange.removeReservation(mOriginalReservation);
-			lRoomList.notify();
+			//RoomList.removeReservation(mOriginalReservation);
+			setVisible(false);
 		}
 	}
 
@@ -109,6 +90,7 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			RoomList.getmRoomList().PlaceReservation(mOriginalReservation);
 			setVisible(false);
 		}
 
@@ -142,12 +124,12 @@ public class ReservationFrame extends JFrame {
 			lAddGuest.setNotifyEmail(mEmailC.isSelected());
 			Reservation lAddRes = new Reservation(startTime , endTime, lAddDay, GetRoomType(mRoomTypeCB.getSelectedItem().toString()), lAddGuest);
 			lAddRes.setmMealPlan(mMealPlan);
-			if (isEdit) {
-				if (!AdjustChanged(mOriginalReservation)) {
-					ErrorFrame EF = new ErrorFrame();
-					EF.setVisible(true);
-				}
-			}
+			//if (isEdit) {
+			//	if (!AdjustChanged(mOriginalReservation)) {
+			//		ErrorFrame EF = new ErrorFrame();
+			//		EF.setVisible(true);
+			//	}
+			//}
 			if (isWaitList) {
 				Waitlist.getmWaitlist().addToWaitList(lAddRes);
 				//int lWaitlistPos = Waitlist.getmWaitlist().getWaitListReservation().size();
@@ -158,14 +140,17 @@ public class ReservationFrame extends JFrame {
 					//TODO handle not making reservation
 				}
 			}
+			
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
-			String sConNum;
-			if (isWaitList) { sConNum = "Unavailable"; }
-			else { conNumber++; sConNum = ConNumToString(conNumber); }
-			FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
-			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			FF.setLocation(dim.width/2-FF.getSize().width/2, dim.height/2-FF.getSize().height/2);
-			FF.setVisible(true);
+			if (!isEdit) {
+				String sConNum;
+				if (isWaitList) { sConNum = "Unavailable"; }
+				else { conNumber++; sConNum = ConNumToString(conNumber); }
+				FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				FF.setLocation(dim.width/2-FF.getSize().width/2, dim.height/2-FF.getSize().height/2);
+				FF.setVisible(true);
+			}
 			
 			setVisible(false);
 		}
@@ -201,6 +186,7 @@ public class ReservationFrame extends JFrame {
 		InitializeGeneralComponents();
 		InstanitateFromInfo(pDay, pEnd, pStart, pRoomType); // switched pEnd and pStart because the information was swapped during testing
 		mMealEditted = false;
+		isEdit = false;
 		isWaitList = pWaitlist;
 		mResFrame = this;
 	}
@@ -228,6 +214,7 @@ public class ReservationFrame extends JFrame {
 	}
 	
 	public ReservationFrame(Reservation pReservation) {
+		RoomList.getmRoomList().removeReservation(pReservation);
 		mOriginalReservation = pReservation;
 		this.setTitle("Reservation");
 		this.setSize(1250,300);

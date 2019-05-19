@@ -86,4 +86,15 @@ public class WaitlistMsgFrame extends JFrame {
 		}
 	}
 	
+	public class WaitUpdateFrame extends JFrame {
+		
+		public WaitUpdateFrame() {}
+	}
+	
+	public static void waitUpdater() {
+		//update waitlist
+		
+		//create wait update frame if applicable
+	}
+	
 }

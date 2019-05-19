@@ -93,6 +93,7 @@ public class Date  {
 		}
 		mReservations.remove(mReservations.indexOf(pReservation));
 		this.ReleaseTimes(pReservation);
+		WaitlistMsgFrame.waitUpdater();
 		return true;
 	}
 	
