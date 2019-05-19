@@ -158,6 +158,8 @@ import javax.swing.JTextField;
 														
 										//Furthermore, we can just remove them from the arraylist because the user 
 										//will need to go back and click check in and check out again
+										RoomList.removeReservation(checkInorOut.get(lists.getSelectedIndex()));
+										WaitUpdateFrame.waitUpdater();
 										checkInorOut.remove(lists.getSelectedIndex());
 										
 										//Removes the guest's name 
