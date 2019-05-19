@@ -430,9 +430,12 @@ import javax.swing.JTextField;
 					+    "Address: " + res.getmGuest().getmAddress() +"\n"
 					+    "Credit Card Number : " + res.getmGuest().getmCard().getmNumber() + "\n"
 					+    "                  ------------------------Charges-----------------------\n" 
+					//Calculate the room type cost 
 					+    "Room Type: " + res.getmRoom().getRoomDescription() +"\n"
-					+    "Meal Plan: " + res.getmRoomTheme() + "\n"
-					+    "Damage Info and Cost:"
+					//Get this meal plan working, NULL EXPCEPTION???? 
+					+    "Meal Plan: " +  "\n"
+					//Get the damage cost added
+					+    "Damage Info and Cost:" + "\n"
 						);
 					
 					textArea.setFont(new Font("Serif", Font.ITALIC, 24));
