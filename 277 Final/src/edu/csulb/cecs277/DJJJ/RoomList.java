@@ -244,10 +244,11 @@ public class RoomList
 	}
 	
 	public Reservation FindReservation(int pConfirmation) {
+		
 		for (Room iRoom : mSmallRooms) {
 			for (Date iDate: iRoom.getRoomDates()) {
 				for (Reservation iRes : iDate.getmReservations()) {
-					if (iRes.getmConfirmationNumber() == pConfirmation) {
+					if (iRes.getmConfirmationNumber()  == pConfirmation) {
 						return iRes;
 					}
 				}
@@ -256,7 +257,7 @@ public class RoomList
 		for (Room iRoom : mMediumRooms) {
 			for (Date iDate: iRoom.getRoomDates()) {
 				for (Reservation iRes : iDate.getmReservations()) {
-					if (iRes.getmConfirmationNumber() == pConfirmation) {
+					if (iRes.getmConfirmationNumber()  == pConfirmation) {
 						return iRes;
 					}
 				}
@@ -265,7 +266,7 @@ public class RoomList
 		for (Room iRoom : mKaraokeRooms) {
 			for (Date iDate: iRoom.getRoomDates()) {
 				for (Reservation iRes : iDate.getmReservations()) {
-					if (iRes.getmConfirmationNumber() == pConfirmation) {
+					if (iRes.getmConfirmationNumber()  == pConfirmation) {
 						return iRes;
 					}
 				}
@@ -274,7 +275,7 @@ public class RoomList
 		for (Room iRoom : mBilliardRooms) {
 			for (Date iDate: iRoom.getRoomDates()) {
 				for (Reservation iRes : iDate.getmReservations()) {
-					if (iRes.getmConfirmationNumber() == pConfirmation) {
+					if (iRes.getmConfirmationNumber()  == pConfirmation) {
 						return iRes;
 					}
 				}
@@ -282,7 +283,7 @@ public class RoomList
 		}
 		for (Date iDate: mAquaWorld.getRoomDates()) {
 			for (Reservation iRes : iDate.getmReservations()) {
-				if (iRes.getmConfirmationNumber() == pConfirmation) {
+				if (iRes.getmConfirmationNumber()  == pConfirmation) {
 					return iRes;
 				}
 			}

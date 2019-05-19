@@ -150,12 +150,13 @@ public class ReservationFrame extends JFrame {
 					return;
 				}
 			}
-
+			
+			String sConNum;
+			if (isWaitList) { sConNum = "Unavailable"; }
+			else { conNumber++; sConNum = ConNumToString(conNumber); }
+			lAddRes.setmConfirmationNumber(conNumber);;
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
 			if (!isEdit) {
-				String sConNum;
-				if (isWaitList) { sConNum = "Unavailable"; }
-				else { conNumber++; sConNum = ConNumToString(conNumber); }
 				FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
 				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 				FF.setLocation(dim.width/2-FF.getSize().width/2, dim.height/2-FF.getSize().height/2);
@@ -740,8 +741,8 @@ public class ReservationFrame extends JFrame {
 	
 	public static String ConNumToString(int num) {
 		String temp = Integer.toString(num);
-		if (num<10) { temp = "00" + temp; }
-		else if (num<100) { temp = "0" + temp; }
+		if (num<10) { temp = "00" + num; }
+		else if (num<100) { temp = "0" + num; }
 		return temp;
 	}
 	
