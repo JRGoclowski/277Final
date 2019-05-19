@@ -229,7 +229,6 @@ public class RoomList
 	private static void addValidRes(Reservation pReservation) {
 		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
 			if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
-				System.out.println("reservation sucessful");
 				pReservation.setmConfirmationNumber(mConfirmationCount++);
 				iDate.addReservation(pReservation);
 			}

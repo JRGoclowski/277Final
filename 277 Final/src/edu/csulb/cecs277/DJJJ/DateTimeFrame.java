@@ -65,9 +65,8 @@ public class DateTimeFrame extends JFrame {
 	}
 	
 	private DateTimeFrame mDTFrame;
-	private JTextField mDayTF, mMonthTF, mYearTF;
-	private JComboBox<String> mStartTimeCB, mEndTimeCB, mRoomTypeCB;
-	private JSpinner mStartTimeS, mEndTimeS, mRoomTypeS, mDayS, mMonthS, mYearS;
+	private JComboBox<String> mRoomTypeCB;
+	private JSpinner mStartTimeS, mEndTimeS, mDayS, mMonthS, mYearS;
 	private JButton mSaveB, mCancelB;
 	private JPanel mDTP, mMainP, mButtonP;
 	private JFormattedTextField mFTF;
@@ -287,7 +286,7 @@ public class DateTimeFrame extends JFrame {
 					for (Reservation iRes : iDate.getmReservations()) {
 						if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
 						if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
-							if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							if ((tEnd.getmMinutes() <= iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() >= iRes.getmFullEndTime().getmMinutes())) { continue; }
 						}
 						counter++;
 					}
