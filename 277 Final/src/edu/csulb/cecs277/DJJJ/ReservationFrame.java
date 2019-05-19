@@ -154,7 +154,6 @@ public class ReservationFrame extends JFrame {
 			String sConNum;
 			if (isWaitList) { sConNum = "Unavailable"; }
 			else { conNumber++; sConNum = ConNumToString(conNumber); }
-			lAddRes.setmConfirmationNumber(conNumber);;
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
 			if (!isEdit) {
 				FinishedFrame FF = new FinishedFrame(Integer.toString(lAddRes.getmRoom().getRoomNumber()), sConNum);
