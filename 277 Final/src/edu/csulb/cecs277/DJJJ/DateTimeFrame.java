@@ -1,5 +1,6 @@
 package edu.csulb.cecs277.DJJJ;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -8,10 +9,15 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerModel;
 
 public class DateTimeFrame extends JFrame {
 	
@@ -24,23 +30,23 @@ public class DateTimeFrame extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			int sMonth, sDay, sYear;
-			sMonth = Integer.parseInt(mMonthTF.getText());
-			sDay = Integer.parseInt(mDayTF.getText());
-			sYear= Integer.parseInt(mYearTF.getText());
+			sMonth = Integer.parseInt((String)mMonthS.getValue());
+			sDay = Integer.parseInt((String)mDayS.getValue());
+			sYear= Integer.parseInt((String)mYearS.getValue());
 			Day sDate = new Day(sMonth, sDay, sYear);
-			Time startTime = Time.GetTimeFromString(mStartTimeCB.getSelectedItem().toString());
-			Time endTime = Time.GetTimeFromString(mEndTimeCB.getSelectedItem().toString());
+			Time startTime = Time.GetTimeFromString((String)mStartTimeS.getValue());
+			Time endTime = Time.GetTimeFromString((String)mEndTimeS.getValue());
 			String sRoom = mRoomTypeCB.getSelectedItem().toString();
 			
 			if (!waitlisted(sRoom, sDate, startTime, endTime)) {
+				setVisible(false);
 				ReservationFrame rf = new ReservationFrame(sDate, endTime, startTime, sRoom, false);
 				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 				rf.setLocation(dim.width/2-rf.getSize().width/2, dim.height/2-rf.getSize().height/2);
 				rf.setVisible(true);
-				
-				setVisible(false);
 			}
 			else {
+				setVisible(false);
 				WaitlistMsgFrame wmf = new WaitlistMsgFrame(sDate, startTime, endTime, sRoom);
 				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 				wmf.setLocation(dim.width/2-wmf.getSize().width/2, dim.height/2-wmf.getSize().height/2);
@@ -59,10 +65,11 @@ public class DateTimeFrame extends JFrame {
 	}
 	
 	private DateTimeFrame mDTFrame;
-	private JTextField mDayTF, mMonthTF, mYearTF;
-	private JComboBox<String> mStartTimeCB, mEndTimeCB, mRoomTypeCB;
+	private JComboBox<String> mRoomTypeCB;
+	private JSpinner mStartTimeS, mEndTimeS, mDayS, mMonthS, mYearS;
 	private JButton mSaveB, mCancelB;
-	private JPanel mDTP, mMainP, mButtonP; 
+	private JPanel mDTP, mMainP, mButtonP;
+	private JFormattedTextField mFTF;
 	
 	public DateTimeFrame() {
 		this.setTitle("Date Time Frame");
@@ -119,16 +126,27 @@ public class DateTimeFrame extends JFrame {
 		mRoomTypeCB = new JComboBox<String>(roomTypes);
 		mDTP.add(mRoomTypeCB);
 		
+		String[] labels = {"Month: ", "Year: ", "Another Date: "};
 		mDTP.add(new JLabel("Date:"));
-		mMonthTF = new JTextField("M");
-		mMonthTF.setColumns(5);
-		mDayTF = new JTextField("D");
-		mDayTF.setColumns(5);
-		mYearTF = new JTextField("Y");
-		mYearTF.setColumns(5);
-		mDTP.add(mMonthTF);
-		mDTP.add(mDayTF);
-		mDTP.add(mYearTF);
+		String[] monthStrings = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+		SpinnerListModel monthModel = new SpinnerListModel(monthStrings);
+		mMonthS = addLabeledSpinner(this, labels[0], monthModel);
+		mFTF = getTextField(mMonthS);
+		mFTF.setColumns(4);
+		String[] dayStrings = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+		SpinnerListModel dayModel = new SpinnerListModel(dayStrings);
+		mDayS = addLabeledSpinner(this, labels[1], dayModel);
+		mFTF = getTextField(mDayS);
+		mFTF.setColumns(4);
+		String[] yearStrings = {"2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029"};
+		SpinnerListModel yearModel = new SpinnerListModel(yearStrings);
+		mYearS = addLabeledSpinner(this, labels[2], yearModel);
+		mFTF = getTextField(mYearS);
+		mFTF.setColumns(4);
+		
+		mDTP.add(mMonthS);
+		mDTP.add(mDayS);
+		mDTP.add(mYearS);
 		
 		
 		mDTP.add(new JLabel("Time:"));
@@ -140,22 +158,51 @@ public class DateTimeFrame extends JFrame {
 		for (int i = 0; i < timeStrings.size(); i++) {
 			times [i] = timeStrings.get(i);
 		}
-		mStartTimeCB = new JComboBox<String>(times);
-		mEndTimeCB = new JComboBox<String>(times);
+		SpinnerListModel sTimesModel = new SpinnerListModel(times);
+		mStartTimeS = new JSpinner(sTimesModel);
+		mFTF = getTextField(mStartTimeS);
+		mFTF.setColumns(5);
+		SpinnerListModel eTimesModel = new SpinnerListModel(times);
+		mEndTimeS = new JSpinner(eTimesModel);
+		mFTF = getTextField(mEndTimeS);
+		mFTF.setColumns(5);
 		mDTP.add(new JLabel("Start:"));
-		mDTP.add(mStartTimeCB);
+		mDTP.add(mStartTimeS);
 		mDTP.add(new JLabel("End:"));
-		mDTP.add(mEndTimeCB);
+		mDTP.add(mEndTimeS);
 		
 	}
+	
+	static protected JSpinner addLabeledSpinner(Container c, String label, SpinnerModel model) {
+		JLabel l = new JLabel(label);
+		c.add(l);
+
+		JSpinner spinner = new JSpinner(model);
+		l.setLabelFor(spinner);
+		c.add(spinner);
+
+		return spinner;
+	}
+	
+	public JFormattedTextField getTextField(JSpinner spinner) {
+        JComponent editor = spinner.getEditor();
+        if (editor instanceof JSpinner.DefaultEditor) {
+            return ((JSpinner.DefaultEditor)editor).getTextField();
+        } else {
+            System.err.println("Unexpected editor type: "
+                               + spinner.getEditor().getClass()
+                               + " isn't a descendant of DefaultEditor");
+            return null;
+        }
+    }
 	
 	private boolean waitlisted(String pRoom, Day pDate, Time pStart, Time pEnd) {
 		Time tStart = pStart.Clone();
 		Time tEnd = pEnd.Clone();
-		
-		System.out.println("running waitlisted");
+		int counter = 0, cMax = 0;
 
 		if(pRoom.equals("Small Party Room")) {
+			cMax = 10;
 			tStart.sub(0,  30);
 			tEnd.add(0,  30);
 			for (Room iRoom : RoomList.getmSmallRooms()) {
@@ -166,7 +213,7 @@ public class DateTimeFrame extends JFrame {
 							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
 								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
 							}
-							return true;
+							counter++;
 						}
 					}
 				}
@@ -174,6 +221,7 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Medium Party Room")) {
+			cMax = 2;
 			tStart.sub(1,  0);
 			tEnd.add(1,  0);
 			for (Room iRoom : RoomList.getmMediumRooms()) {
@@ -184,7 +232,7 @@ public class DateTimeFrame extends JFrame {
 							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
 								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
 							}
-							return true;
+							counter++;
 						}
 					}
 				}
@@ -192,6 +240,7 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Karaoke Lounge")) {
+			cMax = 10;
 			tStart.sub(0,  15);
 			tEnd.add(0,  15);
 			for (Room iRoom : RoomList.getmKaraokeRooms()) {
@@ -202,7 +251,7 @@ public class DateTimeFrame extends JFrame {
 							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
 								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
 							}
-							return true;
+							counter++;
 						}
 					}
 				}
@@ -210,6 +259,7 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Billiards Lounge")) {
+			cMax = 5;
 			tStart.sub(0, 15);
 			tEnd.add(0, 15);
 			for (Room iRoom : RoomList.getmBilliardRooms()) {
@@ -220,7 +270,7 @@ public class DateTimeFrame extends JFrame {
 							if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
 								if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
 							}
-							return true;
+							counter++;
 						}
 					}
 				}
@@ -228,33 +278,23 @@ public class DateTimeFrame extends JFrame {
 		}
 		
 		else if(pRoom.equals("Aqua World")) {
+			cMax = 1;
 			tStart.sub(1, 0);
 			tEnd.add(1, 0);
 			for (Date iDate : RoomList.getmAquaWorld().getRoomDates()) {
-				
-				System.out.print("made it 1");
-				
 				if (!(iDate.getmReservations().equals(null))) {
-					
-					System.out.print("made it 2");
 					for (Reservation iRes : iDate.getmReservations()) {
-						
-						System.out.print("made it 3");
-						System.out.print(iRes.getmFullStartTime().getmHours() + " ");
-						System.out.println(iRes.getmFullStartTime().getmMinutes());
-						System.out.print(iRes.getmFullEndTime().getmHours() + " ");
-						System.out.println(iRes.getmFullEndTime().getmMinutes());
-						
 						if ((tEnd.getmHours() < iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() > iRes.getmFullEndTime().getmHours())) { continue; }
 						if ((tEnd.getmHours() == iRes.getmFullStartTime().getmHours()) || (tStart.getmHours() == iRes.getmFullEndTime().getmHours())) { 
-							if ((tEnd.getmMinutes() < iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() > iRes.getmFullEndTime().getmMinutes())) { continue; }
+							if ((tEnd.getmMinutes() <= iRes.getmFullStartTime().getmMinutes()) || (tStart.getmMinutes() >= iRes.getmFullEndTime().getmMinutes())) { continue; }
 						}
-						return true;
+						counter++;
 					}
 				}
 			}
 		}
 		
+		if(counter >= cMax) { return true; }
 		return false;
 	}
 	

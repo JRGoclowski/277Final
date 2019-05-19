@@ -3,6 +3,7 @@ package edu.csulb.cecs277.DJJJ;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -60,7 +61,7 @@ public class EditReservationFrame extends JFrame {
 		
 		mNameP = new JPanel();
 		
-		mNameP.add(new JLabel("Guest Name:"));
+		mNameP.add(new JLabel("or Guest Name:"));
 		
 		mNameTF = new JTextField("Guest Name");
 		mNameTF.setColumns(15);
@@ -122,25 +123,36 @@ public class EditReservationFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			boolean rFound = true;
 			Reservation lFoundRes = null;
 			if (!mConfirmationTF.getText().equals("Confirmation #")) {
 				lFoundRes = RoomList.getmRoomList().FindReservation(Integer.parseInt(mConfirmationTF.getText()));
 				if (lFoundRes != null) {
+					setVisible(false);
 					ReservationFrame editResFrame = new ReservationFrame(lFoundRes);
+					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+					editResFrame.setLocation(dim.width/2-editResFrame.getSize().width/2, dim.height/2-editResFrame.getSize().height/2);
 					editResFrame.setVisible(true);
 					return;
 				}
+				else { rFound = false; }
 			}
 			else if (!mNameTF.getText().equals("Guest Name")) {
 				lFoundRes = RoomList.getmRoomList().FindReservation(mNameTF.getText());
 				if (lFoundRes != null) {
+					setVisible(false);
 					ReservationFrame editResFrame = new ReservationFrame(lFoundRes);
+					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+					editResFrame.setLocation(dim.width/2-editResFrame.getSize().width/2, dim.height/2-editResFrame.getSize().height/2);
 					editResFrame.setVisible(true);
 					return;
 				}
+				else { rFound = false; }
 			}			
-			else {
+			else if (!rFound) {
 				UnfoundErrorFrame UEF = new UnfoundErrorFrame();
+				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				UEF.setLocation(dim.width/2-UEF.getSize().width/2, dim.height/2-UEF.getSize().height/2);
 				UEF.setVisible(true);
 			}
 		}

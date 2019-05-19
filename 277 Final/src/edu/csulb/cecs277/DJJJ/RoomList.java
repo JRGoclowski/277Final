@@ -133,6 +133,13 @@ public class RoomList
 	}
 	
 	
+	public static void removeReservation(Reservation pReservation) {
+		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
+			if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
+				iDate.removeReservation(pReservation);
+			}
+		}
+	}
 	
 	
 	//Checks if the room is open 
@@ -229,7 +236,6 @@ public class RoomList
 	private static void addValidRes(Reservation pReservation) {
 		for (Date iDate : pReservation.getmRoom().getRoomDates()) {
 			if (pReservation.getmDay().getmStringForm().equals(iDate.getmDay().getmStringForm())){
-				System.out.println("reservation sucessful");
 				pReservation.setmConfirmationNumber(mConfirmationCount++);
 				iDate.addReservation(pReservation);
 			}
