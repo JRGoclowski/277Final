@@ -5,6 +5,16 @@ import java.text.NumberFormat;
 import java.util.*;
 public class Time implements Comparable {
 	
+	
+	public static void main(String args[]) {
+		Time t = new Time(3, 0);
+		System.out.println(t.toString());
+	}
+	
+	
+	
+	
+	
 	//TODO delete these
 	public static final Time[] ALL_TIMES = FillTimes();
 	

@@ -159,6 +159,61 @@ public class MealFrame extends JFrame {
 		this.add(panel);
 	}
 	
+private void createBasicComponents(Reservation pReservation) {
+		
+		pizza1 = new JLabel("Pizza 1: ");
+		piz1top1 = new JComboBox<String>(toppings);
+		piz1top1.setSelectedItem(pReservation.getmMealPlan());  //pReservation.getmMealPlan().getPizza1top1()   -needs getters for pizza -MARKER
+		
+		pizza2 = new JLabel("Pizza 2: ");
+		piz2top1 = new JComboBox<String>(toppings);
+		
+		pizza3 = new JLabel("Pizza 3: ");
+		piz3top1 = new JComboBox<String>(toppings);
+		
+		soda1 = new JLabel("Soda 1: ");
+		sodaFlavor1 = new JComboBox<String>(sodaFlavors);
+		
+		soda2 = new JLabel("Soda 2: ");
+		sodaFlavor2 = new JComboBox<String>(sodaFlavors);
+		
+		soda3 = new JLabel("Soda 3: ");
+		sodaFlavor3 = new JComboBox<String>(sodaFlavors);
+		
+		save = new JButton("Save");
+		ActionListener saveListener = new ButtonListener();
+		save.addActionListener(saveListener);
+		
+		cancel = new JButton("Cancel");
+		ActionListener cancelListener = new ButtonListener();
+		cancel.addActionListener(cancelListener);
+		
+		JPanel panel = new JPanel();
+		this.setSize(550, 300);
+		
+		panel.add(pizza1);
+		panel.add(piz1top1);
+		
+		panel.add(pizza2);
+		panel.add(piz2top1);
+		
+		panel.add(pizza3);
+		panel.add(piz3top1);
+		
+		panel.add(soda1);
+		panel.add(sodaFlavor1);
+		
+		panel.add(soda2);
+		panel.add(sodaFlavor2);
+		
+		panel.add(soda3);
+		panel.add(sodaFlavor3);
+		
+		panel.add(save);
+		panel.add(cancel);
+		this.add(panel);
+	}
+	
 	/**
 	 * Creates the components for a Bronze Meal Plan
 	 * **/

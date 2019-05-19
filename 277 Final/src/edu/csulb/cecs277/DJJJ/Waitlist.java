@@ -14,7 +14,7 @@ public class Waitlist
 	}
 	
 	//Array list of reservations 
-	ArrayList<Reservation> mReservationList = new ArrayList<Reservation>();
+	static ArrayList<Reservation> mReservationList = new ArrayList<Reservation>();
 
 	/**
 	 * @return the mWaitlist arraylist 
@@ -28,12 +28,12 @@ public class Waitlist
 	/**
 	 * @return The arraylist of reservation 
 	 */
-	public ArrayList<Reservation> getWaitListReservation()
+	public static ArrayList<Reservation> getWaitListReservation()
 	{
 		return mReservationList;
 	}
 	
-	public void addToWaitList(Reservation pReservation) {
+	public static void addToWaitList(Reservation pReservation) {
 		mReservationList.add(pReservation);
 	}
 	

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.csulb.cecs277.DJJJ.ReservationFrame.BustedFrame;
+
 public class WaitlistMsgFrame extends JFrame {
 	
 	private Day date;
@@ -85,16 +87,4 @@ public class WaitlistMsgFrame extends JFrame {
 			setVisible(false);
 		}
 	}
-	
-	public class WaitUpdateFrame extends JFrame {
-		
-		public WaitUpdateFrame() {}
-	}
-	
-	public static void waitUpdater() {
-		//update waitlist
-		
-		//create wait update frame if applicable
-	}
-	
 }

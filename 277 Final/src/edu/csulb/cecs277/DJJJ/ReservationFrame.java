@@ -67,12 +67,10 @@ public class ReservationFrame extends JFrame {
 		 */
 	public class SaveMealButtonListener implements ActionListener {
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			MealFrame lMealFrame = new MealFrame(mResFrame);
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			lMealFrame.setLocation(dim.width/2-lMealFrame.getSize().width/2, dim.height/2-lMealFrame.getSize().height/2);
 			lMealFrame.setVisible(true);
 			lMealFrame.setAlwaysOnTop(true);
 		}
@@ -90,7 +88,7 @@ public class ReservationFrame extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//RoomList.removeReservation(mOriginalReservation);
+			WaitUpdateFrame.waitUpdater();
 			setVisible(false);
 		}
 	}
@@ -138,7 +136,8 @@ public class ReservationFrame extends JFrame {
 			lAddRes.setmMealPlan(mMealPlan);
 
 			if (isWaitList) {
-				Waitlist.getmWaitlist().addToWaitList(lAddRes);
+				Waitlist.addToWaitList(lAddRes);
+				setVisible(false);
 				return;
 			}
 			if (mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge")) {
@@ -472,7 +471,7 @@ public class ReservationFrame extends JFrame {
 		else {
 			lRoomIndex = 4;
 		}
-		
+
 		mRoomTypeCB.setSelectedIndex(lRoomIndex);
 		mRoomStartTimeCB.setSelectedItem(pReservation.getmFullStartTime().toString());
 		int lMealIndex;
@@ -739,11 +738,20 @@ public class ReservationFrame extends JFrame {
 		return lDate.editReservationEnd(pReservation, pTime);
 	}
 	
-	private String ConNumToString(int num) {
+	public static String ConNumToString(int num) {
 		String temp = Integer.toString(num);
 		if (num<10) { temp = "00" + temp; }
 		else if (num<100) { temp = "0" + temp; }
 		return temp;
+	}
+	
+	public static int getConNum() {
+		return conNumber;
+	}
+	
+	public static int addConNum() {
+		conNumber++;
+		return conNumber;
 	}
 	
 	/*
