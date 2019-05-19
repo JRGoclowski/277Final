@@ -43,7 +43,19 @@ public class ReservationFrame extends JFrame {
 			this.add(mFinFrameP);
 		}
 	}
-
+	
+	public class BustedFrame extends JFrame {
+		
+		public BustedFrame() {
+			this.setTitle("Busted!");
+			this.setSize(500,200);
+			this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			mFinFrameP = new JPanel();
+			mFinFrameP.add(new JLabel("Busted! You must be at least 21 years of age to book this room."));
+			this.add(mFinFrameP);
+		}
+	}
+	
 	public static void main(String args[]) {
 		ReservationFrame lRF = new ReservationFrame(false);
 		lRF.setVisible(true);
@@ -124,23 +136,22 @@ public class ReservationFrame extends JFrame {
 			lAddGuest.setNotifyEmail(mEmailC.isSelected());
 			Reservation lAddRes = new Reservation(startTime , endTime, lAddDay, GetRoomType(mRoomTypeCB.getSelectedItem().toString()), lAddGuest);
 			lAddRes.setmMealPlan(mMealPlan);
-			//if (isEdit) {
-			//	if (!AdjustChanged(mOriginalReservation)) {
-			//		ErrorFrame EF = new ErrorFrame();
-			//		EF.setVisible(true);
-			//	}
-			//}
+
 			if (isWaitList) {
 				Waitlist.getmWaitlist().addToWaitList(lAddRes);
-				//int lWaitlistPos = Waitlist.getmWaitlist().getWaitListReservation().size();
 				return;
 			}
 			if (mRoomTypeCB.getSelectedItem().toString().equals("Billiards Lounge")) {
 				if (!lAddGuest.getmDOB().DOBTwentyOneBy(lAddDay)) {
-					//TODO handle not making reservation
+					setVisible(false);
+					BustedFrame bf = new BustedFrame();
+					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+					bf.setLocation(dim.width/2-bf.getSize().width/2, dim.height/2-bf.getSize().height/2);
+					bf.setVisible(true);
+					return;
 				}
 			}
-			
+
 			RoomList.getmRoomList().PlaceReservation(lAddRes);
 			if (!isEdit) {
 				String sConNum;
