@@ -305,23 +305,37 @@ import javax.swing.JTextField;
 			{
 			public void actionPerformed(ActionEvent event)
 				{
+					double hourSpent = res.getmFunctionEndTime().getmHours() - res.getmFunctionStartTime().getmHours();
+					double minuteSpent = res.getmFullEndTime().getmMinutes() - res.getmFullStartTime().getmMinutes();
+					if(minuteSpent == 15)
+					{
+						minuteSpent = 0.25;
+					}
+					else if(minuteSpent == 30)
+					{
+						minuteSpent = 0.50;
+					}
+					else if(minuteSpent == 45)
+					{
+						minuteSpent = 0.75;
+					}
+					else if(minuteSpent == 60)
+					{
+						minuteSpent = 1;
+					}
+					
+					double timeSpent = (res.getmRoom().getHourlyCost()  * hourSpent) + (res.getmRoom().getHourlyCost() * minuteSpent);
 					//Get the description in a string and the cost in an integer 
 					String damageDescription = damagesDescription.getText();
 					int damageCost = Integer.parseInt(damagesCost.getText());
 					
 					
-					//The cost of the party room
-					double costRoom = 0;
-					
-					//The cost of the meal plan
-					double costMeal = 65;
 					
 					//Remove everything from the jpanel and jframe
 					panel.removeAll();
 					frame.getContentPane().removeAll();
 					frame.setTitle("Invoice");
 					String mRoomtype;
-					String mealPlaned = "Small Party Plan";
 					if (res.getmRoom() instanceof SmallPartyRoom) {
 						mRoomtype = "Small party room";
 					}
@@ -343,30 +357,9 @@ import javax.swing.JTextField;
 					
 					//______________________________________________________________________________________________________________________
 					
-					if(res.getmMealPlan() instanceof BasicPlan)
-					{
-						mealPlaned = "Basic plan";
-					}
-					else if(res.getmMealPlan() instanceof BronzePlan)
-					{
-						mealPlaned = "Bronze plan";
-					}
-					else if(res.getmMealPlan() instanceof GoldPlan)
-					{
-						mealPlaned = "Gold plan";
-					}
-					else if(res.getmMealPlan() instanceof SilverPlan)
-					{
-						mealPlaned = "Silver plan";
-					}
-					else if(res.getmMealPlan() instanceof PlatinumPlan)
-					{
-						mealPlaned = "Platinum plan";
-					}
 					
 					//The total cost
-					double totalCost = costOfDamage + costRoom + costMeal;
-							
+					double totalCost = costOfDamage + res.getmRoom().getRoomMealPlan().getCost() + timeSpent;
 					//Setting up the pane
 					JTextArea textArea = new JTextArea(
 						 "                   ----------------------Basic Information----------------------\n"
@@ -377,11 +370,11 @@ import javax.swing.JTextField;
 					+    "Credit Card Number : " + res.getmGuest().getmCard().getmNumber() + "\n"
 					+    "                  ------------------------Charges-----------------------\n" 
 					//Calculate the room type cost 
-					+    "Room Type: " + mRoomtype + "... $" +costRoom +"\n"
+					+    "Room Type: " + mRoomtype + "... $" + timeSpent + "\n"
 					//Gets the room number
 					+ 	 "Room Number: " + res.getmRoom().getRoomNumber() + "\n"
 					//Get the meal plan
-					+    "Meal Plan: " + mealPlaned + "... %" + costMeal + "\n"
+					+    "Meal Plan: " + res.getmRoom().getRoomMealPlan().getPlan() + "... $" + res.getmRoom().getRoomMealPlan().getCost() + "\n"
 					//Get the damage cost added
 					+    "Damage Info: " + damagesDescription.getText() + "\n"
 					//Damage cost
@@ -418,7 +411,14 @@ import javax.swing.JTextField;
 			});
 //_________________________________________________________________________________________________________________________
 		}
-		
+		public double hoursSpent(int hours, int min) {
+		       double total = (double) hours;
+		       if (min==15) { total+=0.25; }
+		       else if (min==30) {total+=0.5; }
+		       else if (min==45) {total+=0.75; }
+		       else if (min==60) {total+=1; }
+		       return total;
+		}
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------
