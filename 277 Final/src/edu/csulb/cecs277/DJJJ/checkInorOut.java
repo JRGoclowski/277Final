@@ -41,78 +41,56 @@ import javax.swing.JTextField;
 			//Sets it so the frame is in the middle of the screen
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-			//_______________________________________________________________________________________________________
+//_______________________________________________________________________________________________________
+			//Make the panel
+			DefaultListModel demoList = new DefaultListModel();
+			JList lists = new JList(demoList);
+    
+			JScrollPane list = new JScrollPane(lists);
+    		list.setPreferredSize(new Dimension(100,100));
 			
+//_______________________________________________________________________________________________________________________________
+			//This function should edit the guestList with the reservations with the matching
+//			//day that the user passed in 
+//			//This array list will be used to add the reservation to when the matching date is found
+			ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
 			
-			//Adds the text and dropdrop for month day year______________________________________________________
-			JLabel monthText = new JLabel("Month: ");
-			monthText.setFont(new Font("Courier", Font.BOLD,40));
-			JLabel dayText = new JLabel("Day: ");
-			dayText.setFont(new Font("Courier", Font.BOLD,40));
-			JLabel yearText = new JLabel("Year: ");
-			yearText.setFont(new Font("Courier", Font.BOLD,40));
+			ArrayList<Reservation> checkInorOut = new ArrayList<Reservation>();
+		
+			searchReservationForGuest(guestReservation);
 			
-			Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-			JComboBox month = new JComboBox(months);
-			month.setPreferredSize(new Dimension(100,25));
-			
-			Integer[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-					20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
-			JComboBox day = new JComboBox(days);
-			day.setPreferredSize(new Dimension(100,25));
-			
-			
-			month.addActionListener(new ActionListener()
+			System.out.println(guestReservation.size());
+//			
+//			//Now that we have the reservation we can add it to the JList of lists
+//			//Get each reservation inside the guestList
+			for(Reservation res : guestReservation)
 			{
-			public void actionPerformed(ActionEvent event)
+				//Adding to the jScrollpane each guest name inside the reservation of that specific day 
+				//Selects the guest based on whether or not the check in or check out is false
+				if(checkInOrOut.equals("Check-in"))
 				{
-					JComboBox comboBox = (JComboBox) event.getSource();
-					int lInput = (int)comboBox.getSelectedItem();
-					day.removeAllItems();
-					
-					if(lInput == 1 || lInput == 3 || lInput == 5 || lInput == 7 || lInput == 8 || lInput == 10 || lInput == 12)
+					//If the reservation is check in 
+					if(!res.isCheckedIn())
 					{
-						for(int i = 1; 31 >= i; i ++)
-						{
-							day.addItem(i);
-						}
-
+						demoList.addElement(res.getmGuest().getmName());
+						checkInorOut.add(res);
 					}
-					else if(lInput == 2)
-					{
-						for(int i = 1; 28 >= i; i ++)
-						{
-							day.addItem(i);
-						}
-					}
-					else
-					{
-						for(int i = 1; 30 >= i; i ++)
-						{
-							day.addItem(i);
-						}
-					}
-
 				}
-			});
-			
+				else if(checkInOrOut.equals("Check-out"))
+				{
+					if(res.isCheckedIn() && !res.isCheckedOut())
+					{
+						demoList.addElement(res.getmGuest().getmName());
+						checkInorOut.add(res);
+					}
+				}
+				else
+				{
+					//if the guest is checked out (true) and checked in (true), then not do anything 
+				}
 
-			JTextField year = new JTextField("2019");
-			year.setPreferredSize(new Dimension(100,25));
-			
-			
-			panel.add(monthText);
-			panel.add(month);
+			}
 
-			panel.add(dayText);
-			panel.add(day);
-
-			panel.add(yearText);
-			panel.add(year);
-			//Submit is to use once the user has chosen the date to check 
-			JButton submit = new JButton("Submit");
-			submit.setPreferredSize(new Dimension(80, 50));
-			panel.add(submit);
 			
 			
 			//_________________________________________________________________________________________________________
@@ -143,67 +121,6 @@ import javax.swing.JTextField;
 			
 			
 //_____________________________________________________________________________________________Checking in and out the guest
-			submit.addActionListener(new ActionListener()
-					{
-					public void actionPerformed(ActionEvent event)
-						{			
-							//Make the panel
-							DefaultListModel demoList = new DefaultListModel();
-							JList lists = new JList(demoList);
-				    
-							JScrollPane list = new JScrollPane(lists);
-				    		list.setPreferredSize(new Dimension(100,100));
-				    		
-							//Get what the user inputted and search through each room with the date 
-							int lMonth = (int)month.getSelectedItem();
-							int lDay = (int)day.getSelectedItem();
-							int lYear = Integer.parseInt(year.getText());
-							//Code to look through the reservation 
-							
-							//This part of the code gets the user input and finds the specific date 
-							Day lIndexDay = new Day(lMonth, lDay, lYear);
-							
-//_______________________________________________________________________________________________________________________________
-							//This function should edit the guestList with the reservations with the matching
-//							//day that the user passed in 
-//							//This array list will be used to add the reservation to when the matching date is found
-							ArrayList<Reservation> guestReservation = new ArrayList<Reservation>();
-							
-							ArrayList<Reservation> checkInorOut = new ArrayList<Reservation>();
-						
-							searchReservationForGuest(guestReservation, lIndexDay);
-							
-							System.out.println(guestReservation.size());
-//							
-//							//Now that we have the reservation we can add it to the JList of lists
-//							//Get each reservation inside the guestList
-							for(Reservation res : guestReservation)
-							{
-								//Adding to the jScrollpane each guest name inside the reservation of that specific day 
-								//Selects the guest based on whether or not the check in or check out is false
-								if(checkInOrOut.equals("Check-in"))
-								{
-									//If the reservation is check in 
-									if(!res.isCheckedIn())
-									{
-										demoList.addElement(res.getmGuest().getmName());
-										checkInorOut.add(res);
-									}
-								}
-								else if(checkInOrOut.equals("Check-out"))
-								{
-									if(res.isCheckedIn() && !res.isCheckedOut())
-									{
-										demoList.addElement(res.getmGuest().getmName());
-										checkInorOut.add(res);
-									}
-								}
-								else
-								{
-									//if the guest is checked out (true) and checked in (true), then not do anything 
-								}
-
-							}
 //_______________________________________________________________________________________________________________________
 							
 							 
@@ -250,48 +167,37 @@ import javax.swing.JTextField;
 								}
 							});
 							
+							panel.add(list);
+							panel.add(check);
+							panel.add(cancel);
+							frame.add(panel);
+							
+							frame.revalidate();
+							frame.repaint();
+							
+		}
+							
 //_________________________________________________________________________________________________________________________________
 							
 							
 							
 							
-							
-							//remove all
-							panel.removeAll();
-							
-							//Adds components
-							panel.add(list);
-							panel.add(cancel);
-							panel.add(check);
-							
-							//Refreshes the panel 
-							panel.revalidate();
-							panel.repaint();
-						}
-				});
-			frame.add(panel);
-		}
 //______________________________________________________________________________________________________________________________
 
 
 		
 		//This function looks through each room inside roomlist for the matching dates that the user passed in 
-		private void searchReservationForGuest(ArrayList<Reservation> guestList, Day matchingDay)
+		private void searchReservationForGuest(ArrayList<Reservation> guestList)
 		{
 			for (Room iRoom : RoomList.getmRoomList().getmSmallRooms()) 
 			{
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
-							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
-							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
-					{
 						for(Reservation res : iDate.getmReservations())
 						{
 							guestList.add(res);
 						}
-					}
 				}
 			}
 			for (Room iRoom : RoomList.getmRoomList().getmMediumRooms()) 
@@ -299,15 +205,10 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
-							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
-							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
-					{
 						for(Reservation res : iDate.getmReservations())
 						{
 							guestList.add(res);
 						}
-					}
 				}
 			}
 			for (Room iRoom : RoomList.getmRoomList().getmBilliardRooms()) 
@@ -315,15 +216,10 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
-							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
-							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
-					{
 						for(Reservation res : iDate.getmReservations())
 						{
 							guestList.add(res);
 						}
-					}
 				}
 			}
 			for (Room iRoom : RoomList.getmRoomList().getmKaraokeRooms()) 
@@ -331,31 +227,22 @@ import javax.swing.JTextField;
 				//Each room has a date 
 				for (Date iDate : iRoom.getRoomDates()) 
 				{
-					if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
-							iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
-							iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
-					{
 						for(Reservation res : iDate.getmReservations())
 						{
 							guestList.add(res);
 						}
-					}
 				}
 			}
 			
 			for(Date iDate : RoomList.getmRoomList().getmAquaWorld().getRoomDates())
 			{
-				if (iDate.getmDay().getmMonthNumeral() == matchingDay.getmMonthNumeral() &&
-						iDate.getmDay().getmDayNumeral() == matchingDay.getmDayNumeral() &&
-						iDate.getmDay().getmYearNumeral() == matchingDay.getmYearNumeral())
-				{
 					for(Reservation res : iDate.getmReservations())
 					{
 						guestList.add(res);
 					}
-				}
 			}
 		}
+
 		
 		
 		public void printReceipt(Reservation res)
@@ -377,6 +264,11 @@ import javax.swing.JTextField;
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 			
+			//Get the room type_____________________________________________________________________________________________________
+
+
+			
+			
 			//JLabel and textfields for the damage and cost 
 			JLabel damageDescriptionText = new JLabel("Damage: ");
 			damageDescriptionText.setFont(new Font("Courier", Font.BOLD,30));
@@ -389,6 +281,7 @@ import javax.swing.JTextField;
 			
 			JTextField damagesCost = new JTextField("0");
 			damagesCost.setPreferredSize(new Dimension(100,25));
+			double costOfDamage = Double.parseDouble(damagesCost.getText());
 			
 			JButton submitDamage = new JButton("Submit");
 			submitDamage.setPreferredSize(new Dimension(120, 50));
@@ -416,11 +309,64 @@ import javax.swing.JTextField;
 					String damageDescription = damagesDescription.getText();
 					int damageCost = Integer.parseInt(damagesCost.getText());
 					
+					
+					//The cost of the party room
+					double costRoom = 0;
+					
+					//The cost of the meal plan
+					double costMeal = 65;
+					
 					//Remove everything from the jpanel and jframe
 					panel.removeAll();
 					frame.getContentPane().removeAll();
 					frame.setTitle("Invoice");
+					String mRoomtype;
+					String mealPlaned = "Small Party Plan";
+					if (res.getmRoom() instanceof SmallPartyRoom) {
+						mRoomtype = "Small party room";
+					}
+					else if (res.getmRoom()instanceof MediumPartyRoom) {
+						mRoomtype = "Medium party room";
+					}
+					else if (res.getmRoom()instanceof KaraokeLounge) {
+						mRoomtype = "Karaoke Lounge";
+					}
+					else if (res.getmRoom() instanceof BilliardsLounge) {
+						mRoomtype = "Billiards Lounge";
+					}
+					else
+					{
+						mRoomtype = "Aqua World";
+					}
 					
+					//____________________________________________________________________________________________________________________________
+					
+					//______________________________________________________________________________________________________________________
+					
+					if(res.getmMealPlan() instanceof BasicPlan)
+					{
+						mealPlaned = "Basic plan";
+					}
+					else if(res.getmMealPlan() instanceof BronzePlan)
+					{
+						mealPlaned = "Bronze plan";
+					}
+					else if(res.getmMealPlan() instanceof GoldPlan)
+					{
+						mealPlaned = "Gold plan";
+					}
+					else if(res.getmMealPlan() instanceof SilverPlan)
+					{
+						mealPlaned = "Silver plan";
+					}
+					else if(res.getmMealPlan() instanceof PlatinumPlan)
+					{
+						mealPlaned = "Platinum plan";
+					}
+					
+					//The total cost
+					double totalCost = costOfDamage + costRoom + costMeal;
+							
 					//Setting up the pane
 					JTextArea textArea = new JTextArea(
 						 "                   ----------------------Basic Information----------------------\n"
@@ -431,11 +377,16 @@ import javax.swing.JTextField;
 					+    "Credit Card Number : " + res.getmGuest().getmCard().getmNumber() + "\n"
 					+    "                  ------------------------Charges-----------------------\n" 
 					//Calculate the room type cost 
-					+    "Room Type: " + res.getmRoom().getRoomDescription() +"\n"
-					//Get this meal plan working, NULL EXPCEPTION???? 
-					+    "Meal Plan: " +  "\n"
+					+    "Room Type: " + mRoomtype + "... $" +costRoom +"\n"
+					//Gets the room number
+					+ 	 "Room Number: " + res.getmRoom().getRoomNumber() + "\n"
+					//Get the meal plan
+					+    "Meal Plan: " + mealPlaned + "... %" + costMeal + "\n"
 					//Get the damage cost added
-					+    "Damage Info and Cost:" + "\n"
+					+    "Damage Info: " + damagesDescription.getText() + "\n"
+					//Damage cost
+					+	 "Damage Cost: " + costOfDamage + "\n"
+					+    "\nTotal Cost: $" + totalCost
 						);
 					
 					textArea.setFont(new Font("Serif", Font.ITALIC, 24));
