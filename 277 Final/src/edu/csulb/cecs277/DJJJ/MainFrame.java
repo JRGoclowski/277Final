@@ -525,6 +525,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------
+	
 	class ReservationItemListener implements ActionListener {
 		public void actionPerformed(ActionEvent select) {
 			JMenuItem item = (JMenuItem) select.getSource();
